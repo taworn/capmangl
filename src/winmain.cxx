@@ -1,10 +1,35 @@
 #include <windows.h>
+#include <GL/glew.h>
+#include "opengl.hxx"
+#include "render.hxx"
+
+bool Initialize(HWND hwnd)
+{
+	if (!OpenGLInit(hwnd))
+		return false;
+	if (!RenderInit())
+		return false;
+	return true;
+}
+
+void Uninitialize(HWND hwnd)
+{
+	RenderUninit();
+	OpenGLUninit(hwnd);
+}
 
 LRESULT CALLBACK
 WindowProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message) {
+	case WM_ACTIVATE:
+		if (wParam == WA_ACTIVE || wParam == WA_CLICKACTIVE)
+			active = true;
+		else
+			active = false;
+		return 0;
 	case WM_DESTROY:
+		Uninitialize(hwnd);
 		PostQuitMessage(0);
 		return 0;
 	}
@@ -40,6 +65,10 @@ WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdS
 	}
 	ShowWindow(hwnd, nCmdShow);
 
+	if (!Initialize(hwnd)) {
+		return 0;
+	}
+
 	MSG msg;
 	while (1) {
 		if (PeekMessage(&msg, 0, 0, 0, PM_REMOVE)) {
@@ -48,6 +77,8 @@ WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdS
 		}
 		if (msg.message == WM_QUIT)
 			break;
+		if (active)
+			Render();
 	}
 
 	return (int)msg.wParam;
