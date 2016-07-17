@@ -1,4 +1,5 @@
 #include <windows.h>
+#include <boost/log/trivial.hpp>
 #include <GL/glew.h>
 #include "opengl.hxx"
 #include "render.hxx"
@@ -39,6 +40,8 @@ WindowProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 int WINAPI
 WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
+	BOOST_LOG_TRIVIAL(trace) << "CapmanGL";
+
 	const wchar_t windowClassName[] = L"capmangl";
 	WNDCLASSEX wc = { 0 };
 	wc.cbSize = sizeof(WNDCLASSEX);

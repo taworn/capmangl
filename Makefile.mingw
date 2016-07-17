@@ -67,6 +67,7 @@ endif
 ifneq ($(if $(SHARED),$(SHARED),0),0)
 # shared build
 TARGET_DIR:=$(TARGET_DIR)-shared
+BOOST_TAG:=.dll
 SHARED_TAG:=
 SHARED_CFLAGS:=
 SHARED_RFLAGS:=
@@ -74,10 +75,11 @@ SHARED_LFLAGS:=
 else
 # static build
 TARGET_DIR:=$(TARGET_DIR)-static
+BOOST_TAG:=
 SHARED_TAG:=s
-SHARED_CFLAGS:=
+SHARED_CFLAGS:=-static
 SHARED_RFLAGS:=
-SHARED_LFLAGS:=
+SHARED_LFLAGS:=-static
 endif
 
 # modules
@@ -92,17 +94,21 @@ HEADERS:=\
 	$(TARGET_DIR)\render.hxx
 
 # directories
-INCLUDE_DIRS:=-I.\glew\include -I.\glm
-LIBRARY_DIRS:=-L.\glew\lib\$(X64_TAG)
+INCLUDE_DIRS:=-I$(BOOST_INCLUDE) -I.\glew\include -I.\glm
+LIBRARY_DIRS:=-L$(BOOST_LIB) -L.\glew\lib\$(X64_TAG)
 
 # libraries
-LIBRARIES:=-lglew32s -lopengl32 -luser32 -lgdi32 -lkernel32
+LIBRARIES:=-lboost_log-mt$(BOOST_TAG) -lboost_thread-mt$(BOOST_TAG) -lboost_system-mt$(BOOST_TAG) -lglew32s -lopengl32 -luser32 -lgdi32 -lkernel32
 
 # executable
 OUTPUT:=capmanglmingw$(SHARED_TAG)$(DEBUG_TAG).exe
 
 # common flags
+ifneq ($(if $(SHARED),$(SHARED),0),0)
+COMMON_DEFINES:=-DBOOST_LOG_DYN_LINK -DGLEW_STATIC -DUNICODE=1 -D_UNICODE=1
+else
 COMMON_DEFINES:=-DGLEW_STATIC -DUNICODE=1 -D_UNICODE=1
+endif
 COMMON_CFLAGS:=-Wall $(INCLUDE_DIRS) $(COMMON_DEFINES) $(X64_CFLAGS) $(DEBUG_CFLAGS) $(SHARED_CFLAGS)
 COMMON_RFLAGS:=$(X64_RFLAGS) $(DEBUG_RFLAGS) $(SHARED_RFLAGS)
 COMMON_LFLAGS:=-Wall -static-libgcc -static-libstdc++ $(LIBRARY_DIRS) $(X64_LFLAGS) $(DEBUG_LFLAGS) $(SHARED_LFLAGS)
