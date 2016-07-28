@@ -7,6 +7,4 @@
 
  - Microsoft Visual Studio 2015 Community
  - Boost v.1.61
- 
- 
- 
+

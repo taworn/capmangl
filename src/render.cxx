@@ -1,4 +1,5 @@
 #include <windows.h>
+#include <boost/log/trivial.hpp>
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -27,6 +28,8 @@ static GLuint verticesId;
 static float angle = 0.0f;
 static float angleToPlus = 0.05f;
 static DWORD lastTick = 0;
+static ULONGLONG timeStart = 0;
+static int frameCount = 0;
 
 static GLuint LoadShader(GLenum shaderType, const char *sourceCode)
 {
@@ -107,7 +110,7 @@ void RenderUninit()
 
 void Render()
 {
-	if (GetTickCount() - lastTick > 10) {
+	if (GetTickCount() - lastTick > 1) {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
@@ -138,6 +141,18 @@ void Render()
 
 		SwapBuffers(hdc);
 		lastTick = GetTickCount();
+
+		frameCount++;
+		ULONGLONG timeUsage = GetTickCount() - timeStart;
+		if (timeUsage > 1000) {
+			ULONGLONG fps = frameCount * 1000 / timeUsage;
+			BOOST_LOG_TRIVIAL(trace) << "FPS: " << fps;
+			char buffer[128];
+			sprintf(buffer, "FPS: %lld\n", fps);
+			OutputDebugStringA(buffer);
+			timeStart = GetTickCount();
+			frameCount = 0;
+		}
 	}
 }
 

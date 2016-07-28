@@ -83,13 +83,13 @@ SHARED_LFLAGS=
 # modules
 MODULES=\
 	$(TARGET_DIR)\winmain.obj \
-	$(TARGET_DIR)\opengl.obj \
-	$(TARGET_DIR)\render.obj
+	$(TARGET_DIR)\render.obj \
+	$(TARGET_DIR)\opengl.obj
 
 # headers
 HEADERS=\
-	$(TARGET_DIR)\opengl.hxx \
-	$(TARGET_DIR)\render.hxx
+	$(TARGET_DIR)\render.hxx \
+	$(TARGET_DIR)\opengl.hxx
 
 # directories
 INCLUDE_DIRS=/I$(BOOST_INCLUDE) /I.\glew\include /I.\glm
