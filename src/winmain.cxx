@@ -23,6 +23,10 @@ LRESULT CALLBACK
 WindowProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message) {
+	case WM_KEYDOWN:
+		if (wParam == VK_ESCAPE)
+			PostMessage(hwnd, WM_CLOSE, 0, 0);
+		return 0;
 	case WM_ACTIVATE:
 		if (wParam == WA_ACTIVE || wParam == WA_CLICKACTIVE)
 			active = true;
@@ -42,7 +46,7 @@ WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdS
 {
 	BOOST_LOG_TRIVIAL(trace) << "CapmanGL";
 
-	const wchar_t windowClassName[] = L"capmangl";
+	const TCHAR windowClassName[] = TEXT("capmangl");
 	WNDCLASSEX wc = { 0 };
 	wc.cbSize = sizeof(WNDCLASSEX);
 	wc.style = CS_HREDRAW | CS_VREDRAW;
@@ -59,7 +63,7 @@ WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdS
 	RegisterClassEx(&wc);
 
 	HWND hwnd = CreateWindowEx(0,
-		windowClassName, L"Capman",
+		windowClassName, TEXT("Capman"),
 		WS_POPUP,
 		0, 0, 1024, 768,
 		HWND_DESKTOP, 0, hInstance, NULL);
