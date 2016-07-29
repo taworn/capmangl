@@ -1,6 +1,6 @@
 ##
-## \file Makefile.mingw
-## \desc Makefile for MinGW-based tools.
+## @file Makefile.mingw
+## @desc Makefile for MinGW-based tools.
 ##
 
 #
@@ -85,12 +85,12 @@ endif
 # modules
 MODULES:=\
 	$(TARGET_DIR)\winmain.o \
-	$(TARGET_DIR)\render.o \
+	$(TARGET_DIR)\game.o \
 	$(TARGET_DIR)\opengl.o
 
 # headers
 HEADERS:=\
-	$(TARGET_DIR)\render.hxx \
+	$(TARGET_DIR)\game.hxx \
 	$(TARGET_DIR)\opengl.hxx
 
 # directories

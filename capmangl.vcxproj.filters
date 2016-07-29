@@ -21,7 +21,7 @@
     <ClCompile Include="src\opengl.cxx">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\render.cxx">
+    <ClCompile Include="src\game.cxx">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -29,7 +29,7 @@
     <ClInclude Include="src\opengl.hxx">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\render.hxx">
+    <ClInclude Include="src\game.hxx">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

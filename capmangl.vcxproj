@@ -158,13 +158,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\game.cxx" />
     <ClCompile Include="src\opengl.cxx" />
-    <ClCompile Include="src\render.cxx" />
     <ClCompile Include="src\winmain.cxx" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\game.hxx" />
     <ClInclude Include="src\opengl.hxx" />
-    <ClInclude Include="src\render.hxx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,6 +1,6 @@
 ##
-## \file Makefile.vc
-## \desc Makefile for Microsoft C/C++-based tools.
+## @file Makefile.vc
+## @desc Makefile for Microsoft C/C++-based tools.
 ##
 
 #
@@ -83,12 +83,12 @@ SHARED_LFLAGS=
 # modules
 MODULES=\
 	$(TARGET_DIR)\winmain.obj \
-	$(TARGET_DIR)\render.obj \
+	$(TARGET_DIR)\game.obj \
 	$(TARGET_DIR)\opengl.obj
 
 # headers
 HEADERS=\
-	$(TARGET_DIR)\render.hxx \
+	$(TARGET_DIR)\game.hxx \
 	$(TARGET_DIR)\opengl.hxx
 
 # directories
