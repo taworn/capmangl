@@ -83,11 +83,17 @@ SHARED_LFLAGS=
 # modules
 MODULES=\
 	$(TARGET_DIR)\winmain.obj \
+	$(TARGET_DIR)\scenes\play_scene.obj \
+	$(TARGET_DIR)\scenes\title_scene.obj \
+	$(TARGET_DIR)\scenes\scene.obj \
 	$(TARGET_DIR)\game.obj \
 	$(TARGET_DIR)\opengl.obj
 
 # headers
 HEADERS=\
+	$(TARGET_DIR)\scenes\play_scene.hxx \
+	$(TARGET_DIR)\scenes\title_scene.hxx \
+	$(TARGET_DIR)\scenes\scene.hxx \
 	$(TARGET_DIR)\game.hxx \
 	$(TARGET_DIR)\opengl.hxx
 
@@ -116,6 +122,7 @@ all: prepare $(OUTPUT_DIR)\$(OUTPUT)
 
 prepare:
 	-mkdir 2>NUL $(TARGET_DIR)
+	-mkdir 2>NUL $(TARGET_DIR)\scenes
 	-mkdir 2>NUL $(OUTPUT_DIR)
 
 check: all
@@ -123,6 +130,7 @@ check: all
 
 clean:
 	-del /q 2>NUL $(TARGET_DIR)\*.obj
+	-del /q 2>NUL $(TARGET_DIR)\scenes\*.obj
 	-del /q 2>NUL $(TARGET_DIR)\*.res
 
 clean-all: clean
@@ -131,6 +139,9 @@ clean-all: clean
 
 $(OUTPUT_DIR)\$(OUTPUT): $(MODULES)
 	$(LD) $(LFLAGS) $(COMMON_LFLAGS) /OUT:$@ $** $(LIBRARIES)
+
+{$(SOURCE_DIR)\scenes}.cxx{$(TARGET_DIR)\scenes}.obj:
+	$(CC) $(CFLAGS) $(COMMON_CFLAGS) /Fo$@ /c $<
 
 {$(SOURCE_DIR)}.cxx{$(TARGET_DIR)}.obj:
 	$(CC) $(CFLAGS) $(COMMON_CFLAGS) /Fo$@ /c $<

@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\scenes">
+      <UniqueIdentifier>{559f2060-8260-4302-bf89-6e3d9339e2ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\scenes">
+      <UniqueIdentifier>{959c8d52-6a28-423b-b74e-00659c9ed8b6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\winmain.cxx">
@@ -24,6 +30,15 @@
     <ClCompile Include="src\game.cxx">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\scenes\play_scene.cxx">
+      <Filter>Source Files\scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scenes\scene.cxx">
+      <Filter>Source Files\scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scenes\title_scene.cxx">
+      <Filter>Source Files\scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\opengl.hxx">
@@ -31,6 +46,15 @@
     </ClInclude>
     <ClInclude Include="src\game.hxx">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scenes\play_scene.hxx">
+      <Filter>Header Files\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scenes\scene.hxx">
+      <Filter>Header Files\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scenes\title_scene.hxx">
+      <Filter>Header Files\scenes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

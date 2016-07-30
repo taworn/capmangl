@@ -160,11 +160,17 @@
   <ItemGroup>
     <ClCompile Include="src\game.cxx" />
     <ClCompile Include="src\opengl.cxx" />
+    <ClCompile Include="src\scenes\play_scene.cxx" />
+    <ClCompile Include="src\scenes\scene.cxx" />
+    <ClCompile Include="src\scenes\title_scene.cxx" />
     <ClCompile Include="src\winmain.cxx" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\game.hxx" />
     <ClInclude Include="src\opengl.hxx" />
+    <ClInclude Include="src\scenes\play_scene.hxx" />
+    <ClInclude Include="src\scenes\scene.hxx" />
+    <ClInclude Include="src\scenes\title_scene.hxx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

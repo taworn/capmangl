@@ -5,8 +5,32 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include "game.hxx"
+#include "scenes/scene.hxx"
+#include "scenes/title_scene.hxx"
 
-static GLuint LoadShader(GLenum shaderType, const char *sourceCode)
+Game *Game::singleton = NULL;
+
+Game::~Game()
+{
+	delete scene;
+	singleton = NULL;
+}
+
+Game::Game(HDC h) : hdc(h)
+{
+	assert(singleton == NULL);
+	singleton = this;
+	init();
+	scene = new TitleScene();
+}
+
+void Game::changeScene(Scene *newScene)
+{
+	delete scene;
+	scene = newScene;
+}
+
+static GLuint loadShader(GLenum shaderType, const char *sourceCode)
 {
 	GLint result = GL_FALSE;
 	GLuint id = glCreateShader(shaderType);
@@ -18,9 +42,6 @@ static GLuint LoadShader(GLenum shaderType, const char *sourceCode)
 
 void Game::init()
 {
-	timeStart = GetTickCount();
-	frameCount = 0;
-
 	// vertex shader and fragment shader
 	const char vertexShader[] = ""
 		"uniform mat4 u_MVPMatrix;  \n"  // A constant representing the combined model/view/projection matrix.
@@ -38,8 +59,8 @@ void Game::init()
 		"void main() {            \n"  //
 		"  gl_FragColor = v_Color;\n"  // Pass the color directly through the pipeline.
 		"}                        \n";
-	GLuint vertexShaderHandle = LoadShader(GL_VERTEX_SHADER, vertexShader);
-	GLuint fragmentShaderHandle = LoadShader(GL_FRAGMENT_SHADER, fragmentShader);
+	GLuint vertexShaderHandle = loadShader(GL_VERTEX_SHADER, vertexShader);
+	GLuint fragmentShaderHandle = loadShader(GL_FRAGMENT_SHADER, fragmentShader);
 	programHandle = glCreateProgram();
 	if (programHandle != 0) {
 		glAttachShader(programHandle, vertexShaderHandle);
@@ -58,141 +79,5 @@ void Game::init()
 	positionHandle = glGetAttribLocation(programHandle, "a_Position");
 	colorHandle = glGetAttribLocation(programHandle, "a_Color");
 	glUseProgram(programHandle);
-
-	// generates buffer
-	const GLfloat verticesData[] = {
-		// X, Y, Z, R, G, B, A
-		-1.0f, -1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
-		0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
-		1.0f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f,
-	};
-	glGenBuffers(1, &verticesId);
-	glBindBuffer(GL_ARRAY_BUFFER, verticesId);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(verticesData), verticesData, GL_STATIC_DRAW);
-
-	// model matrix
-	rotateMatrix = glm::mat4(1.0f);
-
-	// view matrix
-	viewMatrix = glm::lookAt(
-		glm::vec3(0.0f, 0.0f, 1.5f),    // camera
-		glm::vec3(0.0f, 0.0f, -15.0f),  // looks
-		glm::vec3(0.0f, 1.0f, 0.0f)     // head is up
-	);
-
-	// projection matrix
-	//projectionMatrix = glm::perspective(45.0f, 1.3333f, 1.0f, 25.0f);
-	projectionMatrix = glm::ortho(-2.0f, 2.0f, -2.0f, 2.0f, -1.0f, 25.0f);
-
-	modelX = 0.0f;
-	modelY = 0.0f;
-	modelDx = 0.0f;
-	modelDy = 0.0f;
-	angle = 0.0f;
-	angleToPlus = 0.05f;
-	lastTick = GetTickCount();
-}
-
-void Game::fini()
-{
-}
-
-void Game::fps()
-{
-	frameCount++;
-	ULONGLONG timeUsage = GetTickCount() - timeStart;
-	if (timeUsage > 1000) {
-		ULONGLONG fps = frameCount * 1000 / timeUsage;
-		timeStart = GetTickCount();
-		frameCount = 0;
-		BOOST_LOG_TRIVIAL(trace) << "FPS: " << fps;
-		wchar_t buffer[64];
-		wsprintf(buffer, L"FPS: %ld\n", fps);
-		OutputDebugStringW(buffer);
-	}
-}
-
-bool Game::handleKey(HWND hwnd, WPARAM key)
-{
-	if (key == VK_SPACE) {
-		// space
-		OutputDebugStringA("SPACE keydown\n");
-		return true;
-	}
-	else if (key == VK_RETURN) {
-		// space
-		OutputDebugStringA("ENTER keydown\n");
-		return true;
-	}
-	else if (key == 0x57 || key == VK_UP) {
-		// up
-		OutputDebugStringA("W -or- UP keydown\n");
-		modelDy = -0.1f;
-		return true;
-	}
-	else if (key == 0x53 || key == VK_DOWN) {
-		// down
-		OutputDebugStringA("S -or- DOWN keydown\n");
-		modelDy = 0.1f;
-		return true;
-	}
-	else if (key == 0x41 || key == VK_LEFT) {
-		// left
-		OutputDebugStringA("A -or- LEFT keydown\n");
-		modelDx = -0.1f;
-		return true;
-	}
-	else if (key == 0x44 || key == VK_RIGHT) {
-		// right
-		OutputDebugStringA("D -or- RIGHT keydown\n");
-		modelDx = 0.1f;
-		return true;
-	}
-	return false;
-}
-
-void Game::render()
-{
-	if (GetTickCount() - lastTick > 1) {
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-
-		translateMatrix = glm::mat4(1.0f);
-		translateMatrix = glm::translate(translateMatrix, glm::vec3(modelX + modelDx, modelY + modelDy, 0));
-		modelX += modelDx;
-		modelY += modelDy;
-		modelDx = 0.0f;
-		modelDy = 0.0f;
-
-		rotateMatrix = glm::mat4(1.0f);
-		rotateMatrix = glm::rotate(rotateMatrix, angle, glm::vec3(0, 1, 0));
-		angle += angleToPlus;
-		if (angle > 89.0f || angle < -89.0f)
-			angleToPlus = -angleToPlus;
-
-		// combines model, view and projection matrices
-		mvpMatrix = projectionMatrix * viewMatrix * rotateMatrix * translateMatrix;
-
-		glEnableVertexAttribArray(0);
-		glBindBuffer(GL_ARRAY_BUFFER, verticesId);
-
-		// passes in the position information
-		glVertexAttribPointer(positionHandle, 3, GL_FLOAT, false, 7 * 4, (void*)(0 * 4));
-		glEnableVertexAttribArray(positionHandle);
-
-		// passes in the color information
-		glVertexAttribPointer(colorHandle, 4, GL_FLOAT, false, 7 * 4, (void*)(3 * 4));
-		glEnableVertexAttribArray(colorHandle);
-
-		glUniformMatrix4fv(mvpMatrixHandle, 1, false, &mvpMatrix[0][0]);
-		glDrawArrays(GL_TRIANGLES, 0, 3);
-
-		glDisableVertexAttribArray(0);
-
-		SwapBuffers(hdc);
-		lastTick = GetTickCount();
-
-		fps();
-	}
 }
 

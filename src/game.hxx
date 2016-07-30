@@ -1,53 +1,36 @@
 #ifndef GAME_HXX
 #define GAME_HXX
 
+class Scene;
+
 class Game
 {
+public:
+	static Game* instance() { return singleton; }
+
+	~Game();
+	Game(HDC h);
+
+	HDC getDevice() { return hdc; }
+	GLuint getProgramHandle() const { return programHandle; }
+	GLuint getPositionHandle() const { return positionHandle; }
+	GLuint getColorHandle() const { return colorHandle; }
+	GLuint getMVPMatrixHandle() const { return mvpMatrixHandle; }
+	Scene* currentScene() { return scene; }
+
+	void changeScene(Scene *newScene);
+
 private:
 	HDC hdc;
-	ULONGLONG timeStart;
-	int frameCount;
-
-	GLuint mvpMatrixHandle;
+	GLuint programHandle;
 	GLuint positionHandle;
 	GLuint colorHandle;
-	GLuint programHandle;
-
-	// this is a model we want to draw
-	GLuint verticesId;
-
-	// MVP matrices
-	glm::mat4x4 translateMatrix;
-	glm::mat4x4 rotateMatrix;
-	glm::mat4x4 viewMatrix;
-	glm::mat4x4 projectionMatrix;
-	glm::mat4x4 mvpMatrix;
-
-	float modelX;
-	float modelY;
-	float modelDx;
-	float modelDy;
-	float angle;
-	float angleToPlus;
-	DWORD lastTick;
+	GLuint mvpMatrixHandle;
+	Scene *scene;
 
 	void init();
-	void fini();
-	void fps();
 
-public:
-	Game(HDC h) : hdc(h)
-	{
-		init();
-	}
-
-	~Game()
-	{
-		fini();
-	}
-
-	bool handleKey(HWND hwnd, WPARAM key);
-	void render();
+	static Game *singleton;
 };
 
 #endif // GAME_HXX
