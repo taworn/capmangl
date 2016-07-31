@@ -22,6 +22,8 @@ public:
 
 private:
 	HDC hdc;
+	GLuint vertexShaderHandle;
+	GLuint fragmentShaderHandle;
 	GLuint programHandle;
 	GLuint positionHandle;
 	GLuint colorHandle;
@@ -29,6 +31,7 @@ private:
 	Scene *scene;
 
 	void init();
+	void fini();
 
 	static Game *singleton;
 };

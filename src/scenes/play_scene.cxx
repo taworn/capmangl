@@ -40,6 +40,7 @@ void PlayScene::init()
 
 void PlayScene::fini()
 {
+	glDeleteBuffers(1, &verticesId);
 }
 
 bool PlayScene::handleKey(HWND hwnd, WPARAM key)

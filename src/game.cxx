@@ -13,6 +13,7 @@ Game *Game::singleton = NULL;
 Game::~Game()
 {
 	delete scene;
+	fini();
 	singleton = NULL;
 }
 
@@ -59,8 +60,8 @@ void Game::init()
 		"void main() {            \n"  //
 		"  gl_FragColor = v_Color;\n"  // Pass the color directly through the pipeline.
 		"}                        \n";
-	GLuint vertexShaderHandle = loadShader(GL_VERTEX_SHADER, vertexShader);
-	GLuint fragmentShaderHandle = loadShader(GL_FRAGMENT_SHADER, fragmentShader);
+	vertexShaderHandle = loadShader(GL_VERTEX_SHADER, vertexShader);
+	fragmentShaderHandle = loadShader(GL_FRAGMENT_SHADER, fragmentShader);
 	programHandle = glCreateProgram();
 	if (programHandle != 0) {
 		glAttachShader(programHandle, vertexShaderHandle);
@@ -79,5 +80,14 @@ void Game::init()
 	positionHandle = glGetAttribLocation(programHandle, "a_Position");
 	colorHandle = glGetAttribLocation(programHandle, "a_Color");
 	glUseProgram(programHandle);
+}
+
+void Game::fini()
+{
+	glDetachShader(programHandle, fragmentShaderHandle);
+	glDetachShader(programHandle, vertexShaderHandle);
+	glDeleteProgram(programHandle);
+	glDeleteShader(fragmentShaderHandle);
+	glDeleteShader(vertexShaderHandle);
 }
 
