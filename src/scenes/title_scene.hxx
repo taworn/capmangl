@@ -12,12 +12,10 @@ protected:
 	void fini();
 
 private:
-	TitleScene(const TitleScene&);
-	TitleScene& operator=(const TitleScene&);
 
 public:
 	virtual bool handleKey(HWND hwnd, WPARAM key);
-	virtual void render(ULONGLONG timeCurrent);
+	virtual void render();
 };
 
 #endif // SCENES_TITLE_SCENE_HXX

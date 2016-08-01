@@ -21,12 +21,9 @@ private:
 	GLuint verticesId;
 	DWORD lastTick;
 
-	PlayScene(const PlayScene&);
-	PlayScene& operator=(const PlayScene&);
-
 public:
 	virtual bool handleKey(HWND hwnd, WPARAM key);
-	virtual void render(ULONGLONG timeCurrent);
+	virtual void render();
 };
 
 #endif // SCENES_PLAY_SCENE_HXX

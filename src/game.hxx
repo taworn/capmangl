@@ -1,6 +1,10 @@
 #ifndef GAME_HXX
 #define GAME_HXX
 
+#define SCENE_DEFAULT 0
+#define SCENE_TITLE 1
+#define SCENE_PLAY 2
+
 class Scene;
 
 class Game
@@ -11,23 +15,14 @@ public:
 	~Game();
 	Game(HDC h);
 
-	HDC getDevice() { return hdc; }
-	GLuint getProgramHandle() const { return programHandle; }
-	GLuint getPositionHandle() const { return positionHandle; }
-	GLuint getColorHandle() const { return colorHandle; }
-	GLuint getMVPMatrixHandle() const { return mvpMatrixHandle; }
-	Scene* currentScene() { return scene; }
+	void changeScene(int sceneId);
+	bool handleKey(HWND hwnd, WPARAM key);
+	void render();
 
-	void changeScene(Scene *newScene);
+	HDC getDevice() const { return hdc; }
 
 private:
 	HDC hdc;
-	GLuint vertexShaderHandle;
-	GLuint fragmentShaderHandle;
-	GLuint programHandle;
-	GLuint positionHandle;
-	GLuint colorHandle;
-	GLuint mvpMatrixHandle;
 	Scene *scene;
 
 	void init();

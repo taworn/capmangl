@@ -2,12 +2,11 @@
 #include <assert.h>
 #include <boost/log/trivial.hpp>
 #include <GL/glew.h>
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include "../game.hxx"
 #include "scene.hxx"
 #include "play_scene.hxx"
-#include "title_scene.hxx"
+#include "../game.hxx"
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 PlayScene::~PlayScene()
 {
@@ -53,7 +52,7 @@ bool PlayScene::handleKey(HWND hwnd, WPARAM key)
 	else if (key == VK_RETURN) {
 		// ENTER
 		OutputDebugStringW(L"ENTER keydown\n");
-		Game::instance()->changeScene(new TitleScene());
+		Game::instance()->changeScene(SCENE_TITLE);
 		return true;
 	}
 	else if (key == 0x57 || key == VK_UP) {
@@ -83,7 +82,7 @@ bool PlayScene::handleKey(HWND hwnd, WPARAM key)
 	return false;
 }
 
-void PlayScene::render(ULONGLONG timeCurrent)
+void PlayScene::render()
 {
 	if (GetTickCount() - lastTick > 1) {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -122,20 +121,22 @@ void PlayScene::render(ULONGLONG timeCurrent)
 		glBindBuffer(GL_ARRAY_BUFFER, verticesId);
 
 		// passes in the position information
-		glVertexAttribPointer(Game::instance()->getPositionHandle(), 3, GL_FLOAT, false, 7 * 4, (void*)(0 * 4));
-		glEnableVertexAttribArray(Game::instance()->getPositionHandle());
+		glVertexAttribPointer(getPositionHandle(), 3, GL_FLOAT, false, 7 * 4, (void*)(0 * 4));
+		glEnableVertexAttribArray(getPositionHandle());
 
 		// passes in the color information
-		glVertexAttribPointer(Game::instance()->getColorHandle(), 4, GL_FLOAT, false, 7 * 4, (void*)(3 * 4));
-		glEnableVertexAttribArray(Game::instance()->getColorHandle());
+		glVertexAttribPointer(getColorHandle(), 4, GL_FLOAT, false, 7 * 4, (void*)(3 * 4));
+		glEnableVertexAttribArray(getColorHandle());
 
-		glUniformMatrix4fv(Game::instance()->getMVPMatrixHandle(), 1, false, &mvpMatrix[0][0]);
+		glUniformMatrix4fv(getMVPMatrixHandle(), 1, false, &mvpMatrix[0][0]);
 		glDrawArrays(GL_TRIANGLES, 0, 3);
 
 		glDisableVertexAttribArray(0);
 
-		fps(timeCurrent);
-		SwapBuffers(Game::instance()->getDevice());
+		computeFPS();
+		drawFPS();
+		SwapBuffers(getDevice());
+
 		lastTick = GetTickCount();
 	}
 }

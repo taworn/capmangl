@@ -2,10 +2,9 @@
 #include <assert.h>
 #include <boost/log/trivial.hpp>
 #include <GL/glew.h>
-#include "../game.hxx"
 #include "scene.hxx"
 #include "title_scene.hxx"
-#include "play_scene.hxx"
+#include "../game.hxx"
 
 TitleScene::~TitleScene()
 {
@@ -30,18 +29,19 @@ bool TitleScene::handleKey(HWND hwnd, WPARAM key)
 	if (key == VK_RETURN) {
 		// ENTER
 		OutputDebugStringW(L"ENTER keydown\n");
-		Game::instance()->changeScene(new PlayScene());
+		Game::instance()->changeScene(SCENE_PLAY);
 		return true;
 	}
 	return false;
 }
 
-void TitleScene::render(ULONGLONG timeCurrent)
+void TitleScene::render()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
-	fps(timeCurrent);
-	SwapBuffers(Game::instance()->getDevice());
+	computeFPS();
+	drawFPS();
+	SwapBuffers(getDevice());
 }
 
