@@ -19,6 +19,8 @@ bin/
 obj/
 !glew/lib/x64/
 !glew/lib/x86/
+!freetype/lib/x64/
+!freetype/lib/x86/
 
 # Visual Studio 2015 cache/options directory
 .vs/

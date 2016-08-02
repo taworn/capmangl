@@ -100,11 +100,11 @@ HEADERS:=\
 	$(TARGET_DIR)\opengl.hxx
 
 # directories
-INCLUDE_DIRS:=-I$(BOOST_INCLUDE) -I.\glew\include -I.\glm
-LIBRARY_DIRS:=-L$(BOOST_LIB) -L.\glew\lib\$(X64_TAG)
+INCLUDE_DIRS:=-I$(BOOST_INCLUDE) -I.\glew\include -I.\glm -I.\freetype\include
+LIBRARY_DIRS:=-L$(BOOST_LIB) -L.\glew\lib\$(X64_TAG) -L.\freetype\lib\$(X64_TAG)
 
 # libraries
-LIBRARIES:=-lboost_log-mt$(BOOST_TAG) -lboost_thread-mt$(BOOST_TAG) -lboost_system-mt$(BOOST_TAG) -lglew32s -lopengl32 -luser32 -lgdi32 -lkernel32
+LIBRARIES:=-lboost_log-mt$(BOOST_TAG) -lboost_thread-mt$(BOOST_TAG) -lboost_system-mt$(BOOST_TAG) -lfreetype -lglew32s -lopengl32 -luser32 -lgdi32 -lkernel32
 
 # executable
 OUTPUT:=capmanglmingw$(SHARED_TAG)$(DEBUG_TAG).exe
@@ -130,6 +130,12 @@ prepare:
 	if not exist $(TARGET_DIR) mkdir 2>NUL $(TARGET_DIR)
 	if not exist $(TARGET_DIR)\scenes mkdir 2>NUL $(TARGET_DIR)\scenes
 	if not exist $(OUTPUT_DIR) mkdir 2>NUL $(OUTPUT_DIR)
+ifneq ($(if $(SHARED),$(SHARED),0),0)
+	copy /y $(BOOST_LIB)\libboost_log-mt.dll $(OUTPUT_DIR)
+	copy /y $(BOOST_LIB)\libboost_filesystem-mt.dll $(OUTPUT_DIR)
+	copy /y $(BOOST_LIB)\libboost_thread-mt.dll $(OUTPUT_DIR)
+	copy /y $(BOOST_LIB)\libboost_system-mt.dll $(OUTPUT_DIR)
+endif
 
 check: all
 	$(OUTPUT_DIR)\$(OUTPUT)
@@ -140,6 +146,12 @@ clean:
 
 clean-all: clean
 	if exist $(OUTPUT_DIR) del /q 2>NUL $(OUTPUT_DIR)\$(OUTPUT)
+ifneq ($(if $(SHARED),$(SHARED),0),0)
+	if exist $(OUTPUT_DIR) del /q 2>NUL $(OUTPUT_DIR)\libboost_log-mt.dll
+	if exist $(OUTPUT_DIR) del /q 2>NUL $(OUTPUT_DIR)\libboost_filesystem-mt.dll
+	if exist $(OUTPUT_DIR) del /q 2>NUL $(OUTPUT_DIR)\libboost_thread-mt.dll
+	if exist $(OUTPUT_DIR) del /q 2>NUL $(OUTPUT_DIR)\libboost_system-mt.dll
+endif
 
 $(OUTPUT_DIR)\$(OUTPUT): $(MODULES)
 	$(LD) $(LFLAGS) $(COMMON_LFLAGS) -o $@ $+ $(LIBRARIES)

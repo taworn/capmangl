@@ -1,5 +1,7 @@
 #include <windows.h>
 #include <assert.h>
+#include <ft2build.h>
+#include FT_FREETYPE_H
 #include <boost/log/trivial.hpp>
 #include <GL/glew.h>
 #include "scene.hxx"
@@ -18,10 +20,15 @@ TitleScene::TitleScene() : Scene()
 
 void TitleScene::init()
 {
+	FT_Error error = FT_New_Face(Game::instance()->getFreeTypeLibrary(), "C:\\Windows\\Fonts\\arial.ttf", 0, &titleFace);
+	if (error) {
+		BOOST_LOG_TRIVIAL(debug) << "FreeType cannot load face.";
+	}
 }
 
 void TitleScene::fini()
 {
+	FT_Done_Face(titleFace);
 }
 
 bool TitleScene::handleKey(HWND hwnd, WPARAM key)

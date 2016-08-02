@@ -1,5 +1,7 @@
 #include <windows.h>
 #include <assert.h>
+#include <ft2build.h>
+#include FT_FREETYPE_H
 #include <boost/log/trivial.hpp>
 #include <GL/glew.h>
 #include "opengl.hxx"
@@ -54,9 +56,14 @@ void Game::render()
 
 void Game::init()
 {
+	FT_Error error = FT_Init_FreeType(&freeTypeLibrary);
+	if (error) {
+		BOOST_LOG_TRIVIAL(debug) << "FreeType initialization failed!";
+	}
 }
 
 void Game::fini()
 {
+	FT_Done_FreeType(freeTypeLibrary);
 }
 

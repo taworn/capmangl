@@ -12,6 +12,7 @@ protected:
 	void fini();
 
 private:
+	FT_Face titleFace;
 
 public:
 	virtual bool handleKey(HWND hwnd, WPARAM key);

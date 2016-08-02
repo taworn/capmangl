@@ -20,9 +20,11 @@ public:
 	void render();
 
 	HDC getDevice() const { return hdc; }
+	FT_Library getFreeTypeLibrary() const { return freeTypeLibrary; }
 
 private:
 	HDC hdc;
+	FT_Library freeTypeLibrary;
 	Scene *scene;
 
 	void init();
