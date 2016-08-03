@@ -1,6 +1,10 @@
 #ifndef SCENES_SCENE_HXX
 #define SCENES_SCENE_HXX
 
+class Shader;
+class NormalShader;
+class TextShader;
+
 class Scene
 {
 public:
@@ -11,26 +15,19 @@ protected:
 	void init();
 	void fini();
 
-	GLuint loadShader(GLenum shaderType, const char *sourceCode);
 	void computeFPS();
 	void drawFPS();
 
 	HDC getDevice() { return hdc; }
-	GLuint getProgramHandle() const { return programHandle; }
-	GLuint getPositionHandle() const { return positionHandle; }
-	GLuint getColorHandle() const { return colorHandle; }
-	GLuint getMVPMatrixHandle() const { return mvpMatrixHandle; }
+	NormalShader& getNormalShader() { return normalShader; }
+	TextShader& getTextShader() { return textShader; }
 	RECT getScreenRect() const { return screenRect; }
 	ULONGLONG getFPS() const { return fps; }
 
 private:
 	HDC hdc;
-	GLuint vertexShaderHandle;
-	GLuint fragmentShaderHandle;
-	GLuint programHandle;
-	GLuint positionHandle;
-	GLuint colorHandle;
-	GLuint mvpMatrixHandle;
+	NormalShader& normalShader;
+	TextShader& textShader;
 	RECT screenRect;
 	int frameCount;
 	ULONGLONG fps;

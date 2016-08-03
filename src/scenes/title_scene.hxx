@@ -12,9 +12,6 @@ protected:
 	void fini();
 
 private:
-	GLint attribute_coord;
-	GLint uniform_tex;
-	GLint uniform_color;
 	GLuint vbo;
 	FT_Face titleFace;
 

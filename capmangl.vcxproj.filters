@@ -19,6 +19,12 @@
     <Filter Include="Source Files\scenes">
       <UniqueIdentifier>{959c8d52-6a28-423b-b74e-00659c9ed8b6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\shaders">
+      <UniqueIdentifier>{abea1d23-7a50-4e3c-bafa-01ceacf3b8e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\shaders">
+      <UniqueIdentifier>{ced42f92-f372-4b32-9e60-952bea344d35}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\winmain.cxx">
@@ -39,6 +45,9 @@
     <ClCompile Include="src\scenes\title_scene.cxx">
       <Filter>Source Files\scenes</Filter>
     </ClCompile>
+    <ClCompile Include="src\shaders\shader.cxx">
+      <Filter>Source Files\shaders</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\opengl.hxx">
@@ -55,6 +64,15 @@
     </ClInclude>
     <ClInclude Include="src\scenes\title_scene.hxx">
       <Filter>Header Files\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\shaders\shader.hxx">
+      <Filter>Header Files\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="src\shaders\normal_shader.hxx">
+      <Filter>Header Files\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="src\shaders\text_shader.hxx">
+      <Filter>Header Files\shaders</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

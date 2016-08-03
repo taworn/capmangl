@@ -90,6 +90,9 @@ void PlayScene::render()
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
+		NormalShader& normalShader = getNormalShader();
+		normalShader.useProgram();
+
 		// translating
 		glm::mat4x4 translateMatrix = glm::mat4(1.0f);
 		translateMatrix = glm::translate(translateMatrix, glm::vec3(modelX + modelDx, modelY + modelDy, 0));
@@ -123,14 +126,14 @@ void PlayScene::render()
 		glBindBuffer(GL_ARRAY_BUFFER, verticesId);
 
 		// passes in the position information
-		glVertexAttribPointer(getPositionHandle(), 3, GL_FLOAT, false, 7 * 4, (void*)(0 * 4));
-		glEnableVertexAttribArray(getPositionHandle());
+		glVertexAttribPointer(normalShader.getPosition(), 3, GL_FLOAT, false, 7 * 4, (void*)(0 * 4));
+		glEnableVertexAttribArray(normalShader.getPosition());
 
 		// passes in the color information
-		glVertexAttribPointer(getColorHandle(), 4, GL_FLOAT, false, 7 * 4, (void*)(3 * 4));
-		glEnableVertexAttribArray(getColorHandle());
+		glVertexAttribPointer(normalShader.getColor(), 4, GL_FLOAT, false, 7 * 4, (void*)(3 * 4));
+		glEnableVertexAttribArray(normalShader.getColor());
 
-		glUniformMatrix4fv(getMVPMatrixHandle(), 1, false, &mvpMatrix[0][0]);
+		glUniformMatrix4fv(normalShader.getMVPMatrix(), 1, false, &mvpMatrix[0][0]);
 		glDrawArrays(GL_TRIANGLES, 0, 3);
 
 		glDisableVertexAttribArray(0);

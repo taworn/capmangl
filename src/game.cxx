@@ -19,7 +19,7 @@ Game::~Game()
 	singleton = NULL;
 }
 
-Game::Game(HDC h) : hdc(h)
+Game::Game(HDC h) : hdc(h), normalShader(), textShader()
 {
 	assert(singleton == NULL);
 	singleton = this;
@@ -56,6 +56,9 @@ void Game::render()
 
 void Game::init()
 {
+	normalShader = new NormalShader();
+	textShader = new TextShader();
+
 	FT_Error error = FT_Init_FreeType(&freeTypeLibrary);
 	if (error) {
 		BOOST_LOG_TRIVIAL(debug) << "FreeType initialization failed!";
@@ -64,6 +67,9 @@ void Game::init()
 
 void Game::fini()
 {
+	glUseProgram(0);
 	FT_Done_FreeType(freeTypeLibrary);
+	delete textShader;
+	delete normalShader;
 }
 

@@ -163,6 +163,7 @@
     <ClCompile Include="src\scenes\play_scene.cxx" />
     <ClCompile Include="src\scenes\scene.cxx" />
     <ClCompile Include="src\scenes\title_scene.cxx" />
+    <ClCompile Include="src\shaders\shader.cxx" />
     <ClCompile Include="src\winmain.cxx" />
   </ItemGroup>
   <ItemGroup>
@@ -171,6 +172,9 @@
     <ClInclude Include="src\scenes\play_scene.hxx" />
     <ClInclude Include="src\scenes\scene.hxx" />
     <ClInclude Include="src\scenes\title_scene.hxx" />
+    <ClInclude Include="src\shaders\normal_shader.hxx" />
+    <ClInclude Include="src\shaders\shader.hxx" />
+    <ClInclude Include="src\shaders\text_shader.hxx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

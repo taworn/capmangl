@@ -88,6 +88,7 @@ MODULES:=\
 	$(TARGET_DIR)\scenes\play_scene.o \
 	$(TARGET_DIR)\scenes\title_scene.o \
 	$(TARGET_DIR)\scenes\scene.o \
+	$(TARGET_DIR)\shaders\shader.o \
 	$(TARGET_DIR)\game.o \
 	$(TARGET_DIR)\opengl.o
 
@@ -96,6 +97,9 @@ HEADERS:=\
 	$(TARGET_DIR)\scenes\play_scene.hxx \
 	$(TARGET_DIR)\scenes\title_scene.hxx \
 	$(TARGET_DIR)\scenes\scene.hxx \
+	$(TARGET_DIR)\shaders\text_shader.hxx \
+	$(TARGET_DIR)\shaders\normal_shader.hxx \
+	$(TARGET_DIR)\shaders\shader.hxx \
 	$(TARGET_DIR)\game.hxx \
 	$(TARGET_DIR)\opengl.hxx
 
@@ -128,6 +132,7 @@ all: prepare $(OUTPUT_DIR)\$(OUTPUT)
 
 prepare:
 	if not exist $(TARGET_DIR) mkdir 2>NUL $(TARGET_DIR)
+	if not exist $(TARGET_DIR)\shaders mkdir 2>NUL $(TARGET_DIR)\shaders
 	if not exist $(TARGET_DIR)\scenes mkdir 2>NUL $(TARGET_DIR)\scenes
 	if not exist $(OUTPUT_DIR) mkdir 2>NUL $(OUTPUT_DIR)
 ifneq ($(if $(SHARED),$(SHARED),0),0)
@@ -142,6 +147,7 @@ check: all
 
 clean:
 	if exist $(TARGET_DIR) del /q 2>NUL $(TARGET_DIR)\*.o
+	if exist $(TARGET_DIR)\shaders del /q 2>NUL $(TARGET_DIR)\shaders\*.o
 	if exist $(TARGET_DIR)\scenes del /q 2>NUL $(TARGET_DIR)\scenes\*.o
 
 clean-all: clean
@@ -155,6 +161,9 @@ endif
 
 $(OUTPUT_DIR)\$(OUTPUT): $(MODULES)
 	$(LD) $(LFLAGS) $(COMMON_LFLAGS) -o $@ $+ $(LIBRARIES)
+
+$(TARGET_DIR)\shaders\\%.o: $(SOURCE_DIR)\shaders\\%.cxx
+	$(CC) $(CFLAGS) $(COMMON_CFLAGS) -o $@ -c $<
 
 $(TARGET_DIR)\scenes\\%.o: $(SOURCE_DIR)\scenes\\%.cxx
 	$(CC) $(CFLAGS) $(COMMON_CFLAGS) -o $@ -c $<
