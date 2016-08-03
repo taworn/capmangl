@@ -93,40 +93,57 @@ void TitleScene::render()
 	RECT rc = getScreenRect();
 	float sx = 2.0f / (rc.right - rc.left);
 	float sy = 2.0f / (rc.bottom - rc.top);
+	GLfloat textColor[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
 
 	/* Enable blending, necessary for our alpha texture */
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	GLfloat black[4] = { 0, 1, 0, 1 };
-	GLfloat red[4] = { 1, 0, 0, 1 };
-	GLfloat transparent_green[4] = { 0, 1, 0, 0.5 };
-
-	/* Set font size to 48 pixels, color to black */
-	FT_Set_Pixel_Sizes(titleFace, 0, 48);
-	glUniform4fv(uniform_color, 1, black);
-
-	//render_text("Capman", -1 + 8 * sx, 1 - 50 * sy, sx, sy);
-	//render_text("The Misaligned Fox Jumps Over The Lazy Dog", -1 + 8.5 * sx, 1 - 100.5 * sy, sx, sy);
-
-	//render_text("Capman", -1 + 8 * sx, 1 - 175 * sy, sx * 0.5, sy * 0.5);
-	FT_Set_Pixel_Sizes(titleFace, 0, 24);
-	//render_text("CapmanGL", -1 + 8 * sx, 1 - 200 * sy, sx, sy);
-
-	//render_text("Capman", -1 + 8 * sx, 1 - 430 * sy, sx, sy);
-
-	glUniform4fv(uniform_color, 1, red);
-	//render_text("Cap", -1 + 8 * sx, 1 - 330 * sy, sx, sy);
-	//render_text("man", -1 + 28 * sx, 1 - 450 * sy, sx, sy);
-	GLfloat textColor[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
-	FT_Set_Pixel_Sizes(titleFace, 0, 48);
 	glUniform4fv(uniform_color, 1, textColor);
-	render_text("Capman", 0, 0, sx, sy);
-	render_text("GL", -1 + 18 * sx, 1 - 440 * sy, sx, sy);
+	float w, h;
+	
+	FT_Set_Pixel_Sizes(titleFace, 0, 128);
+	measureText("Capman", sx, sy, &w, &h);
+	render_text("Capman", 0 - (w / 2), h, sx, sy);
+	
+	FT_Set_Pixel_Sizes(titleFace, 0, 32);
+	measureText("Press ENTER Key", sx, sy, &w, &h);
+	render_text("Press ENTER Key", 0 - (w / 2), -0.70f, sx, sy);
+	
+	ULONGLONG fps = getFPS();
+	char buffer[64];
+	sprintf(buffer, "%ld", fps);
+	FT_Set_Pixel_Sizes(titleFace, 0, 24);
+	measureText(buffer, sx, sy, &w, &h);
+	render_text(buffer, 1 - w * 2, -1 + h, sx, sy);
 
 	computeFPS();
 	drawFPS();
 	SwapBuffers(getDevice());
+}
+
+void TitleScene::measureText(const char *text, float sx, float sy, float *w, float *h)
+{
+	const char *p;
+	FT_GlyphSlot g = titleFace->glyph;
+
+	/* Loop through all characters */
+	int width = 0;
+	int height = 0;
+	for (p = text; *p; p++) {
+		/* Try to load and render the character */
+		if (FT_Load_Char(titleFace, *p, FT_LOAD_RENDER))
+			continue;
+
+		width += g->bitmap.width;
+		if (height < g->bitmap.rows)
+			height = g->bitmap.rows;
+		//width += (g->advance.x >> 6);
+		//height += (g->advance.y >> 6);
+	}
+
+	*w = width * sx;
+	*h = height * sy;
 }
 
 /**
