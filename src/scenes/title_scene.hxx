@@ -18,6 +18,7 @@ private:
 	GLuint vbo;
 	FT_Face titleFace;
 
+	void measureText(const char *text, float sx, float sy, float *w, float *h);
 	void render_text(const char *text, float x, float y, float sx, float sy);
 
 public:
