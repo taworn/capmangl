@@ -12,7 +12,13 @@ protected:
 	void fini();
 
 private:
+	GLint attribute_coord;
+	GLint uniform_tex;
+	GLint uniform_color;
+	GLuint vbo;
 	FT_Face titleFace;
+
+	void render_text(const char *text, float x, float y, float sx, float sy);
 
 public:
 	virtual bool handleKey(HWND hwnd, WPARAM key);
