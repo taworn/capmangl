@@ -88,6 +88,7 @@ MODULES=\
 	$(TARGET_DIR)\scenes\scene.obj \
 	$(TARGET_DIR)\shaders\shader.obj \
 	$(TARGET_DIR)\game.obj \
+	$(TARGET_DIR)\font.obj \
 	$(TARGET_DIR)\opengl.obj
 
 # headers
@@ -99,6 +100,7 @@ HEADERS=\
 	$(TARGET_DIR)\shaders\normal_shader.hxx \
 	$(TARGET_DIR)\shaders\shader.hxx \
 	$(TARGET_DIR)\game.hxx \
+	$(TARGET_DIR)\font.hxx \
 	$(TARGET_DIR)\opengl.hxx
 
 # directories

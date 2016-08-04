@@ -4,8 +4,8 @@
 #include FT_FREETYPE_H
 #include <boost/log/trivial.hpp>
 #include <GL/glew.h>
-#include "scene.hxx"
 #include "../game.hxx"
+#include "scene.hxx"
 
 Scene::~Scene()
 {
@@ -15,7 +15,7 @@ Scene::~Scene()
 Scene::Scene()
 	: hdc(Game::instance()->getDevice())
 	, normalShader(Game::instance()->getNormalShader()), textShader(Game::instance()->getTextShader())
-	, screenRect(), frameCount(0), fps(0), timeStart(0)
+	, screenRect(), smallFont(), frameCount(0), fps(0), timeStart(0)
 {
 	int params[4];
 	glGetIntegerv(GL_VIEWPORT, params);
@@ -23,6 +23,9 @@ Scene::Scene()
 	screenRect.top = params[1];
 	screenRect.right = screenRect.left + params[2];
 	screenRect.bottom = screenRect.top + params[3];
+
+	smallFont.load("C:\\WINDOWS\\Fonts\\arial.ttf", 24);
+	smallFont.setColor(1.0f, 1.0f, 1.0f, 1.0f);
 
 	timeStart = GetTickCount();
 
@@ -55,6 +58,18 @@ void Scene::computeFPS()
 
 void Scene::drawFPS()
 {
+	ULONGLONG fps = getFPS();
+	char buffer[64];
+	sprintf(buffer, "%ld", (long)fps);
+
+	RECT rc = getScreenRect();
+	float sx = 2.0f / (rc.right - rc.left);
+	float sy = 2.0f / (rc.bottom - rc.top);
+
+	float w, h;
+	textShader.useProgram();
+	smallFont.measureText(buffer, &w, &h, sx, sy);
+	smallFont.drawText(buffer, 1 - w * 2, -1 + h, sx, sy);
 }
 
 bool Scene::handleKey(HWND hwnd, WPARAM key)

@@ -4,6 +4,7 @@
 class Shader;
 class NormalShader;
 class TextShader;
+class Font;
 
 class Scene
 {
@@ -29,6 +30,7 @@ private:
 	NormalShader& normalShader;
 	TextShader& textShader;
 	RECT screenRect;
+	Font smallFont;
 	int frameCount;
 	ULONGLONG fps;
 	ULONGLONG timeStart;

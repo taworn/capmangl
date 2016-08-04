@@ -48,6 +48,9 @@
     <ClCompile Include="src\shaders\shader.cxx">
       <Filter>Source Files\shaders</Filter>
     </ClCompile>
+    <ClCompile Include="src\font.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\opengl.hxx">
@@ -73,6 +76,9 @@
     </ClInclude>
     <ClInclude Include="src\shaders\text_shader.hxx">
       <Filter>Header Files\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="src\font.hxx">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

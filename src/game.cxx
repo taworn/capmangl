@@ -5,10 +5,10 @@
 #include <boost/log/trivial.hpp>
 #include <GL/glew.h>
 #include "opengl.hxx"
+#include "game.hxx"
 #include "scenes/scene.hxx"
 #include "scenes/title_scene.hxx"
 #include "scenes/play_scene.hxx"
-#include "game.hxx"
 
 Game *Game::singleton = NULL;
 

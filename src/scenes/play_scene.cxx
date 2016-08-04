@@ -4,9 +4,9 @@
 #include FT_FREETYPE_H
 #include <boost/log/trivial.hpp>
 #include <GL/glew.h>
+#include "../game.hxx"
 #include "scene.hxx"
 #include "play_scene.hxx"
-#include "../game.hxx"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 

@@ -1,6 +1,8 @@
 #ifndef SCENES_TITLE_SCENE_HXX
 #define SCENES_TITLE_SCENE_HXX
 
+class Font;
+
 class TitleScene : public Scene
 {
 public:
@@ -13,7 +15,7 @@ protected:
 
 private:
 	GLuint vbo;
-	FT_Face titleFace;
+	Font *titleFont;
 
 	void measureText(const char *text, float sx, float sy, float *w, float *h);
 	void render_text(const char *text, float x, float y, float sx, float sy);

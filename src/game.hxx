@@ -4,6 +4,7 @@
 #include "shaders/shader.hxx"
 #include "shaders/normal_shader.hxx"
 #include "shaders/text_shader.hxx"
+#include "font.hxx"
 
 #define SCENE_DEFAULT 0
 #define SCENE_TITLE 1
