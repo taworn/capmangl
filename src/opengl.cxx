@@ -6,7 +6,7 @@ bool active = false;
 HDC hdc = 0;
 HGLRC hrc = 0;
 
-bool OpenGLInit(HWND hwnd)
+bool gl_init(HWND hwnd)
 {
 	hdc = GetDC(hwnd);
 
@@ -43,7 +43,7 @@ bool OpenGLInit(HWND hwnd)
 	return true;
 }
 
-void OpenGLUninit(HWND hwnd)
+void gl_uninit(HWND hwnd)
 {
 	wglMakeCurrent(hdc, NULL);
 	if (hrc != 0) {

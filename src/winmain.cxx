@@ -1,29 +1,29 @@
 #include <windows.h>
 #include <assert.h>
+#include <boost/log/trivial.hpp>
 #include <ft2build.h>
 #include FT_FREETYPE_H
-#include <boost/log/trivial.hpp>
 #include <GL/glew.h>
 #include "opengl.hxx"
 #include "game.hxx"
 
 static Game *game = NULL;
 
-bool Initialize(HWND hwnd)
+bool initialize(HWND hwnd)
 {
-	if (!OpenGLInit(hwnd))
+	if (!gl_init(hwnd))
 		return false;
 	game = new Game(hdc);
 	return true;
 }
 
-void Uninitialize(HWND hwnd)
+void uninitialize(HWND hwnd)
 {
 	if (game) {
 		delete game;
 		game = NULL;
 	}
-	OpenGLUninit(hwnd);
+	gl_uninit(hwnd);
 }
 
 LRESULT CALLBACK
@@ -45,7 +45,7 @@ WindowProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 		return 0;
 
 	case WM_DESTROY:
-		Uninitialize(hwnd);
+		uninitialize(hwnd);
 		PostQuitMessage(0);
 		return 0;
 	}
@@ -83,8 +83,8 @@ WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdS
 	}
 	ShowWindow(hwnd, nCmdShow);
 
-	if (!Initialize(hwnd)) {
-		Uninitialize(hwnd);
+	if (!initialize(hwnd)) {
+		uninitialize(hwnd);
 		return 0;
 	}
 

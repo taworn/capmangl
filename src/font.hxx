@@ -15,6 +15,7 @@ public:
 
 	~Font();
 	Font();
+	Font(const char *faceName, int size);
 
 	bool load(const char *faceName, int size);
 
@@ -26,8 +27,8 @@ public:
 
 private:
 	TextShader *shader;
-	FT_Face face;
 	GLuint vbo;
+	FT_Face face;
 
 	Font(const Font&);
 	Font& operator=(const Font&);

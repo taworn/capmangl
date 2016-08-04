@@ -86,9 +86,9 @@ MODULES=\
 	$(TARGET_DIR)\scenes\play_scene.obj \
 	$(TARGET_DIR)\scenes\title_scene.obj \
 	$(TARGET_DIR)\scenes\scene.obj \
-	$(TARGET_DIR)\shaders\shader.obj \
 	$(TARGET_DIR)\game.obj \
 	$(TARGET_DIR)\font.obj \
+	$(TARGET_DIR)\shaders\shader.obj \
 	$(TARGET_DIR)\opengl.obj
 
 # headers
@@ -96,11 +96,11 @@ HEADERS=\
 	$(TARGET_DIR)\scenes\play_scene.hxx \
 	$(TARGET_DIR)\scenes\title_scene.hxx \
 	$(TARGET_DIR)\scenes\scene.hxx \
+	$(TARGET_DIR)\game.hxx \
+	$(TARGET_DIR)\font.hxx \
 	$(TARGET_DIR)\shaders\text_shader.hxx \
 	$(TARGET_DIR)\shaders\normal_shader.hxx \
 	$(TARGET_DIR)\shaders\shader.hxx \
-	$(TARGET_DIR)\game.hxx \
-	$(TARGET_DIR)\font.hxx \
 	$(TARGET_DIR)\opengl.hxx
 
 # directories
@@ -117,7 +117,7 @@ OUTPUT=capmangl$(SHARED_TAG)$(DEBUG_TAG).exe
 COMMON_DEFINES=/DGLEW_STATIC /DBOOST_AUTO_LINK_TAGGED /DUNICODE=1 /D_UNICODE=1 /D_CRT_SECURE_NO_DEPRECATE
 COMMON_CFLAGS=/nologo /W3 /EHsc /Fd$(OUTPUT_DIR)\$(OUTPUT).pdb $(INCLUDE_DIRS) $(COMMON_DEFINES) $(X64_CFLAGS) $(DEBUG_CFLAGS) $(SHARED_CFLAGS)
 COMMON_RFLAGS=/nologo $(X64_RFLAGS) $(DEBUG_RFLAGS) $(SHARED_RFLAGS)
-COMMON_LFLAGS=/nologo /MANIFEST:EMBED /INCREMENTAL:NO /NOD:libcmt /NOD:libcmtd /PDB:$(OUTPUT_DIR)\$(OUTPUT).pdb /IGNORE:4099 $(LIBRARY_DIRS) $(X64_LFLAGS) $(DEBUG_LFLAGS) $(SHARED_LFLAGS)
+COMMON_LFLAGS=/nologo /MANIFEST:EMBED /INCREMENTAL:NO /NOD:libcmt /NOD:libcmtd /IGNORE:4099 /PDB:$(OUTPUT_DIR)\$(OUTPUT).pdb $(LIBRARY_DIRS) $(X64_LFLAGS) $(DEBUG_LFLAGS) $(SHARED_LFLAGS)
 
 
 #

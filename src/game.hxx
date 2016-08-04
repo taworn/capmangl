@@ -25,8 +25,11 @@ public:
 	void render();
 
 	HDC getDevice() const { return hdc; }
-	NormalShader& getNormalShader() { return *normalShader; }
-	TextShader& getTextShader() { return *textShader; }
+	NormalShader* getNormalShader() { return normalShader; }
+	TextShader* getTextShader() { return textShader; }
+	Font* getSmallFont() { return smallFont; }
+	Font* getNormalFont() { return normalFont; }
+	Font* getBigFont() { return bigFont; }
 	FT_Library getFreeTypeLibrary() const { return freeTypeLibrary; }
 
 private:
@@ -34,6 +37,9 @@ private:
 	NormalShader *normalShader;
 	TextShader *textShader;
 	FT_Library freeTypeLibrary;
+	Font *smallFont;
+	Font *normalFont;
+	Font *bigFont;
 	Scene *scene;
 
 	void init();

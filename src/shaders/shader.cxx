@@ -14,8 +14,6 @@ Shader::Shader() : program(0)
 
 bool Shader::init(const char *vertexSourceCode, const char *fragmentSourceCode)
 {
-	GLint result = GL_FALSE;
-
 	program = glCreateProgram();
 	GLuint vertexShader = loadShader(GL_VERTEX_SHADER, vertexSourceCode);
 	GLuint fragmentShader = loadShader(GL_FRAGMENT_SHADER, fragmentSourceCode);

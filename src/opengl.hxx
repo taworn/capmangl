@@ -9,8 +9,8 @@ extern bool active;
 extern HDC hdc;
 extern HGLRC hrc;
 
-bool OpenGLInit(HWND hwnd);
-void OpenGLUninit(HWND hwnd);
+bool gl_init(HWND hwnd);
+void gl_uninit(HWND hwnd);
 
 #ifdef __cplusplus
 }

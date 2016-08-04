@@ -17,22 +17,26 @@ protected:
 	void fini();
 
 	void computeFPS();
-	void drawFPS();
 
 	HDC getDevice() { return hdc; }
-	NormalShader& getNormalShader() { return normalShader; }
-	TextShader& getTextShader() { return textShader; }
+	NormalShader* getNormalShader() { return normalShader; }
+	TextShader* getTextShader() { return textShader; }
 	RECT getScreenRect() const { return screenRect; }
-	ULONGLONG getFPS() const { return fps; }
+	Font* getSmallFont() { return smallFont; }
+	Font* getNormalFont() { return normalFont; }
+	Font* getBigFont() { return bigFont; }
+	int getFPS() const { return fps; }
 
 private:
 	HDC hdc;
-	NormalShader& normalShader;
-	TextShader& textShader;
+	NormalShader *normalShader;
+	TextShader *textShader;
 	RECT screenRect;
-	Font smallFont;
+	Font *smallFont;
+	Font *normalFont;
+	Font *bigFont;
+	int fps;
 	int frameCount;
-	ULONGLONG fps;
 	ULONGLONG timeStart;
 
 	Scene(const Scene&);
