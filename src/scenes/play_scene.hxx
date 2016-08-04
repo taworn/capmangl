@@ -19,7 +19,6 @@ private:
 	float angle;
 	float angleToPlus;
 	GLuint verticesId;
-	DWORD lastTick;
 
 public:
 	virtual bool handleKey(HWND hwnd, WPARAM key);

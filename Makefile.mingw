@@ -88,9 +88,9 @@ MODULES:=\
 	$(TARGET_DIR)\scenes\play_scene.o \
 	$(TARGET_DIR)\scenes\title_scene.o \
 	$(TARGET_DIR)\scenes\scene.o \
-	$(TARGET_DIR)\shaders\shader.o \
 	$(TARGET_DIR)\game.o \
 	$(TARGET_DIR)\font.o \
+	$(TARGET_DIR)\shaders\shader.o \
 	$(TARGET_DIR)\opengl.o
 
 # headers
@@ -98,11 +98,11 @@ HEADERS:=\
 	$(TARGET_DIR)\scenes\play_scene.hxx \
 	$(TARGET_DIR)\scenes\title_scene.hxx \
 	$(TARGET_DIR)\scenes\scene.hxx \
+	$(TARGET_DIR)\game.hxx \
+	$(TARGET_DIR)\font.hxx \
 	$(TARGET_DIR)\shaders\text_shader.hxx \
 	$(TARGET_DIR)\shaders\normal_shader.hxx \
 	$(TARGET_DIR)\shaders\shader.hxx \
-	$(TARGET_DIR)\game.hxx \
-	$(TARGET_DIR)\font.hxx \
 	$(TARGET_DIR)\opengl.hxx
 
 # directories

@@ -1,34 +1,44 @@
 #include <windows.h>
 #include <assert.h>
+#include <boost/log/trivial.hpp>
 #include <ft2build.h>
 #include FT_FREETYPE_H
-#include <boost/log/trivial.hpp>
 #include <GL/glew.h>
 #include "font.hxx"
 #include "game.hxx"
 
 Font::~Font()
 {
-	if (vbo)
-		glDeleteBuffers(1, &vbo);
 	if (face)
 		FT_Done_Face(face);
+	glDeleteBuffers(1, &vbo);
 }
 
-Font::Font() : face(0), vbo(0)
+Font::Font() : shader(), vbo(0), face(0)
 {
-	shader = &Game::instance()->getTextShader();
+	shader = Game::instance()->getTextShader();
+	glGenBuffers(1, &vbo);
+}
+
+Font::Font(const char *faceName, int size) : shader(), vbo(0), face(0)
+{
+	shader = Game::instance()->getTextShader();
+	glGenBuffers(1, &vbo);
+	load(faceName, size);
 }
 
 bool Font::load(const char *faceName, int size)
 {
+	FT_Face face;
 	FT_Error error = FT_New_Face(Game::instance()->getFreeTypeLibrary(), faceName, 0, &face);
 	if (error)
 		return false;
-
 	FT_Set_Pixel_Sizes(face, 0, size);
 
-	glGenBuffers(1, &vbo);
+	if (this->face)
+		FT_Done_Face(this->face);
+	this->face = face;
+
 	return true;
 }
 

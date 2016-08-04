@@ -1,8 +1,8 @@
 #include <windows.h>
 #include <assert.h>
+#include <boost/log/trivial.hpp>
 #include <ft2build.h>
 #include FT_FREETYPE_H
-#include <boost/log/trivial.hpp>
 #include <GL/glew.h>
 #include "opengl.hxx"
 #include "game.hxx"

@@ -1,8 +1,8 @@
 #include <windows.h>
 #include <assert.h>
+#include <boost/log/trivial.hpp>
 #include <ft2build.h>
 #include FT_FREETYPE_H
-#include <boost/log/trivial.hpp>
 #include <GL/glew.h>
 #include "opengl.hxx"
 #include "game.hxx"
@@ -14,16 +14,41 @@ Game *Game::singleton = NULL;
 
 Game::~Game()
 {
+	glUseProgram(0);
 	delete scene;
-	fini();
+
+	delete bigFont;
+	delete normalFont;
+	delete smallFont;
+
+	FT_Done_FreeType(freeTypeLibrary);
+
+	delete textShader;
+	delete normalShader;
+
 	singleton = NULL;
 }
 
-Game::Game(HDC h) : hdc(h), normalShader(), textShader()
+Game::Game(HDC h)
+	: hdc(h), normalShader(), textShader()
+	, freeTypeLibrary(0), smallFont(), normalFont(), bigFont()
+	, scene()
 {
 	assert(singleton == NULL);
 	singleton = this;
-	init();
+
+	normalShader = new NormalShader();
+	textShader = new TextShader();
+
+	FT_Error error = FT_Init_FreeType(&freeTypeLibrary);
+	if (error) {
+		BOOST_LOG_TRIVIAL(debug) << "FreeType initialization failed!";
+	}
+
+	smallFont = new Font("C:\\WINDOWS\\Fonts\\arial.ttf", 24);
+	normalFont = new Font("C:\\WINDOWS\\Fonts\\arial.ttf", 32);
+	bigFont = new Font("C:\\WINDOWS\\Fonts\\timesbd.ttf", 64);
+
 	scene = new TitleScene();
 }
 
@@ -31,15 +56,15 @@ void Game::changeScene(int sceneId)
 {
 	delete scene;
 	switch (sceneId) {
+	default:
+	case SCENE_DEFAULT:
+		scene = new Scene();
+		break;
 	case SCENE_TITLE:
 		scene = new TitleScene();
 		break;
 	case SCENE_PLAY:
 		scene = new PlayScene();
-		break;
-	case SCENE_DEFAULT:
-	default:
-		scene = new Scene();
 		break;
 	}
 }
@@ -56,20 +81,9 @@ void Game::render()
 
 void Game::init()
 {
-	normalShader = new NormalShader();
-	textShader = new TextShader();
-
-	FT_Error error = FT_Init_FreeType(&freeTypeLibrary);
-	if (error) {
-		BOOST_LOG_TRIVIAL(debug) << "FreeType initialization failed!";
-	}
 }
 
 void Game::fini()
 {
-	glUseProgram(0);
-	FT_Done_FreeType(freeTypeLibrary);
-	delete textShader;
-	delete normalShader;
 }
 

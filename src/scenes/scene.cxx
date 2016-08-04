@@ -1,8 +1,8 @@
 #include <windows.h>
 #include <assert.h>
+#include <boost/log/trivial.hpp>
 #include <ft2build.h>
 #include FT_FREETYPE_H
-#include <boost/log/trivial.hpp>
 #include <GL/glew.h>
 #include "../game.hxx"
 #include "scene.hxx"
@@ -13,10 +13,15 @@ Scene::~Scene()
 }
 
 Scene::Scene()
-	: hdc(Game::instance()->getDevice())
-	, normalShader(Game::instance()->getNormalShader()), textShader(Game::instance()->getTextShader())
-	, screenRect(), smallFont(), frameCount(0), fps(0), timeStart(0)
+	: hdc(0), normalShader(), textShader(), screenRect()
+	, smallFont(), normalFont(), bigFont()
+	, fps(0), frameCount(0), timeStart(0)
 {
+	Game *game = Game::instance();
+	hdc = game->getDevice();
+	normalShader = game->getNormalShader();
+	textShader = game->getTextShader();
+
 	int params[4];
 	glGetIntegerv(GL_VIEWPORT, params);
 	screenRect.left = params[0];
@@ -24,8 +29,9 @@ Scene::Scene()
 	screenRect.right = screenRect.left + params[2];
 	screenRect.bottom = screenRect.top + params[3];
 
-	smallFont.load("C:\\WINDOWS\\Fonts\\arial.ttf", 24);
-	smallFont.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+	smallFont = game->getSmallFont();
+	normalFont = game->getNormalFont();
+	bigFont = game->getBigFont();
 
 	timeStart = GetTickCount();
 
@@ -46,30 +52,26 @@ void Scene::computeFPS()
 	ULONGLONG timeCurrent = GetTickCount();
 	ULONGLONG timeUsage = timeCurrent - timeStart;
 	if (timeUsage > 1000) {
-		fps = frameCount * 1000 / timeUsage;
+		fps = (int)(frameCount * 1000 / timeUsage);
 		timeStart = timeCurrent;
 		frameCount = 0;
-		BOOST_LOG_TRIVIAL(trace) << "FPS: " << fps;
+
 		wchar_t buffer[64];
-		wsprintf(buffer, L"FPS: %ld\n", fps);
+		wsprintf(buffer, L"FPS: %d\n", fps);
 		OutputDebugStringW(buffer);
+		BOOST_LOG_TRIVIAL(trace) << "FPS: " << fps;
 	}
-}
 
-void Scene::drawFPS()
-{
-	ULONGLONG fps = getFPS();
 	char buffer[64];
-	sprintf(buffer, "%ld", (long)fps);
-
+	sprintf(buffer, "%d", fps);
 	RECT rc = getScreenRect();
 	float sx = 2.0f / (rc.right - rc.left);
 	float sy = 2.0f / (rc.bottom - rc.top);
-
 	float w, h;
-	textShader.useProgram();
-	smallFont.measureText(buffer, &w, &h, sx, sy);
-	smallFont.drawText(buffer, 1 - w * 2, -1 + h, sx, sy);
+	getTextShader()->useProgram();
+	getSmallFont()->setColor(1.0f, 1.0f, 1.0f, 0.5f);
+	getSmallFont()->measureText(buffer, &w, &h, sx, sy);
+	getSmallFont()->drawText(buffer, 1 - w * 2, -1 + h, sx, sy);
 }
 
 bool Scene::handleKey(HWND hwnd, WPARAM key)
@@ -83,7 +85,6 @@ void Scene::render()
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
 	computeFPS();
-	drawFPS();
 	SwapBuffers(getDevice());
 }
 
