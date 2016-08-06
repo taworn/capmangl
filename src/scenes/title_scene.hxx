@@ -1,8 +1,13 @@
+/**
+ * @file title_scene.hxx
+ * @desc Title scene header.
+ */
 #ifndef SCENES_TITLE_SCENE_HXX
 #define SCENES_TITLE_SCENE_HXX
 
-class Font;
-
+/**
+ * Title game scene.
+ */
 class TitleScene : public Scene
 {
 public:

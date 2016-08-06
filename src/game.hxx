@@ -1,3 +1,7 @@
+/**
+ * @file game.hxx
+ * @desc Game engine header.
+ */
 #ifndef GAME_HXX
 #define GAME_HXX
 
@@ -12,16 +16,38 @@
 
 class Scene;
 
+/**
+ * A simple game engine class.
+ */
 class Game
 {
 public:
 	static Game* instance() { return singleton; }
 
+	/**
+	 * Destructs the game engine.
+	 */
 	~Game();
+
+	/**
+	 * Constructs the game engine.
+	 */
 	Game(HDC h);
 
+	/**
+	 * Changes the new scene.
+	 * @param sceneId A scene identifier, look at SCENE_*.
+	 */
 	void changeScene(int sceneId);
+
+	/**
+	 * Called when user press keyboard.
+	 */
 	bool handleKey(HWND hwnd, WPARAM key);
+
+	/**
+	 * Called every render frame.
+	 */
 	void render();
 
 	HDC getDevice() const { return hdc; }

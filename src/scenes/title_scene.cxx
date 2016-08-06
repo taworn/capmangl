@@ -1,3 +1,7 @@
+/**
+ * @file title_scene.cxx
+ * @desc Title scene module.
+ */
 #include <windows.h>
 #include <assert.h>
 #include <boost/log/trivial.hpp>

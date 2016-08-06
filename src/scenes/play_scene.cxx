@@ -1,3 +1,7 @@
+/**
+ * @file play_scene.cxx
+ * @desc Playing scene module.
+ */
 #include <windows.h>
 #include <assert.h>
 #include <boost/log/trivial.hpp>

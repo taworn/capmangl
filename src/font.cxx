@@ -1,3 +1,7 @@
+/**
+ * @file font.cxx
+ * @desc Font module.
+ */
 #include <windows.h>
 #include <assert.h>
 #include <boost/log/trivial.hpp>
@@ -24,10 +28,10 @@ Font::Font(const char *faceName, int size) : shader(), vbo(0), face(0)
 {
 	shader = Game::instance()->getTextShader();
 	glGenBuffers(1, &vbo);
-	load(faceName, size);
+	init(faceName, size);
 }
 
-bool Font::load(const char *faceName, int size)
+bool Font::init(const char *faceName, int size)
 {
 	FT_Face face;
 	FT_Error error = FT_New_Face(Game::instance()->getFreeTypeLibrary(), faceName, 0, &face);

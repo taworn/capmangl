@@ -1,3 +1,7 @@
+/**
+ * @file shader.cxx
+ * @desc Shader program module.
+ */
 #include <windows.h>
 #include <GL/glew.h>
 #include "shader.hxx"

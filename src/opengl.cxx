@@ -1,3 +1,7 @@
+/**
+ * @file opengl.cxx
+ * @desc OpenGL module.
+ */
 #include <windows.h>
 #include <GL/glew.h>
 #include "opengl.hxx"

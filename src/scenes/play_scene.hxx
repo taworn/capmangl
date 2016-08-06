@@ -1,6 +1,13 @@
+/**
+ * @file play_scene.hxx
+ * @desc Playing scene header.
+ */
 #ifndef SCENES_PLAY_SCENE_HXX
 #define SCENES_PLAY_SCENE_HXX
 
+/**
+ * Playing game scene.
+ */
 class PlayScene : public Scene
 {
 public:

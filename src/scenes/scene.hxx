@@ -1,3 +1,7 @@
+/**
+ * @file scene.hxx
+ * @desc Game scene header.
+ */
 #ifndef SCENES_SCENE_HXX
 #define SCENES_SCENE_HXX
 
@@ -6,16 +10,36 @@ class NormalShader;
 class TextShader;
 class Font;
 
+/**
+ * A single game scene.
+ */
 class Scene
 {
 public:
+	/**
+	 * Destructs a game scene.
+	 */
 	virtual ~Scene();
+
+	/**
+	 * Constructs a game scene.
+	 */
 	Scene();
 
 protected:
+	/**
+	 * Initializes a game scene.
+	 */
 	void init();
+
+	/**
+	 * Uninitializes a game scene.
+	 */
 	void fini();
 
+	/**
+	 * Computes current frames per second.
+	 */
 	void computeFPS();
 
 	HDC getDevice() { return hdc; }
@@ -43,7 +67,14 @@ private:
 	Scene& operator=(const Scene&);
 
 public:
+	/**
+	 * Called when user press keyboard.
+	 */
 	virtual bool handleKey(HWND hwnd, WPARAM key);
+
+	/**
+	 * Called every render frame.
+	 */
 	virtual void render();
 };
 

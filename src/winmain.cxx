@@ -1,3 +1,7 @@
+/**
+ * @file winmain.cxx
+ * @desc Main program.
+ */
 #include <windows.h>
 #include <assert.h>
 #include <boost/log/trivial.hpp>
@@ -9,6 +13,9 @@
 
 static Game *game = NULL;
 
+/**
+ * Initializes all core modules.
+ */
 bool initialize(HWND hwnd)
 {
 	if (!gl_init(hwnd))
@@ -17,6 +24,9 @@ bool initialize(HWND hwnd)
 	return true;
 }
 
+/**
+ * Uninitializes all core modules.
+ */
 void uninitialize(HWND hwnd)
 {
 	if (game) {
@@ -26,6 +36,9 @@ void uninitialize(HWND hwnd)
 	gl_uninit(hwnd);
 }
 
+/**
+ * The main window function.
+ */
 LRESULT CALLBACK
 WindowProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -52,11 +65,15 @@ WindowProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 	return DefWindowProc(hwnd, message, wParam, lParam);
 }
 
+/**
+ * Main program for Windows.
+ */
 int WINAPI
 WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
 	BOOST_LOG_TRIVIAL(trace) << "CapmanGL";
 
+	// registers window class
 	const TCHAR windowClassName[] = TEXT("capmangl");
 	WNDCLASSEX wc = { 0 };
 	wc.cbSize = sizeof(WNDCLASSEX);
@@ -73,6 +90,7 @@ WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdS
 	wc.hIconSm = 0;
 	RegisterClassEx(&wc);
 
+	// creates window
 	HWND hwnd = CreateWindowEx(0,
 		windowClassName, TEXT("Capman"),
 		WS_POPUP,
@@ -83,11 +101,13 @@ WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdS
 	}
 	ShowWindow(hwnd, nCmdShow);
 
+	// initializes all core modules
 	if (!initialize(hwnd)) {
 		uninitialize(hwnd);
 		return 0;
 	}
 
+	// main loop
 	MSG msg;
 	while (1) {
 		while (PeekMessage(&msg, 0, 0, 0, PM_REMOVE)) {

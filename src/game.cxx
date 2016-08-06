@@ -1,3 +1,7 @@
+/**
+ * @file game.cxx
+ * @desc Game engine module.
+ */
 #include <windows.h>
 #include <assert.h>
 #include <boost/log/trivial.hpp>
