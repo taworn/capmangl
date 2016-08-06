@@ -89,14 +89,14 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>BOOST_AUTO_LINK_TAGGED;_CRT_SECURE_NO_WARNINGS;GLEW_STATIC;WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\sdks\boost-1.61.0;$(ProjectDir)glew\include;$(ProjectDir)glm;$(ProjectDir)freetype\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\sdks\boost-1.61.0;$(ProjectDir)glew\include;$(ProjectDir)glm;$(ProjectDir)freetype\include;$(ProjectDir)libpng-1.6.23;$(ProjectDir)zlib-1.2.8;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>D:\sdks\boost-1.61.0\lib\x86;$(ProjectDir)glew\lib\x86;$(ProjectDir)freetype\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;opengl32.lib;glew32s.lib;freetype265d.lib</AdditionalDependencies>
-      <AdditionalOptions>/IGNORE:4099 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalLibraryDirectories>D:\sdks\boost-1.61.0\lib\x86;$(ProjectDir)glew\lib\x86;$(ProjectDir)freetype\lib\x86;$(ProjectDir)libpng-1.6.23\x86;$(ProjectDir)zlib-1.2.8\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;opengl32.lib;glew32s.lib;freetype265d.lib;libpng.lib;zlib.lib</AdditionalDependencies>
+      <AdditionalOptions>/IGNORE:4098 /IGNORE:4099 %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -107,14 +107,14 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>BOOST_AUTO_LINK_TAGGED;_CRT_SECURE_NO_WARNINGS;GLEW_STATIC;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\sdks\boost-1.61.0;$(ProjectDir)glew\include;$(ProjectDir)glm;$(ProjectDir)freetype\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\sdks\boost-1.61.0;$(ProjectDir)glew\include;$(ProjectDir)glm;$(ProjectDir)freetype\include;$(ProjectDir)libpng-1.6.23;$(ProjectDir)zlib-1.2.8;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>D:\sdks\boost-1.61.0\lib\x64;$(ProjectDir)glew\lib\x64;$(ProjectDir)freetype\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;opengl32.lib;glew32s.lib;freetype265d.lib</AdditionalDependencies>
-      <AdditionalOptions>/IGNORE:4099 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalLibraryDirectories>D:\sdks\boost-1.61.0\lib\x64;$(ProjectDir)glew\lib\x64;$(ProjectDir)freetype\lib\x64;$(ProjectDir)libpng-1.6.23\x64;$(ProjectDir)zlib-1.2.8\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;opengl32.lib;glew32s.lib;freetype265d.lib;libpng.lib;zlib.lib</AdditionalDependencies>
+      <AdditionalOptions>/IGNORE:4098 /IGNORE:4099 %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -127,16 +127,16 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>BOOST_AUTO_LINK_TAGGED;_CRT_SECURE_NO_WARNINGS;GLEW_STATIC;WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\sdks\boost-1.61.0;$(ProjectDir)glew\include;$(ProjectDir)glm;$(ProjectDir)freetype\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\sdks\boost-1.61.0;$(ProjectDir)glew\include;$(ProjectDir)glm;$(ProjectDir)freetype\include;$(ProjectDir)libpng-1.6.23;$(ProjectDir)zlib-1.2.8;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>D:\sdks\boost-1.61.0\lib\x86;$(ProjectDir)glew\lib\x86;$(ProjectDir)freetype\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;opengl32.lib;glew32s.lib;freetype265.lib</AdditionalDependencies>
-      <AdditionalOptions>/IGNORE:4099 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalLibraryDirectories>D:\sdks\boost-1.61.0\lib\x86;$(ProjectDir)glew\lib\x86;$(ProjectDir)freetype\lib\x86;$(ProjectDir)libpng-1.6.23\x86;$(ProjectDir)zlib-1.2.8\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;opengl32.lib;glew32s.lib;freetype265.lib;libpng.lib;zlib.lib</AdditionalDependencies>
+      <AdditionalOptions>/IGNORE:4098 /IGNORE:4099 %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -149,22 +149,23 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>BOOST_AUTO_LINK_TAGGED;_CRT_SECURE_NO_WARNINGS;GLEW_STATIC;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\sdks\boost-1.61.0;$(ProjectDir)glew\include;$(ProjectDir)glm;$(ProjectDir)freetype\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\sdks\boost-1.61.0;$(ProjectDir)glew\include;$(ProjectDir)glm;$(ProjectDir)freetype\include;$(ProjectDir)libpng-1.6.23;$(ProjectDir)zlib-1.2.8;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>D:\sdks\boost-1.61.0\lib\x64;$(ProjectDir)glew\lib\x64;$(ProjectDir)freetype\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;opengl32.lib;glew32s.lib;freetype265.lib</AdditionalDependencies>
-      <AdditionalOptions>/IGNORE:4099 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalLibraryDirectories>D:\sdks\boost-1.61.0\lib\x64;$(ProjectDir)glew\lib\x64;$(ProjectDir)freetype\lib\x64;$(ProjectDir)libpng-1.6.23\x64;$(ProjectDir)zlib-1.2.8\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;opengl32.lib;glew32s.lib;freetype265.lib;libpng.lib;zlib.lib</AdditionalDependencies>
+      <AdditionalOptions>/IGNORE:4098 /IGNORE:4099 %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\font.cxx" />
     <ClCompile Include="src\game.cxx" />
     <ClCompile Include="src\opengl.cxx" />
+    <ClCompile Include="src\pngimage.cxx" />
     <ClCompile Include="src\scenes\play_scene.cxx" />
     <ClCompile Include="src\scenes\scene.cxx" />
     <ClCompile Include="src\scenes\title_scene.cxx" />
@@ -175,6 +176,7 @@
     <ClInclude Include="src\font.hxx" />
     <ClInclude Include="src\game.hxx" />
     <ClInclude Include="src\opengl.hxx" />
+    <ClInclude Include="src\pngimage.hxx" />
     <ClInclude Include="src\scenes\play_scene.hxx" />
     <ClInclude Include="src\scenes\scene.hxx" />
     <ClInclude Include="src\scenes\title_scene.hxx" />

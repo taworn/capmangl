@@ -5,9 +5,9 @@
 #ifndef SCENES_TITLE_SCENE_HXX
 #define SCENES_TITLE_SCENE_HXX
 
-/**
- * Title game scene.
- */
+ /**
+  * Title game scene.
+  */
 class TitleScene : public Scene
 {
 public:
@@ -19,6 +19,7 @@ protected:
 	void fini();
 
 private:
+	PNGImage image;
 	Font *titleFont;
 
 public:

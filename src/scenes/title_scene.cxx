@@ -17,13 +17,14 @@ TitleScene::~TitleScene()
 	fini();
 }
 
-TitleScene::TitleScene() : Scene()
+TitleScene::TitleScene() : Scene(), image()
 {
 	init();
 }
 
 void TitleScene::init()
 {
+	image.init("res\\a.png");
 	titleFont = new Font("C:\\WINDOWS\\Fonts\\timesbd.ttf", 128);
 }
 

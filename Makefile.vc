@@ -88,6 +88,7 @@ MODULES=\
 	$(TARGET_DIR)\scenes\scene.obj \
 	$(TARGET_DIR)\game.obj \
 	$(TARGET_DIR)\font.obj \
+	$(TARGET_DIR)\pngimage.obj \
 	$(TARGET_DIR)\shaders\shader.obj \
 	$(TARGET_DIR)\opengl.obj
 
@@ -98,17 +99,18 @@ HEADERS=\
 	$(TARGET_DIR)\scenes\scene.hxx \
 	$(TARGET_DIR)\game.hxx \
 	$(TARGET_DIR)\font.hxx \
+	$(TARGET_DIR)\pngimage.hxx \
 	$(TARGET_DIR)\shaders\text_shader.hxx \
 	$(TARGET_DIR)\shaders\normal_shader.hxx \
 	$(TARGET_DIR)\shaders\shader.hxx \
 	$(TARGET_DIR)\opengl.hxx
 
 # directories
-INCLUDE_DIRS=/I$(BOOST_INCLUDE) /I.\glew\include /I.\glm /I.\freetype\include
-LIBRARY_DIRS=/LIBPATH:$(BOOST_LIB) /LIBPATH:.\glew\lib\$(X64_TAG) /LIBPATH:.\freetype\lib\$(X64_TAG)
+INCLUDE_DIRS=/I$(BOOST_INCLUDE) /I.\glew\include /I.\glm /I.\freetype\include /I.\libpng-1.6.23 /I.\zlib-1.2.8
+LIBRARY_DIRS=/LIBPATH:$(BOOST_LIB) /LIBPATH:.\glew\lib\$(X64_TAG) /LIBPATH:.\freetype\lib\$(X64_TAG) /LIBPATH:.\libpng-1.6.23\$(X64_TAG) /LIBPATH:.\zlib-1.2.8\$(X64_TAG)
 
 # libraries
-LIBRARIES=freetype265$(DEBUG_TAG).lib glew32s.lib opengl32.lib user32.lib gdi32.lib kernel32.lib msvcrt$(DEBUG_TAG).lib
+LIBRARIES=libpng.lib zlib.lib freetype265$(DEBUG_TAG).lib glew32s.lib opengl32.lib user32.lib gdi32.lib kernel32.lib msvcrt$(DEBUG_TAG).lib
 
 # executable
 OUTPUT=capmangl$(SHARED_TAG)$(DEBUG_TAG).exe
@@ -117,7 +119,7 @@ OUTPUT=capmangl$(SHARED_TAG)$(DEBUG_TAG).exe
 COMMON_DEFINES=/DGLEW_STATIC /DBOOST_AUTO_LINK_TAGGED /DUNICODE=1 /D_UNICODE=1 /D_CRT_SECURE_NO_DEPRECATE
 COMMON_CFLAGS=/nologo /W3 /EHsc /Fd$(OUTPUT_DIR)\$(OUTPUT).pdb $(INCLUDE_DIRS) $(COMMON_DEFINES) $(X64_CFLAGS) $(DEBUG_CFLAGS) $(SHARED_CFLAGS)
 COMMON_RFLAGS=/nologo $(X64_RFLAGS) $(DEBUG_RFLAGS) $(SHARED_RFLAGS)
-COMMON_LFLAGS=/nologo /MANIFEST:EMBED /INCREMENTAL:NO /NOD:libcmt /NOD:libcmtd /IGNORE:4099 /PDB:$(OUTPUT_DIR)\$(OUTPUT).pdb $(LIBRARY_DIRS) $(X64_LFLAGS) $(DEBUG_LFLAGS) $(SHARED_LFLAGS)
+COMMON_LFLAGS=/nologo /MANIFEST:EMBED /INCREMENTAL:NO /NOD:libcmt /NOD:libcmtd /IGNORE:4098 /IGNORE:4099 /PDB:$(OUTPUT_DIR)\$(OUTPUT).pdb $(LIBRARY_DIRS) $(X64_LFLAGS) $(DEBUG_LFLAGS) $(SHARED_LFLAGS)
 
 
 #

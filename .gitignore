@@ -25,6 +25,10 @@ obj/
 !glew/lib/x86/
 !freetype/lib/x64/
 !freetype/lib/x86/
+!libpng-1.6.23/x64/
+!libpng-1.6.23/x86/
+!zlib-1.2.8/x64/
+!zlib-1.2.8/x86/
 
 # Visual Studio 2015 cache/options directory
 .vs/

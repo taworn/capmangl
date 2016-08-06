@@ -90,6 +90,7 @@ MODULES:=\
 	$(TARGET_DIR)\scenes\scene.o \
 	$(TARGET_DIR)\game.o \
 	$(TARGET_DIR)\font.o \
+	$(TARGET_DIR)\pngimage.o \
 	$(TARGET_DIR)\shaders\shader.o \
 	$(TARGET_DIR)\opengl.o
 
@@ -100,17 +101,18 @@ HEADERS:=\
 	$(TARGET_DIR)\scenes\scene.hxx \
 	$(TARGET_DIR)\game.hxx \
 	$(TARGET_DIR)\font.hxx \
+	$(TARGET_DIR)\pngimage.hxx \
 	$(TARGET_DIR)\shaders\text_shader.hxx \
 	$(TARGET_DIR)\shaders\normal_shader.hxx \
 	$(TARGET_DIR)\shaders\shader.hxx \
 	$(TARGET_DIR)\opengl.hxx
 
 # directories
-INCLUDE_DIRS:=-I$(BOOST_INCLUDE) -I.\glew\include -I.\glm -I.\freetype\include
-LIBRARY_DIRS:=-L$(BOOST_LIB) -L.\glew\lib\$(X64_TAG) -L.\freetype\lib\$(X64_TAG)
+INCLUDE_DIRS:=-I$(BOOST_INCLUDE) -I.\glew\include -I.\glm -I.\freetype\include -I.\libpng-1.6.23 -I.\zlib-1.2.8
+LIBRARY_DIRS:=-L$(BOOST_LIB) -L.\glew\lib\$(X64_TAG) -L.\freetype\lib\$(X64_TAG) -L.\libpng-1.6.23\$(X64_TAG) -L.\zlib-1.2.8\$(X64_TAG)
 
 # libraries
-LIBRARIES:=-lboost_log-mt$(BOOST_TAG) -lboost_thread-mt$(BOOST_TAG) -lboost_system-mt$(BOOST_TAG) -lfreetype -lglew32s -lopengl32 -luser32 -lgdi32 -lkernel32
+LIBRARIES:=-lboost_log-mt$(BOOST_TAG) -lboost_thread-mt$(BOOST_TAG) -lboost_system-mt$(BOOST_TAG) -lpng -lz -lfreetype -lglew32s -lopengl32 -luser32 -lgdi32 -lkernel32
 
 # executable
 OUTPUT:=capmanglmingw$(SHARED_TAG)$(DEBUG_TAG).exe

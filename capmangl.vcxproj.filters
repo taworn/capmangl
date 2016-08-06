@@ -51,6 +51,9 @@
     <ClCompile Include="src\font.cxx">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\pngimage.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\opengl.hxx">
@@ -78,6 +81,9 @@
       <Filter>Header Files\shaders</Filter>
     </ClInclude>
     <ClInclude Include="src\font.hxx">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\pngimage.hxx">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
