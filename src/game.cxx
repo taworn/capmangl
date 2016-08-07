@@ -43,6 +43,7 @@ Game::Game(HDC h)
 
 	normalShader = new NormalShader();
 	textShader = new TextShader();
+	textureShader = new TextureShader();
 
 	FT_Error error = FT_Init_FreeType(&freeTypeLibrary);
 	if (error) {

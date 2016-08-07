@@ -182,6 +182,7 @@
     <ClInclude Include="src\scenes\title_scene.hxx" />
     <ClInclude Include="src\shaders\normal_shader.hxx" />
     <ClInclude Include="src\shaders\shader.hxx" />
+    <ClInclude Include="src\shaders\texture_shader.hxx" />
     <ClInclude Include="src\shaders\text_shader.hxx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

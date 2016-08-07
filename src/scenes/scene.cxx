@@ -17,14 +17,15 @@ Scene::~Scene()
 }
 
 Scene::Scene()
-	: hdc(0), normalShader(), textShader(), screenRect()
-	, smallFont(), normalFont(), bigFont()
+	: hdc(0), normalShader(), textShader(), textureShader()
+	, screenRect(), smallFont(), normalFont(), bigFont()
 	, fps(0), frameCount(0), timeStart(0)
 {
 	Game *game = Game::instance();
 	hdc = game->getDevice();
 	normalShader = game->getNormalShader();
 	textShader = game->getTextShader();
+	textureShader = game->getTextureShader();
 
 	int params[4];
 	glGetIntegerv(GL_VIEWPORT, params);

@@ -8,6 +8,7 @@
 #include "shaders/shader.hxx"
 #include "shaders/normal_shader.hxx"
 #include "shaders/text_shader.hxx"
+#include "shaders/texture_shader.hxx"
 
 #include "pngimage.hxx"
 #include "font.hxx"
@@ -55,6 +56,7 @@ public:
 	HDC getDevice() const { return hdc; }
 	NormalShader* getNormalShader() { return normalShader; }
 	TextShader* getTextShader() { return textShader; }
+	TextureShader* getTextureShader() { return textureShader; }
 	Font* getSmallFont() { return smallFont; }
 	Font* getNormalFont() { return normalFont; }
 	Font* getBigFont() { return bigFont; }
@@ -64,6 +66,7 @@ private:
 	HDC hdc;
 	NormalShader *normalShader;
 	TextShader *textShader;
+	TextureShader *textureShader;
 	FT_Library freeTypeLibrary;
 	Font *smallFont;
 	Font *normalFont;

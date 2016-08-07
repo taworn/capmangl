@@ -13,13 +13,6 @@ class TextShader;
 class Font
 {
 public:
-	struct Point {
-		GLfloat x;
-		GLfloat y;
-		GLfloat s;
-		GLfloat t;
-	};
-
 	/**
 	 * Destructs a font.
 	 */

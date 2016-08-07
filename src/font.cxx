@@ -70,7 +70,7 @@ void Font::measureText(const char *text, GLfloat *w, GLfloat *h, GLfloat sx, GLf
 
 	for (p = text; *p; p++) {
 		if (FT_Load_Char(face, *p, FT_LOAD_RENDER) == 0) {
-			width += g->bitmap.width;
+			width += g->advance.x >> 6;
 			if (height < g->bitmap.rows)
 				height = g->bitmap.rows;
 		}
@@ -123,11 +123,12 @@ void Font::drawText(const char *text, GLfloat x, GLfloat y, GLfloat sx, GLfloat 
 			GLfloat w = g->bitmap.width * sx;
 			GLfloat h = g->bitmap.rows * sy;
 
-			Point box[4] = {
-				{x2, -y2, 0, 0},
-				{x2 + w, -y2, 1, 0},
-				{x2, -y2 - h, 0, 1},
-				{x2 + w, -y2 - h, 1, 1},
+			GLfloat box[16] = {
+				// x, y, s, t
+				x2, -y2, 0, 0,
+				x2 + w, -y2, 1, 0,
+				x2, -y2 - h, 0, 1,
+				x2 + w, -y2 - h, 1, 1,
 			};
 
 			// Draw the character on the screen

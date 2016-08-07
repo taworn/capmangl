@@ -86,5 +86,8 @@
     <ClInclude Include="src\pngimage.hxx">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\shaders\texture_shader.hxx">
+      <Filter>Header Files\shaders</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

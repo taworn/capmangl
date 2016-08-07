@@ -45,6 +45,7 @@ protected:
 	HDC getDevice() { return hdc; }
 	NormalShader* getNormalShader() { return normalShader; }
 	TextShader* getTextShader() { return textShader; }
+	TextureShader* getTextureShader() { return textureShader; }
 	RECT getScreenRect() const { return screenRect; }
 	Font* getSmallFont() { return smallFont; }
 	Font* getNormalFont() { return normalFont; }
@@ -55,6 +56,7 @@ private:
 	HDC hdc;
 	NormalShader *normalShader;
 	TextShader *textShader;
+	TextureShader *textureShader;
 	RECT screenRect;
 	Font *smallFont;
 	Font *normalFont;
