@@ -75,8 +75,8 @@ void Scene::computeFPS()
 	float w, h;
 	getTextShader()->useProgram();
 	getSmallFont()->setColor(1.0f, 1.0f, 1.0f, 0.5f);
-	getSmallFont()->measureText(buffer, &w, &h, sx, sy);
-	getSmallFont()->drawText(buffer, 1 - w * 2, -1 + h, sx, sy);
+	getSmallFont()->measure(buffer, &w, &h, sx, sy);
+	getSmallFont()->draw(buffer, 1 - w * 2, -1 + h, sx, sy);
 }
 
 bool Scene::handleKey(HWND hwnd, WPARAM key)

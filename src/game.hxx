@@ -11,6 +11,7 @@
 #include "shaders/texture_shader.hxx"
 
 #include "pngimage.hxx"
+#include "texture.hxx"
 #include "font.hxx"
 
 #define SCENE_DEFAULT 0

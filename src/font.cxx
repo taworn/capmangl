@@ -61,7 +61,7 @@ void Font::setColor(GLfloat rgba[4])
 	glUniform4fv(shader->getColor(), 1, rgba);
 }
 
-void Font::measureText(const char *text, GLfloat *w, GLfloat *h, GLfloat sx, GLfloat sy)
+void Font::measure(const char *text, GLfloat *w, GLfloat *h, GLfloat sx, GLfloat sy)
 {
 	FT_GlyphSlot g = face->glyph;
 	const char *p;
@@ -80,7 +80,7 @@ void Font::measureText(const char *text, GLfloat *w, GLfloat *h, GLfloat sx, GLf
 	*h = (GLfloat)height * sy;
 }
 
-void Font::drawText(const char *text, GLfloat x, GLfloat y, GLfloat sx, GLfloat sy)
+void Font::draw(const char *text, GLfloat x, GLfloat y, GLfloat sx, GLfloat sy)
 {
 	FT_GlyphSlot g = face->glyph;
 	const char *p;

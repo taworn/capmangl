@@ -20,6 +20,7 @@ protected:
 
 private:
 	PNGImage image;
+	Texture *texture;
 	Font *titleFont;
 
 public:

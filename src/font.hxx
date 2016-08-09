@@ -46,12 +46,12 @@ public:
 	/**
 	 * Measures width and height of text.
 	 */
-	void measureText(const char *text, GLfloat *w, GLfloat *h, GLfloat sx, GLfloat sy);
+	void measure(const char *text, GLfloat *w, GLfloat *h, GLfloat sx, GLfloat sy);
 
 	/**
 	 * Draws text.
 	 */
-	void drawText(const char *text, GLfloat x, GLfloat y, GLfloat sx, GLfloat sy);
+	void draw(const char *text, GLfloat x, GLfloat y, GLfloat sx, GLfloat sy);
 
 private:
 	TextShader *shader;
