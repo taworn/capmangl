@@ -16,49 +16,45 @@
 
 Texture::~Texture()
 {
-	glDeleteTextures(1, &texture);
-	glDeleteBuffers(1, &ebo);
-	glDeleteBuffers(1, &vbo);
-	glDeleteVertexArrays(1, &vao);
+	glDeleteTextures(1, &textureHandle);
+	glDeleteBuffers(1, &indicesHandle);
+	glDeleteBuffers(1, &verticesHandle);
 }
 
-Texture::Texture() : shader(), vao(0), vbo(0), ebo(0), texture(0), image(NULL)
+Texture::Texture() : shader(), verticesHandle(0), indicesHandle(0), textureHandle(0), image(NULL)
 {
 	shader = Game::instance()->getTextureShader();
-	glGenVertexArrays(1, &vao);
-	glGenBuffers(1, &vbo);
-	glGenBuffers(1, &ebo);
-	glGenTextures(1, &texture);
 
-	glBindVertexArray(vao);
+	glGenBuffers(1, &verticesHandle);
+	glGenBuffers(1, &indicesHandle);
+	glGenTextures(1, &textureHandle);
 
-	GLfloat vertices[] = {
-		// Positions         // Texture Coords
-		1.0f,  1.0f, 0.0f,   1.0f, 0.0f,
-		1.0f, -1.0f, 0.0f,   1.0f, 1.0f,
-		-1.0f, -1.0f, 0.0f,  0.0f, 1.0f,
-		-1.0f,  1.0f, 0.0f,  0.0f, 0.0f,
+	GLfloat verticesData[] = {
+		// positions         // coords
+		1.0f, 1.0f, 0.0f,    1.0f, 1.0f,
+		1.0f, -1.0f, 0.0f,   1.0f, 0.0f,
+		-1.0f, -1.0f, 0.0f,  0.0f, 0.0f,
+		-1.0f,  1.0f, 0.0f,  0.0f, 1.0f,
 	};
-	GLuint indices[] = {
-		// First Triangle
+	GLuint indicesData[] = {
+		// first triangle
 		0, 1, 3,
-		// Second Triangle
+		// second triangle
 		1, 2, 3,
 	};
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, verticesHandle);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(verticesData), verticesData, GL_STATIC_DRAW);
 
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indicesHandle);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indicesData), indicesData, GL_STATIC_DRAW);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindVertexArray(0);
 }
 
 void Texture::init(const PNGImage *image)
 {
-	glBindTexture(GL_TEXTURE_2D, texture);
+	glBindTexture(GL_TEXTURE_2D, textureHandle);
 
 	// sets our texture parameters
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -82,18 +78,19 @@ void Texture::draw(const glm::mat4x4 &mvpMatrix)
 	shader->useProgram();
 	glEnable(GL_TEXTURE_2D);
 
-	glBindVertexArray(vao);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+	glBindBuffer(GL_ARRAY_BUFFER, verticesHandle);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indicesHandle);
 
+	// uses texture
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, texture);
+	glBindTexture(GL_TEXTURE_2D, textureHandle);
 	glUniform1i(shader->getSampler(), 0);
 
-	// position attribute
+	// vertices positions
 	glVertexAttribPointer(shader->getPosition(), 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)0);
 	glEnableVertexAttribArray(shader->getPosition());
-	// texcoord attribute
+
+	// texture coordinates
 	glVertexAttribPointer(shader->getCoord(), 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
 	glEnableVertexAttribArray(shader->getCoord());
 
@@ -101,8 +98,8 @@ void Texture::draw(const glm::mat4x4 &mvpMatrix)
 	glUniformMatrix4fv(shader->getMVPMatrix(), 1, false, &mvpMatrix[0][0]);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
+	glBindTexture(GL_TEXTURE_2D, 0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindVertexArray(0);
 }
 

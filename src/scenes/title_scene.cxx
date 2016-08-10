@@ -72,9 +72,9 @@ void TitleScene::render()
 
 	Game::instance()->getTextureShader()->useProgram();
 	glm::mat4x4 translateMatrix = glm::mat4(1.0f);
-	translateMatrix = glm::translate(translateMatrix, glm::vec3(0.5f, 0.5f, 0.0f));
+	translateMatrix = glm::translate(translateMatrix, glm::vec3(0.0f, -0.7f, 0.0f));
 	glm::mat4x4 scaleMatrix = glm::mat4(1.0f);
-	scaleMatrix = glm::scale(scaleMatrix, glm::vec3(0.25f, 0.75f, 1.0f));
+	scaleMatrix = glm::scale(scaleMatrix, glm::vec3(0.5f, 0.5f, 1.0f));
 	glm::mat4x4 mvpMatrix = getViewAndProjectMatrix() * scaleMatrix * translateMatrix;
 	texture->draw(mvpMatrix);
 

@@ -5,9 +5,9 @@
 #ifndef PNGIMAGE_HXX
 #define PNGIMAGE_HXX
 
- /**
-  * A PNG image class.
-  */
+/**
+ * A PNG image class.
+ */
 class PNGImage
 {
 public:

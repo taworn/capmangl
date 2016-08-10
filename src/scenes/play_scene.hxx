@@ -19,13 +19,13 @@ protected:
 	void fini();
 
 private:
+	PNGImage image;
+	Texture *texture;
+
 	float modelX;
 	float modelY;
 	float modelDx;
 	float modelDy;
-	float angle;
-	float angleToPlus;
-	GLuint verticesId;
 
 public:
 	virtual bool handleKey(HWND hwnd, WPARAM key);

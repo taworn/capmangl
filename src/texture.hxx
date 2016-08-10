@@ -37,8 +37,9 @@ public:
 
 private:
 	TextureShader *shader;
-	GLuint vao, vbo, ebo;
-	GLuint texture;
+	GLuint verticesHandle;
+	GLuint indicesHandle;
+	GLuint textureHandle;
 	PNGImage *image;
 
 	Texture(const Texture&);

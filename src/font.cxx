@@ -15,19 +15,19 @@ Font::~Font()
 {
 	if (face)
 		FT_Done_Face(face);
-	glDeleteBuffers(1, &vbo);
+	glDeleteBuffers(1, &verticesHandle);
 }
 
-Font::Font() : shader(), vbo(0), face(0)
+Font::Font() : shader(), verticesHandle(0), face(0)
 {
 	shader = Game::instance()->getTextShader();
-	glGenBuffers(1, &vbo);
+	glGenBuffers(1, &verticesHandle);
 }
 
-Font::Font(const char *faceName, int size) : shader(), vbo(0), face(0)
+Font::Font(const char *faceName, int size) : shader(), verticesHandle(0), face(0)
 {
 	shader = Game::instance()->getTextShader();
-	glGenBuffers(1, &vbo);
+	glGenBuffers(1, &verticesHandle);
 	init(faceName, size);
 }
 
@@ -107,7 +107,7 @@ void Font::draw(const char *text, GLfloat x, GLfloat y, GLfloat sx, GLfloat sy)
 
 	// Set up the VBO for our vertex data
 	glEnableVertexAttribArray(shader->getCoord());
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+	glBindBuffer(GL_ARRAY_BUFFER, verticesHandle);
 	glVertexAttribPointer(shader->getCoord(), 4, GL_FLOAT, GL_FALSE, 0, 0);
 
 	// Loop through all characters

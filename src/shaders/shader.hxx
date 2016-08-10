@@ -5,9 +5,9 @@
 #ifndef SHADERS_SHADER_HXX
 #define SHADERS_SHADER_HXX
 
- /**
-  * A shader program.
-  */
+/**
+ * A shader program.
+ */
 class Shader
 {
 public:

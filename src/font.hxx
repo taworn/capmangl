@@ -55,7 +55,7 @@ public:
 
 private:
 	TextShader *shader;
-	GLuint vbo;
+	GLuint verticesHandle;
 	FT_Face face;
 
 	Font(const Font&);
