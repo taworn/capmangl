@@ -8,6 +8,7 @@
 #include <ft2build.h>
 #include FT_FREETYPE_H
 #include <GL/glew.h>
+#include <glm/glm.hpp>
 #include <png.h>
 #include "pngimage.hxx"
 #include "texture.hxx"
@@ -76,7 +77,7 @@ void Texture::init(const PNGImage *image)
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void Texture::draw()
+void Texture::draw(const glm::mat4x4 &mvpMatrix)
 {
 	shader->useProgram();
 	glEnable(GL_TEXTURE_2D);
@@ -87,17 +88,17 @@ void Texture::draw()
 
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, texture);
-	GLint uSampler = glGetUniformLocation(shader->getProgram(), "uSampler");
-	glUniform1i(uSampler, 0);
+	glUniform1i(shader->getSampler(), 0);
 
 	// position attribute
 	glVertexAttribPointer(shader->getPosition(), 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)0);
 	glEnableVertexAttribArray(shader->getPosition());
 	// texcoord attribute
-	glVertexAttribPointer(shader->getTexcoord(), 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
-	glEnableVertexAttribArray(shader->getTexcoord());
+	glVertexAttribPointer(shader->getCoord(), 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+	glEnableVertexAttribArray(shader->getCoord());
 
 	// drawing
+	glUniformMatrix4fv(shader->getMVPMatrix(), 1, false, &mvpMatrix[0][0]);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);

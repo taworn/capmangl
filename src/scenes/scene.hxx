@@ -5,6 +5,8 @@
 #ifndef SCENES_SCENE_HXX
 #define SCENES_SCENE_HXX
 
+#include <glm/glm.hpp>
+
 class Shader;
 class NormalShader;
 class TextShader;
@@ -42,25 +44,13 @@ protected:
 	 */
 	void computeFPS();
 
-	HDC getDevice() { return hdc; }
-	NormalShader* getNormalShader() { return normalShader; }
-	TextShader* getTextShader() { return textShader; }
-	TextureShader* getTextureShader() { return textureShader; }
+	glm::mat4x4 getViewAndProjectMatrix() const { return viewAndProjectMatrix; }
 	RECT getScreenRect() const { return screenRect; }
-	Font* getSmallFont() { return smallFont; }
-	Font* getNormalFont() { return normalFont; }
-	Font* getBigFont() { return bigFont; }
 	int getFPS() const { return fps; }
 
 private:
-	HDC hdc;
-	NormalShader *normalShader;
-	TextShader *textShader;
-	TextureShader *textureShader;
+	glm::mat4x4 viewAndProjectMatrix;
 	RECT screenRect;
-	Font *smallFont;
-	Font *normalFont;
-	Font *bigFont;
 	int fps;
 	int frameCount;
 	ULONGLONG timeStart;

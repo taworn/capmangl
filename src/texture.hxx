@@ -5,11 +5,13 @@
 #ifndef TEXTURE_HXX
 #define TEXTURE_HXX
 
+#include <glm/glm.hpp>
+
 class TextureShader;
 
- /**
-  * A texture class.
-  */
+/**
+ * A texture class.
+ */
 class Texture
 {
 public:
@@ -31,9 +33,7 @@ public:
 	/**
 	 * Draws texture.
 	 */
-	void draw();
-
-	GLuint get() const { return texture; }
+	void draw(const glm::mat4x4 &mvpMatrix);
 
 private:
 	TextureShader *shader;

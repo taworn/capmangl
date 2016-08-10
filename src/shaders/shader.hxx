@@ -5,9 +5,9 @@
 #ifndef SHADERS_SHADER_HXX
 #define SHADERS_SHADER_HXX
 
-/**
- * A shader program.
- */
+ /**
+  * A shader program.
+  */
 class Shader
 {
 public:
@@ -17,7 +17,7 @@ public:
 	GLuint getProgram() const { return program; }
 
 	/**
- 	 * Uses this program.
+	 * Uses this program.
 	 */
 	void useProgram() const { glUseProgram(program); }
 
@@ -41,9 +41,6 @@ protected:
 	 * @param sourceCode A shader source code.
 	 */
 	GLuint loadShader(GLenum shaderType, const char *sourceCode);
-
-	GLint getAttrib(const char *name);
-	GLint getUniform(const char *name);
 
 private:
 	GLuint program;

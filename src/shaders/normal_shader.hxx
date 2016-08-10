@@ -23,9 +23,9 @@ public:
 			"  gl_FragColor = v_Color;\n"  // Pass the color directly through the pipeline.
 			"}                        \n";
 		if (init(vertexSourceCode, fragmentSourceCode)) {
-			position = getAttrib("a_Position");
-			color = getAttrib("a_Color");
-			mvpMatrix = getUniform("u_MVPMatrix");
+			position = glGetAttribLocation(getProgram(), "a_Position");
+			color = glGetAttribLocation(getProgram(), "a_Color");
+			mvpMatrix = glGetUniformLocation(getProgram(), "u_MVPMatrix");
 		}
 	}
 

@@ -8,11 +8,11 @@
 #include <ft2build.h>
 #include FT_FREETYPE_H
 #include <GL/glew.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 #include "../game.hxx"
 #include "scene.hxx"
 #include "title_scene.hxx"
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
 
 TitleScene::~TitleScene()
 {
@@ -54,7 +54,7 @@ void TitleScene::render()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
-	getTextShader()->useProgram();
+	Game::instance()->getTextShader()->useProgram();
 
 	RECT rc = getScreenRect();
 	float sx = 2.0f / (rc.right - rc.left);
@@ -65,28 +65,20 @@ void TitleScene::render()
 	titleFont->measure("Capman", &w, &h, sx, sy);
 	titleFont->draw("Capman", 0 - (w / 2), h, sx, sy);
 
-	getNormalFont()->setColor(1.0f, 1.0f, 1.0f, 1.0f);
-	getNormalFont()->measure("Press ENTER to Start", &w, &h, sx, sy);
-	getNormalFont()->draw("Press ENTER to Start", 0 - (w / 2), -0.70f, sx, sy);
+	Font *normalFont = Game::instance()->getNormalFont();
+	normalFont->setColor(1.0f, 1.0f, 1.0f, 1.0f);
+	normalFont->measure("Press ENTER to Start", &w, &h, sx, sy);
+	normalFont->draw("Press ENTER to Start", 0 - (w / 2), -0.70f, sx, sy);
 
-	getTextureShader()->useProgram();
+	Game::instance()->getTextureShader()->useProgram();
 	glm::mat4x4 translateMatrix = glm::mat4(1.0f);
 	translateMatrix = glm::translate(translateMatrix, glm::vec3(0.5f, 0.5f, 0.0f));
 	glm::mat4x4 scaleMatrix = glm::mat4(1.0f);
 	scaleMatrix = glm::scale(scaleMatrix, glm::vec3(0.25f, 0.75f, 1.0f));
-	glm::mat4x4 viewMatrix = glm::lookAt(
-		glm::vec3(0.0f, 0.0f, 1.5f),    // camera
-		glm::vec3(0.0f, 0.0f, -15.0f),  // looks
-		glm::vec3(0.0f, 1.0f, 0.0f)     // head is up
-	);
-	glm::mat4x4 projectionMatrix = glm::ortho(-2.0f, 2.0f, -2.0f, 2.0f, -1.0f, 25.0f);
-	glm::mat4x4 mvpMatrix = projectionMatrix * viewMatrix * scaleMatrix * translateMatrix;
-	GLint mvp = getTextureShader()->getMVPMatrix();
-	glUniformMatrix4fv(mvp, 1, false, &mvpMatrix[0][0]);
-
-	texture->draw();
+	glm::mat4x4 mvpMatrix = getViewAndProjectMatrix() * scaleMatrix * translateMatrix;
+	texture->draw(mvpMatrix);
 
 	computeFPS();
-	SwapBuffers(getDevice());
+	SwapBuffers(Game::instance()->getDevice());
 }
 

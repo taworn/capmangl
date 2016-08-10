@@ -49,13 +49,3 @@ GLuint Shader::loadShader(GLenum shaderType, const char *sourceCode)
 	return id;
 }
 
-GLint Shader::getAttrib(const char *name)
-{
-	return glGetAttribLocation(program, name);
-}
-
-GLint Shader::getUniform(const char *name)
-{
-	return glGetUniformLocation(program, name);
-}
-

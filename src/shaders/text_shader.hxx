@@ -21,9 +21,9 @@ public:
 			"  gl_FragColor = vec4(1, 1, 1, texture2D(tex, texpos).a) * color;\n"
 			"}\n";
 		if (init(vertexSourceCode, fragmentSourceCode)) {
-			coord = getAttrib("coord");
-			color = getUniform("color");
-			tex = getUniform("tex");
+			coord = glGetAttribLocation(getProgram(), "coord");
+			color = glGetUniformLocation(getProgram(), "color");
+			tex = glGetUniformLocation(getProgram(), "tex");
 		}
 	}
 

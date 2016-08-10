@@ -8,11 +8,11 @@
 #include <ft2build.h>
 #include FT_FREETYPE_H
 #include <GL/glew.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 #include "../game.hxx"
 #include "scene.hxx"
 #include "play_scene.hxx"
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
 
 PlayScene::~PlayScene()
 {
@@ -92,7 +92,7 @@ void PlayScene::render()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
-	NormalShader *normalShader = getNormalShader();
+	NormalShader *normalShader = Game::instance()->getNormalShader();
 	normalShader->useProgram();
 
 	// translating
@@ -110,19 +110,8 @@ void PlayScene::render()
 	if (angle > 89.0f || angle < -89.0f)
 		angleToPlus = -angleToPlus;
 
-	// viewing
-	glm::mat4x4 viewMatrix = glm::lookAt(
-		glm::vec3(0.0f, 0.0f, 1.5f),    // camera
-		glm::vec3(0.0f, 0.0f, -15.0f),  // looks
-		glm::vec3(0.0f, 1.0f, 0.0f)     // head is up
-	);
-
-	// projecting
-	//glm::mat4x4 projectionMatrix = glm::perspective(45.0f, 1.3333f, 1.0f, 25.0f);
-	glm::mat4x4 projectionMatrix = glm::ortho(-2.0f, 2.0f, -2.0f, 2.0f, -1.0f, 25.0f);
-
-	// combines model, view and projection matrices
-	glm::mat4x4 mvpMatrix = projectionMatrix * viewMatrix * rotateMatrix * translateMatrix;
+	// combining
+	glm::mat4x4 mvpMatrix = getViewAndProjectMatrix() * rotateMatrix * translateMatrix;
 
 	glEnableVertexAttribArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, verticesId);
@@ -141,6 +130,6 @@ void PlayScene::render()
 	glDisableVertexAttribArray(0);
 
 	computeFPS();
-	SwapBuffers(getDevice());
+	SwapBuffers(Game::instance()->getDevice());
 }
 

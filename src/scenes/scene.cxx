@@ -8,6 +8,8 @@
 #include <ft2build.h>
 #include FT_FREETYPE_H
 #include <GL/glew.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 #include "../game.hxx"
 #include "scene.hxx"
 
@@ -17,15 +19,18 @@ Scene::~Scene()
 }
 
 Scene::Scene()
-	: hdc(0), normalShader(), textShader(), textureShader()
-	, screenRect(), smallFont(), normalFont(), bigFont()
+	: viewAndProjectMatrix(1.0f), screenRect()
 	, fps(0), frameCount(0), timeStart(0)
 {
-	Game *game = Game::instance();
-	hdc = game->getDevice();
-	normalShader = game->getNormalShader();
-	textShader = game->getTextShader();
-	textureShader = game->getTextureShader();
+	// combines viewing and projecting matrices
+	glm::mat4x4 viewMatrix = glm::lookAt(
+		glm::vec3(0.0f, 0.0f, 2.5f),    // camera
+		glm::vec3(0.0f, 0.0f, -25.0f),  // looks
+		glm::vec3(0.0f, 1.0f, 0.0f)     // head is up
+	);
+	//glm::mat4x4 projectionMatrix = glm::perspective(45.0f, 1.3333f, 1.0f, 25.0f);
+	glm::mat4x4 projectionMatrix = glm::ortho(-2.0f, 2.0f, -2.0f, 2.0f, -1.0f, 25.0f);
+	viewAndProjectMatrix = projectionMatrix * viewMatrix;
 
 	int params[4];
 	glGetIntegerv(GL_VIEWPORT, params);
@@ -33,10 +38,6 @@ Scene::Scene()
 	screenRect.top = params[1];
 	screenRect.right = screenRect.left + params[2];
 	screenRect.bottom = screenRect.top + params[3];
-
-	smallFont = game->getSmallFont();
-	normalFont = game->getNormalFont();
-	bigFont = game->getBigFont();
 
 	timeStart = GetTickCount();
 
@@ -73,10 +74,12 @@ void Scene::computeFPS()
 	float sx = 2.0f / (rc.right - rc.left);
 	float sy = 2.0f / (rc.bottom - rc.top);
 	float w, h;
-	getTextShader()->useProgram();
-	getSmallFont()->setColor(1.0f, 1.0f, 1.0f, 0.5f);
-	getSmallFont()->measure(buffer, &w, &h, sx, sy);
-	getSmallFont()->draw(buffer, 1 - w * 2, -1 + h, sx, sy);
+
+	Game *game = Game::instance();
+	game->getTextShader()->useProgram();
+	game->getSmallFont()->setColor(1.0f, 1.0f, 1.0f, 0.5f);
+	game->getSmallFont()->measure(buffer, &w, &h, sx, sy);
+	game->getSmallFont()->draw(buffer, 1 - w * 2, -1 + h, sx, sy);
 }
 
 bool Scene::handleKey(HWND hwnd, WPARAM key)
@@ -90,6 +93,6 @@ void Scene::render()
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
 	computeFPS();
-	SwapBuffers(getDevice());
+	SwapBuffers(Game::instance()->getDevice());
 }
 

@@ -8,6 +8,7 @@
 #include <ft2build.h>
 #include FT_FREETYPE_H
 #include <GL/glew.h>
+#include <glm/glm.hpp>
 #include "opengl.hxx"
 #include "game.hxx"
 #include "scenes/scene.hxx"
