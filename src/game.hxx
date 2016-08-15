@@ -10,9 +10,10 @@
 #include "shaders/text_shader.hxx"
 #include "shaders/texture_shader.hxx"
 
+#include "font.hxx"
 #include "pngimage.hxx"
 #include "texture.hxx"
-#include "font.hxx"
+#include "sprite.hxx"
 
 #define SCENE_DEFAULT 0
 #define SCENE_TITLE 1

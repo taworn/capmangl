@@ -162,6 +162,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\sprite.cxx" />
     <ClCompile Include="src\font.cxx" />
     <ClCompile Include="src\game.cxx" />
     <ClCompile Include="src\opengl.cxx" />
@@ -174,6 +175,7 @@
     <ClCompile Include="src\winmain.cxx" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\sprite.hxx" />
     <ClInclude Include="src\font.hxx" />
     <ClInclude Include="src\game.hxx" />
     <ClInclude Include="src\opengl.hxx" />

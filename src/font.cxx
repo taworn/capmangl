@@ -15,6 +15,7 @@ Font::~Font()
 {
 	if (face)
 		FT_Done_Face(face);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glDeleteBuffers(1, &verticesHandle);
 }
 
@@ -28,7 +29,8 @@ Font::Font(const char *faceName, int size) : shader(), verticesHandle(0), face(0
 {
 	shader = Game::instance()->getTextShader();
 	glGenBuffers(1, &verticesHandle);
-	init(faceName, size);
+	if (!init(faceName, size))
+		throw std::runtime_error("Font is not created.");
 }
 
 bool Font::init(const char *faceName, int size)

@@ -19,23 +19,23 @@ TitleScene::~TitleScene()
 	fini();
 }
 
-TitleScene::TitleScene() : Scene(), image()
+TitleScene::TitleScene() : Scene(), modelX(0.0f)
 {
 	init();
 }
 
 void TitleScene::init()
 {
-	image.init("res\\a.png");
-	texture = new Texture();
-	texture->init(&image);
 	titleFont = new Font("C:\\WINDOWS\\Fonts\\timesbd.ttf", 128);
+	PNGImage image("res\\a.png");
+	sprite = new Sprite();
+	sprite->init(&image, 3, 2);
 }
 
 void TitleScene::fini()
 {
+	delete sprite;
 	delete titleFont;
-	delete texture;
 }
 
 bool TitleScene::handleKey(HWND hwnd, WPARAM key)
@@ -71,12 +71,15 @@ void TitleScene::render()
 	normalFont->draw("Press ENTER to Start", 0 - (w / 2), -0.70f, sx, sy);
 
 	Game::instance()->getTextureShader()->useProgram();
-	glm::mat4x4 translateMatrix = glm::mat4(1.0f);
-	translateMatrix = glm::translate(translateMatrix, glm::vec3(0.0f, -0.7f, 0.0f));
-	glm::mat4x4 scaleMatrix = glm::mat4(1.0f);
+	glm::mat4 translateMatrix = glm::mat4(1.0f);
+	translateMatrix = glm::translate(translateMatrix, glm::vec3(modelX, -0.7f, 0.0f));
+	modelX -= 0.05f;
+	if (modelX < -4.5f)
+		modelX = 4.5f;
+	glm::mat4 scaleMatrix = glm::mat4(1.0f);
 	scaleMatrix = glm::scale(scaleMatrix, glm::vec3(0.5f, 0.5f, 1.0f));
-	glm::mat4x4 mvpMatrix = getViewAndProjectMatrix() * scaleMatrix * translateMatrix;
-	texture->draw(mvpMatrix);
+	glm::mat4 mvpMatrix = getViewAndProjectMatrix() * scaleMatrix * translateMatrix;
+	sprite->draw(mvpMatrix, 1);
 
 	computeFPS();
 	SwapBuffers(Game::instance()->getDevice());

@@ -26,7 +26,8 @@ PNGImage::PNGImage(const char *fileName)
 	: width(0), height(0), bitDepth(0), colorType(0)
 	, imageSize(0), rowPointersSize(0), image(NULL), rowPointers(NULL)
 {
-	init(fileName);
+	if (!init(fileName))
+		throw std::runtime_error("PNG is not loaded.");
 }
 
 bool PNGImage::init(const char *fileName)

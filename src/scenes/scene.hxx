@@ -44,12 +44,12 @@ protected:
 	 */
 	void computeFPS();
 
-	glm::mat4x4 getViewAndProjectMatrix() const { return viewAndProjectMatrix; }
+	glm::mat4 getViewAndProjectMatrix() const { return viewAndProjectMatrix; }
 	RECT getScreenRect() const { return screenRect; }
 	int getFPS() const { return fps; }
 
 private:
-	glm::mat4x4 viewAndProjectMatrix;
+	glm::mat4 viewAndProjectMatrix;
 	RECT screenRect;
 	int fps;
 	int frameCount;

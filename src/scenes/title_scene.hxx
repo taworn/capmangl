@@ -19,9 +19,9 @@ protected:
 	void fini();
 
 private:
-	PNGImage image;
-	Texture *texture;
 	Font *titleFont;
+	Sprite *sprite;
+	float modelX;
 
 public:
 	virtual bool handleKey(HWND hwnd, WPARAM key);

@@ -89,7 +89,7 @@ void PlayScene::render()
 
 	Game::instance()->getTextureShader()->useProgram();
 
-	glm::mat4x4 translateMatrix = glm::mat4(1.0f);
+	glm::mat4 translateMatrix = glm::mat4(1.0f);
 	translateMatrix = glm::translate(translateMatrix, glm::vec3(modelX, modelY, 0.0f));
 	if (modelDx > 0.0f && modelX < 8.0f)
 		modelX += modelDx;
@@ -99,9 +99,9 @@ void PlayScene::render()
 		modelY += modelDy;
 	else if (modelDy < 0.0f && modelY > -8.0f)
 		modelY += modelDy;
-	glm::mat4x4 scaleMatrix = glm::mat4(1.0f);
+	glm::mat4 scaleMatrix = glm::mat4(1.0f);
 	scaleMatrix = glm::scale(scaleMatrix, glm::vec3(0.2f, 0.2f, 1.0f));
-	glm::mat4x4 mvpMatrix = getViewAndProjectMatrix() * scaleMatrix * translateMatrix;
+	glm::mat4 mvpMatrix = getViewAndProjectMatrix() * scaleMatrix * translateMatrix;
 	texture->draw(mvpMatrix);
 
 	scaleMatrix = glm::mat4(1.0f);

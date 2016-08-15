@@ -33,14 +33,13 @@ public:
 	/**
 	 * Draws texture.
 	 */
-	void draw(const glm::mat4x4 &mvpMatrix);
+	void draw(const glm::mat4 &mvpMatrix);
 
 private:
 	TextureShader *shader;
 	GLuint verticesHandle;
 	GLuint indicesHandle;
 	GLuint textureHandle;
-	PNGImage *image;
 
 	Texture(const Texture&);
 	Texture& operator=(const Texture&);
