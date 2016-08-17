@@ -14,6 +14,9 @@ public:
 	virtual ~Shader();
 	Shader();
 
+	/**
+	 * Gets this program.
+	 */
 	GLuint getProgram() const { return program; }
 
 	/**

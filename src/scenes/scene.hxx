@@ -13,7 +13,7 @@ class TextShader;
 class Font;
 
 /**
- * A single game scene.
+ * A base game scene.
  */
 class Scene
 {
