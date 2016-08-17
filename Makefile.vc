@@ -87,9 +87,11 @@ MODULES=\
 	$(TARGET_DIR)\scenes\title_scene.obj \
 	$(TARGET_DIR)\scenes\scene.obj \
 	$(TARGET_DIR)\game.obj \
-	$(TARGET_DIR)\font.obj \
+	$(TARGET_DIR)\animation.obj \
+	$(TARGET_DIR)\sprite.obj \
 	$(TARGET_DIR)\texture.obj \
 	$(TARGET_DIR)\pngimage.obj \
+	$(TARGET_DIR)\font.obj \
 	$(TARGET_DIR)\shaders\shader.obj \
 	$(TARGET_DIR)\opengl.obj
 
@@ -99,9 +101,11 @@ HEADERS=\
 	$(TARGET_DIR)\scenes\title_scene.hxx \
 	$(TARGET_DIR)\scenes\scene.hxx \
 	$(TARGET_DIR)\game.hxx \
-	$(TARGET_DIR)\font.hxx \
+	$(TARGET_DIR)\animation.hxx \
+	$(TARGET_DIR)\sprite.hxx \
 	$(TARGET_DIR)\texture.hxx \
 	$(TARGET_DIR)\pngimage.hxx \
+	$(TARGET_DIR)\font.hxx \
 	$(TARGET_DIR)\shaders\text_shader.hxx \
 	$(TARGET_DIR)\shaders\normal_shader.hxx \
 	$(TARGET_DIR)\shaders\shader.hxx \

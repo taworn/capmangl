@@ -21,6 +21,8 @@ protected:
 private:
 	Font *titleFont;
 	Sprite *sprite;
+	Animation *aniHero;
+	Animation *aniDivo;
 	float modelX;
 
 public:

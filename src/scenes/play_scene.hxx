@@ -19,8 +19,9 @@ protected:
 	void fini();
 
 private:
-	PNGImage image;
-	Texture *texture;
+	Sprite *sprite;
+	Animation *aniHero;
+	Animation *aniDivoes[4];
 
 	float modelX;
 	float modelY;

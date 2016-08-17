@@ -29,7 +29,7 @@ Scene::Scene()
 		glm::vec3(0.0f, 1.0f, 0.0f)     // head is up
 	);
 	//glm::mat4 projectionMatrix = glm::perspective(45.0f, 1.3333f, 1.0f, 25.0f);
-	glm::mat4 projectionMatrix = glm::ortho(-2.0f, 2.0f, -2.0f, 2.0f, -1.0f, 25.0f);
+	glm::mat4 projectionMatrix = glm::ortho(-1.0f, 1.0f, -1.0f, 1.0f, -1.0f, 25.0f);
 	viewAndProjectMatrix = projectionMatrix * viewMatrix;
 
 	int params[4];

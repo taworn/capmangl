@@ -14,6 +14,7 @@
 #include "pngimage.hxx"
 #include "texture.hxx"
 #include "sprite.hxx"
+#include "animation.hxx"
 
 #define SCENE_DEFAULT 0
 #define SCENE_TITLE 1
