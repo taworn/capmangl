@@ -82,6 +82,14 @@ void Scene::computeFPS()
 	game->getSmallFont()->draw(buffer, 1 - w * 2, -1 + h, sx, sy);
 }
 
+void Scene::handleActivate(HWND hwnd, bool active)
+{
+	if (active) {
+		frameCount = 0;
+		timeStart = GetTickCount();
+	}
+}
+
 bool Scene::handleKey(HWND hwnd, WPARAM key)
 {
 	return false;

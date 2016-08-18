@@ -75,6 +75,11 @@ void Game::changeScene(int sceneId)
 	}
 }
 
+void Game::handleActivate(HWND hwnd, bool active)
+{
+	scene->handleActivate(hwnd, active);
+}
+
 bool Game::handleKey(HWND hwnd, WPARAM key)
 {
 	return scene->handleKey(hwnd, key);

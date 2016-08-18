@@ -55,6 +55,8 @@ WindowProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 			active = true;
 		else
 			active = false;
+		if (game)
+			game->handleActivate(hwnd, active);
 		return 0;
 
 	case WM_DESTROY:

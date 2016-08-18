@@ -60,6 +60,11 @@ private:
 
 public:
 	/**
+	 * Called when window is activated/deactivated.
+	 */
+	virtual void handleActivate(HWND hwnd, bool active);
+
+	/**
 	 * Called when user press keyboard.
 	 */
 	virtual bool handleKey(HWND hwnd, WPARAM key);

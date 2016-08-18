@@ -47,6 +47,11 @@ public:
 	void changeScene(int sceneId);
 
 	/**
+	 * Called when window is activated/deactivated.
+	 */
+	void handleActivate(HWND hwnd, bool active);
+
+	/**
 	 * Called when user press keyboard.
 	 */
 	bool handleKey(HWND hwnd, WPARAM key);
