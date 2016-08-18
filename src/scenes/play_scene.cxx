@@ -17,46 +17,6 @@
 PlayScene::~PlayScene()
 {
 	BOOST_LOG_TRIVIAL(debug) << "PlayScene::~PlayScene() called";
-	fini();
-}
-
-PlayScene::PlayScene()
-	: Scene()
-	, modelX(0.0f), modelY(0.0f), modelDx(0.0f), modelDy(0.0f)
-{
-	BOOST_LOG_TRIVIAL(debug) << "PlayScene::PlayScene() called";
-	init();
-}
-
-void PlayScene::init()
-{
-	BOOST_LOG_TRIVIAL(debug) << "PlayScene::init() called";
-	PNGImage image(".\\res\\pacman.png");
-	sprite = new Sprite();
-	sprite->init(&image, 8, 8);
-
-	const int TIME = 300;
-	aniHero = new Animation(sprite);
-	aniHero->add(0, 0, 2, TIME);
-	aniHero->add(1, 2, 4, TIME);
-	aniHero->add(2, 4, 6, TIME);
-	aniHero->add(3, 6, 8, TIME);
-	aniHero->use(0);
-
-	for (int i = 0; i < 4; i++) {
-		int j = (i + 1) * 8;
-		aniDivoes[i] = new Animation(sprite);
-		aniDivoes[i]->add(0, j + 0, j + 2, TIME);
-		aniDivoes[i]->add(1, j + 2, j + 4, TIME);
-		aniDivoes[i]->add(2, j + 4, j + 6, TIME);
-		aniDivoes[i]->add(3, j + 6, j + 8, TIME);
-		aniDivoes[i]->use(0);
-	}
-}
-
-void PlayScene::fini()
-{
-	BOOST_LOG_TRIVIAL(debug) << "PlayScene::fini() called";
 	for (int i = 0; i < 4; i++) {
 		if (aniDivoes[i]) {
 			delete aniDivoes[i];
@@ -67,6 +27,52 @@ void PlayScene::fini()
 		delete aniHero;
 		aniHero = NULL;
 	}
+	fini();
+}
+
+PlayScene::PlayScene()
+	: Scene()
+	, modelX(0.0f), modelY(0.0f), modelDx(0.0f), modelDy(0.0f)
+{
+	BOOST_LOG_TRIVIAL(debug) << "PlayScene::PlayScene() called";
+	init();
+
+	const int TIME = 300;
+	aniHero = new Animation(sprite);
+	aniHero->add(0, 0, 2, TIME);
+	aniHero->add(1, 2, 4, TIME);
+	aniHero->add(2, 4, 6, TIME);
+	aniHero->add(3, 6, 8, TIME);
+	aniHero->use(0);
+
+	for (int i = 0; i < 4; i++) {
+		aniDivoes[i] = new Animation(sprite);
+		aniDivoes[i]->add(0, (i + 1) * 8 + 0, (i + 1) * 8 + 2, TIME);
+		aniDivoes[i]->add(1, (i + 1) * 8 + 2, (i + 1) * 8 + 4, TIME);
+		aniDivoes[i]->add(2, (i + 1) * 8 + 4, (i + 1) * 8 + 6, TIME);
+		aniDivoes[i]->add(3, (i + 1) * 8 + 6, (i + 1) * 8 + 8, TIME);
+		aniDivoes[i]->use(0);
+	}
+}
+
+void PlayScene::init()
+{
+	BOOST_LOG_TRIVIAL(debug) << "PlayScene::init() called";
+	PNGImage image(".\\res\\pacman.png");
+
+	sprite = new Sprite();
+	sprite->init(&image, 8, 8);
+
+	if (aniHero) {
+		aniHero->setSprite(sprite);
+		for (int i = 0; i < 4; i++)
+			aniDivoes[i]->setSprite(sprite);
+	}
+}
+
+void PlayScene::fini()
+{
+	BOOST_LOG_TRIVIAL(debug) << "PlayScene::fini() called";
 	if (sprite) {
 		delete sprite;
 		sprite = NULL;

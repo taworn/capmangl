@@ -81,9 +81,6 @@ private:
 	Font *bigFont;
 	Scene *scene;
 
-	void init();
-	void fini();
-
 	static Game *singleton;
 };
 

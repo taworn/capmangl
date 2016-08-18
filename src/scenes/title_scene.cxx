@@ -17,6 +17,14 @@
 TitleScene::~TitleScene()
 {
 	BOOST_LOG_TRIVIAL(debug) << "TitleScene::~TitleScene() called";
+	if (aniDivo) {
+		delete aniDivo;
+		aniDivo = NULL;
+	}
+	if (aniHero) {
+		delete aniHero;
+		aniHero = NULL;
+	}
 	fini();
 }
 
@@ -24,16 +32,6 @@ TitleScene::TitleScene() : Scene(), modelX(0.0f)
 {
 	BOOST_LOG_TRIVIAL(debug) << "TitleScene::TitleScene() called";
 	init();
-}
-
-void TitleScene::init()
-{
-	BOOST_LOG_TRIVIAL(debug) << "TitleScene::init() called";
-	titleFont = new Font("C:\\WINDOWS\\Fonts\\timesbd.ttf", 128);
-	PNGImage image(".\\res\\pacman.png");
-	sprite = new Sprite();
-	sprite->init(&image, 8, 8);
-
 	const int TIME = 300;
 	aniHero = new Animation(sprite);
 	aniHero->add(0, 0, 2, TIME);
@@ -50,17 +48,24 @@ void TitleScene::init()
 	aniDivo->use(0);
 }
 
+void TitleScene::init()
+{
+	BOOST_LOG_TRIVIAL(debug) << "TitleScene::init() called";
+	titleFont = new Font("C:\\WINDOWS\\Fonts\\timesbd.ttf", 128);
+	PNGImage image(".\\res\\pacman.png");
+
+	sprite = new Sprite();
+	sprite->init(&image, 8, 8);
+
+	if (aniHero) {
+		aniHero->setSprite(sprite);
+		aniDivo->setSprite(sprite);
+	}
+}
+
 void TitleScene::fini()
 {
 	BOOST_LOG_TRIVIAL(debug) << "TitleScene::fini() called";
-	if (aniDivo) {
-		delete aniDivo;
-		aniDivo = NULL;
-	}
-	if (aniHero) {
-		delete aniHero;
-		aniHero = NULL;
-	}
 	if (sprite) {
 		delete sprite;
 		sprite = NULL;

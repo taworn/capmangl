@@ -19,9 +19,17 @@ Animation::~Animation()
 {
 }
 
-Animation::Animation(Sprite *s) : sprite(s), currentPlaying(-1), currentImage(0)
+Animation::Animation(Sprite *s) : sprite(s), plays(), currentPlaying(-1), currentImage(0)
 {
 	assert(sprite);
+	timeStart = GetTickCount();
+}
+
+void Animation::setSprite(Sprite *s)
+{
+	sprite = s;
+	assert(sprite);
+	use(currentPlaying);
 }
 
 void Animation::add(int number, int start, int end, int time)

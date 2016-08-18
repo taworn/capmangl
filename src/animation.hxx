@@ -26,6 +26,11 @@ public:
 	Animation(Sprite *s);
 
 	/**
+	 * Sets sprite.
+	 */
+	void setSprite(Sprite *s);
+
+	/**
 	 * Adds a playing animation, only 16 set allow.
 	 */
 	void add(int number, int start, int end, int time);

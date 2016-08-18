@@ -35,7 +35,7 @@ Game::~Game()
 }
 
 Game::Game(HDC h)
-	: hdc(h), normalShader(), textShader()
+	: hdc(h), normalShader(), textShader(), textureShader()
 	, freeTypeLibrary(0), smallFont(), normalFont(), bigFont()
 	, scene()
 {
@@ -91,13 +91,5 @@ bool Game::handleKey(HWND hwnd, WPARAM key)
 void Game::render()
 {
 	scene->render();
-}
-
-void Game::init()
-{
-}
-
-void Game::fini()
-{
 }
 
