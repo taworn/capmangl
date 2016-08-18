@@ -15,6 +15,7 @@
 
 Scene::~Scene()
 {
+	BOOST_LOG_TRIVIAL(debug) << "Scene::~Scene() called";
 	fini();
 }
 
@@ -22,6 +23,7 @@ Scene::Scene()
 	: viewAndProjectMatrix(1.0f), screenRect()
 	, fps(0), frameCount(0), timeStart(0)
 {
+	BOOST_LOG_TRIVIAL(debug) << "Scene::Scene() called";
 	// combines viewing and projecting matrices
 	glm::mat4 viewMatrix = glm::lookAt(
 		glm::vec3(0.0f, 0.0f, 2.5f),    // camera
@@ -46,10 +48,12 @@ Scene::Scene()
 
 void Scene::init()
 {
+	BOOST_LOG_TRIVIAL(debug) << "Scene::init() called";
 }
 
 void Scene::fini()
 {
+	BOOST_LOG_TRIVIAL(debug) << "Scene::fini() called";
 }
 
 void Scene::computeFPS()

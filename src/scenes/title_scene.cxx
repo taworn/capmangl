@@ -16,16 +16,19 @@
 
 TitleScene::~TitleScene()
 {
+	BOOST_LOG_TRIVIAL(debug) << "TitleScene::~TitleScene() called";
 	fini();
 }
 
 TitleScene::TitleScene() : Scene(), modelX(0.0f)
 {
+	BOOST_LOG_TRIVIAL(debug) << "TitleScene::TitleScene() called";
 	init();
 }
 
 void TitleScene::init()
 {
+	BOOST_LOG_TRIVIAL(debug) << "TitleScene::init() called";
 	titleFont = new Font("C:\\WINDOWS\\Fonts\\timesbd.ttf", 128);
 	PNGImage image(".\\res\\pacman.png");
 	sprite = new Sprite();
@@ -49,6 +52,7 @@ void TitleScene::init()
 
 void TitleScene::fini()
 {
+	BOOST_LOG_TRIVIAL(debug) << "TitleScene::fini() called";
 	if (aniDivo) {
 		delete aniDivo;
 		aniDivo = NULL;

@@ -16,6 +16,7 @@
 
 PlayScene::~PlayScene()
 {
+	BOOST_LOG_TRIVIAL(debug) << "PlayScene::~PlayScene() called";
 	fini();
 }
 
@@ -23,11 +24,13 @@ PlayScene::PlayScene()
 	: Scene()
 	, modelX(0.0f), modelY(0.0f), modelDx(0.0f), modelDy(0.0f)
 {
+	BOOST_LOG_TRIVIAL(debug) << "PlayScene::PlayScene() called";
 	init();
 }
 
 void PlayScene::init()
 {
+	BOOST_LOG_TRIVIAL(debug) << "PlayScene::init() called";
 	PNGImage image(".\\res\\pacman.png");
 	sprite = new Sprite();
 	sprite->init(&image, 8, 8);
@@ -53,6 +56,7 @@ void PlayScene::init()
 
 void PlayScene::fini()
 {
+	BOOST_LOG_TRIVIAL(debug) << "PlayScene::fini() called";
 	for (int i = 0; i < 4; i++) {
 		if (aniDivoes[i]) {
 			delete aniDivoes[i];
