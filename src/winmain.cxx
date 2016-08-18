@@ -75,6 +75,13 @@ WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdS
 {
 	BOOST_LOG_TRIVIAL(trace) << "CapmanGL";
 
+#ifdef _DEBUG
+#ifdef _MSC_VER
+	AllocConsole();
+	freopen("CONOUT$", "w", stdout);
+#endif
+#endif
+
 	// registers window class
 	const TCHAR windowClassName[] = TEXT("capmangl");
 	WNDCLASSEX wc = { 0 };
