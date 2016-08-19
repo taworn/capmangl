@@ -42,7 +42,6 @@ public:
 	int getImageCount() const { return sliceHorz * sliceVert; }
 
 private:
-	TextureShader *shader;
 	GLuint verticesHandle;
 	GLuint indicesHandle;
 	GLuint textureHandle;

@@ -36,7 +36,6 @@ public:
 	void draw(const glm::mat4 &mvpMatrix);
 
 private:
-	TextureShader *shader;
 	GLuint verticesHandle;
 	GLuint indicesHandle;
 	GLuint textureHandle;

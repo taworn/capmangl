@@ -5,9 +5,9 @@
 #ifndef SCENES_PLAY_SCENE_HXX
 #define SCENES_PLAY_SCENE_HXX
 
-/**
- * Playing game scene.
- */
+ /**
+  * Playing game scene.
+  */
 class PlayScene : public Scene
 {
 public:
@@ -22,11 +22,6 @@ private:
 	Sprite *sprite;
 	Animation *aniHero;
 	Animation *aniDivoes[4];
-
-	float modelX;
-	float modelY;
-	float modelDx;
-	float modelDy;
 
 public:
 	virtual bool handleKey(HWND hwnd, WPARAM key);

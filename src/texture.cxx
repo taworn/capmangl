@@ -21,10 +21,8 @@ Texture::~Texture()
 	glDeleteBuffers(1, &verticesHandle);
 }
 
-Texture::Texture() : shader(), verticesHandle(0), indicesHandle(0), textureHandle(0)
+Texture::Texture() : verticesHandle(0), indicesHandle(0), textureHandle(0)
 {
-	shader = Game::instance()->getTextureShader();
-
 	glGenBuffers(1, &verticesHandle);
 	glGenBuffers(1, &indicesHandle);
 	glGenTextures(1, &textureHandle);
@@ -75,6 +73,7 @@ void Texture::init(const PNGImage *image)
 
 void Texture::draw(const glm::mat4 &mvpMatrix)
 {
+	TextureShader *shader = Game::instance()->getTextureShader();
 	shader->useProgram();
 	glEnable(GL_TEXTURE_2D);
 

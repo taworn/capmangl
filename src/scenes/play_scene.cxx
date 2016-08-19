@@ -30,15 +30,13 @@ PlayScene::~PlayScene()
 	fini();
 }
 
-PlayScene::PlayScene()
-	: Scene()
-	, modelX(0.0f), modelY(0.0f), modelDx(0.0f), modelDy(0.0f)
+PlayScene::PlayScene() : Scene()
 {
 	BOOST_LOG_TRIVIAL(debug) << "PlayScene::PlayScene() called";
 	init();
 
 	const int TIME = 300;
-	aniHero = new Animation(sprite);
+	aniHero = new Animation();
 	aniHero->add(0, 0, 2, TIME);
 	aniHero->add(1, 2, 4, TIME);
 	aniHero->add(2, 4, 6, TIME);
@@ -46,7 +44,7 @@ PlayScene::PlayScene()
 	aniHero->use(0);
 
 	for (int i = 0; i < 4; i++) {
-		aniDivoes[i] = new Animation(sprite);
+		aniDivoes[i] = new Animation();
 		aniDivoes[i]->add(0, (i + 1) * 8 + 0, (i + 1) * 8 + 2, TIME);
 		aniDivoes[i]->add(1, (i + 1) * 8 + 2, (i + 1) * 8 + 4, TIME);
 		aniDivoes[i]->add(2, (i + 1) * 8 + 4, (i + 1) * 8 + 6, TIME);
@@ -58,16 +56,10 @@ PlayScene::PlayScene()
 void PlayScene::init()
 {
 	BOOST_LOG_TRIVIAL(debug) << "PlayScene::init() called";
-	PNGImage image(".\\res\\pacman.png");
 
+	PNGImage image(".\\res\\pacman.png");
 	sprite = new Sprite();
 	sprite->init(&image, 8, 8);
-
-	if (aniHero) {
-		aniHero->setSprite(sprite);
-		for (int i = 0; i < 4; i++)
-			aniDivoes[i]->setSprite(sprite);
-	}
 }
 
 void PlayScene::fini()
@@ -95,33 +87,29 @@ bool PlayScene::handleKey(HWND hwnd, WPARAM key)
 	else if (key == 0x57 || key == VK_UP) {
 		// up
 		OutputDebugStringW(L"W -or- UP keydown\n");
+		aniHero->setVelocity(0.0f, 0.005f);
 		aniHero->use(2);
-		modelDx = 0.0f;
-		modelDy = 0.005f;
 		return true;
 	}
 	else if (key == 0x53 || key == VK_DOWN) {
 		// down
 		OutputDebugStringW(L"S -or- DOWN keydown\n");
+		aniHero->setVelocity(0.0f, -0.005f);
 		aniHero->use(3);
-		modelDx = 0.0f;
-		modelDy = -0.005f;
 		return true;
 	}
 	else if (key == 0x41 || key == VK_LEFT) {
 		// left
 		OutputDebugStringW(L"A -or- LEFT keydown\n");
+		aniHero->setVelocity(-0.005f, 0.0f);
 		aniHero->use(0);
-		modelDx = -0.005f;
-		modelDy = 0.0f;
 		return true;
 	}
 	else if (key == 0x44 || key == VK_RIGHT) {
 		// right
 		OutputDebugStringW(L"D -or- RIGHT keydown\n");
+		aniHero->setVelocity(0.005f, 0.0f);
 		aniHero->use(1);
-		modelDx = 0.005f;
-		modelDy = 0.0f;
 		return true;
 	}
 	return false;
@@ -137,42 +125,44 @@ void PlayScene::render()
 	glm::mat4 scaleMatrix = glm::mat4(1.0f);
 	scaleMatrix = glm::scale(scaleMatrix, glm::vec3(0.04f, 0.04f, 1.0f));
 	glm::mat4 translateMatrix = glm::mat4(1.0f);
-	translateMatrix = glm::translate(translateMatrix, glm::vec3(modelX, modelY, 0.0f));
-	if (modelDx > 0.0f && modelX < 0.95f)
-		modelX += modelDx;
-	else if (modelDx < 0.0f && modelX > -0.95f)
-		modelX += modelDx;
-	if (modelDy > 0.0f && modelY < 0.95f)
-		modelY += modelDy;
-	else if (modelDy < 0.0f && modelY > -0.95f)
-		modelY += modelDy;
+	translateMatrix = glm::translate(translateMatrix, glm::vec3(aniHero->getCurrentX(), aniHero->getCurrentY(), 0.0f));
 	glm::mat4 modelMatrix = translateMatrix * scaleMatrix;
 	glm::mat4 mvpMatrix = getViewAndProjectMatrix() * modelMatrix;
-	aniHero->draw(mvpMatrix);
+	bool enableX = false, enableY = false;
+	if (aniHero->getVelocityX() > 0.0f && aniHero->getCurrentX() < 0.95f)
+		enableX = true;
+	else if (aniHero->getVelocityX() < 0.0f && aniHero->getCurrentX() > -0.95f)
+		enableX = true;
+	if (aniHero->getVelocityY() > 0.0f && aniHero->getCurrentY() < 0.95f)
+		enableY = true;
+	else if (aniHero->getVelocityY() < 0.0f && aniHero->getCurrentY() > -0.95f)
+		enableY = true;
+	aniHero->playFrame(enableX, enableY);
+	aniHero->draw(mvpMatrix, sprite);
 
 	translateMatrix = glm::mat4(1.0f);
 	translateMatrix = glm::translate(translateMatrix, glm::vec3(-0.5f, 0.5f, 0.0f));
 	modelMatrix = translateMatrix * scaleMatrix;
 	mvpMatrix = getViewAndProjectMatrix() * modelMatrix;
-	aniDivoes[0]->draw(mvpMatrix);
+	aniDivoes[0]->draw(mvpMatrix, sprite);
 
 	translateMatrix = glm::mat4(1.0f);
 	translateMatrix = glm::translate(translateMatrix, glm::vec3(0.5f, 0.5f, 0.0f));
 	modelMatrix = translateMatrix * scaleMatrix;
 	mvpMatrix = getViewAndProjectMatrix() * modelMatrix;
-	aniDivoes[1]->draw(mvpMatrix);
+	aniDivoes[1]->draw(mvpMatrix, sprite);
 
 	translateMatrix = glm::mat4(1.0f);
 	translateMatrix = glm::translate(translateMatrix, glm::vec3(-0.5f, -0.5f, 0.0f));
 	modelMatrix = translateMatrix * scaleMatrix;
 	mvpMatrix = getViewAndProjectMatrix() * modelMatrix;
-	aniDivoes[2]->draw(mvpMatrix);
+	aniDivoes[2]->draw(mvpMatrix, sprite);
 
 	translateMatrix = glm::mat4(1.0f);
 	translateMatrix = glm::translate(translateMatrix, glm::vec3(0.5f, -0.5f, 0.0f));
 	modelMatrix = translateMatrix * scaleMatrix;
 	mvpMatrix = getViewAndProjectMatrix() * modelMatrix;
-	aniDivoes[3]->draw(mvpMatrix);
+	aniDivoes[3]->draw(mvpMatrix, sprite);
 
 	computeFPS();
 	SwapBuffers(Game::instance()->getDevice());

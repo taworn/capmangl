@@ -65,10 +65,6 @@ void Scene::computeFPS()
 		fps = (int)(frameCount * 1000 / timeUsage);
 		timeStart = timeCurrent;
 		frameCount = 0;
-
-		wchar_t buffer[64];
-		wsprintf(buffer, L"FPS: %d\n", fps);
-		OutputDebugStringW(buffer);
 		BOOST_LOG_TRIVIAL(trace) << "FPS: " << fps;
 	}
 
@@ -78,12 +74,10 @@ void Scene::computeFPS()
 	float sx = 2.0f / (rc.right - rc.left);
 	float sy = 2.0f / (rc.bottom - rc.top);
 	float w, h;
-
-	Game *game = Game::instance();
-	game->getTextShader()->useProgram();
-	game->getSmallFont()->setColor(1.0f, 1.0f, 1.0f, 0.5f);
-	game->getSmallFont()->measure(buffer, &w, &h, sx, sy);
-	game->getSmallFont()->draw(buffer, 1 - w * 2, -1 + h, sx, sy);
+	Font *font = Game::instance()->getSmallFont();
+	font->setColor(1.0f, 1.0f, 1.0f, 0.5f);
+	font->measure(buffer, &w, &h, sx, sy);
+	font->draw(buffer, 1 - w, -1, sx, sy);
 }
 
 void Scene::handleActivate(HWND hwnd, bool active)

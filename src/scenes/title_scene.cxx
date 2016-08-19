@@ -32,15 +32,16 @@ TitleScene::TitleScene() : Scene(), modelX(0.0f)
 {
 	BOOST_LOG_TRIVIAL(debug) << "TitleScene::TitleScene() called";
 	init();
+
 	const int TIME = 300;
-	aniHero = new Animation(sprite);
+	aniHero = new Animation();
 	aniHero->add(0, 0, 2, TIME);
 	aniHero->add(1, 2, 4, TIME);
 	aniHero->add(2, 4, 6, TIME);
 	aniHero->add(3, 6, 8, TIME);
 	aniHero->use(0);
 
-	aniDivo = new Animation(sprite);
+	aniDivo = new Animation();
 	aniDivo->add(0, 8, 10, TIME);
 	aniDivo->add(1, 10, 12, TIME);
 	aniDivo->add(2, 12, 14, TIME);
@@ -52,15 +53,10 @@ void TitleScene::init()
 {
 	BOOST_LOG_TRIVIAL(debug) << "TitleScene::init() called";
 	titleFont = new Font("C:\\WINDOWS\\Fonts\\timesbd.ttf", 128);
-	PNGImage image(".\\res\\pacman.png");
 
+	PNGImage image(".\\res\\pacman.png");
 	sprite = new Sprite();
 	sprite->init(&image, 8, 8);
-
-	if (aniHero) {
-		aniHero->setSprite(sprite);
-		aniDivo->setSprite(sprite);
-	}
 }
 
 void TitleScene::fini()
@@ -92,8 +88,6 @@ void TitleScene::render()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
-	Game::instance()->getTextShader()->useProgram();
-
 	RECT rc = getScreenRect();
 	float sx = 2.0f / (rc.right - rc.left);
 	float sy = 2.0f / (rc.bottom - rc.top);
@@ -115,13 +109,13 @@ void TitleScene::render()
 	translateMatrix = glm::translate(translateMatrix, glm::vec3(modelX, -0.2f, 0.0f));
 	glm::mat4 modelMatrix = translateMatrix * scaleMatrix;
 	glm::mat4 mvpMatrix = getViewAndProjectMatrix() * modelMatrix;
-	aniHero->draw(mvpMatrix);
+	aniHero->draw(mvpMatrix, sprite);
 
 	translateMatrix = glm::mat4(1.0f);
 	translateMatrix = glm::translate(translateMatrix, glm::vec3(modelX - 0.25f, -0.2f, 0.0f));
 	modelMatrix = translateMatrix * scaleMatrix;
 	mvpMatrix = getViewAndProjectMatrix() * modelMatrix;
-	aniDivo->draw(mvpMatrix);
+	aniDivo->draw(mvpMatrix, sprite);
 
 	modelX -= 0.01f;
 	if (modelX < -1.0f)

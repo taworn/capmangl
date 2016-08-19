@@ -19,17 +19,11 @@ Animation::~Animation()
 {
 }
 
-Animation::Animation(Sprite *s) : sprite(s), plays(), currentPlaying(-1), currentImage(0)
+Animation::Animation()
+	: plays(), currentPlaying(-1), currentImage(0)
+	, currentX(0), currentY(0), velocityX(0), velocityY(0)
 {
-	assert(sprite);
 	timeStart = GetTickCount();
-}
-
-void Animation::setSprite(Sprite *s)
-{
-	sprite = s;
-	assert(sprite);
-	use(currentPlaying);
 }
 
 void Animation::add(int number, int start, int end, int time)
@@ -50,7 +44,7 @@ void Animation::use(int number)
 	}
 }
 
-void Animation::draw(const glm::mat4 &mvpMatrix)
+void Animation::draw(const glm::mat4 &mvpMatrix, Sprite *sprite)
 {
 	sprite->draw(mvpMatrix, currentImage);
 

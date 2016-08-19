@@ -22,11 +22,9 @@ Sprite::~Sprite()
 }
 
 Sprite::Sprite()
-	: shader(), verticesHandle(0), indicesHandle(0), textureHandle(0)
+	: verticesHandle(0), indicesHandle(0), textureHandle(0)
 	, uData(), vData(), sliceHorz(0), sliceVert(0)
 {
-	shader = Game::instance()->getTextureShader();
-
 	glGenBuffers(1, &verticesHandle);
 	glGenBuffers(1, &indicesHandle);
 	glGenTextures(1, &textureHandle);
@@ -78,6 +76,7 @@ void Sprite::init(const PNGImage *image, int sliceHorz, int sliceVert)
 
 void Sprite::draw(const glm::mat4 &mvpMatrix, int imageIndex)
 {
+	TextureShader *shader = Game::instance()->getTextureShader();
 	shader->useProgram();
 	glEnable(GL_TEXTURE_2D);
 

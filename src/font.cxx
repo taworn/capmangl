@@ -16,19 +16,17 @@ Font::~Font()
 	if (face)
 		FT_Done_Face(face);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glDeleteBuffers(1, &verticesHandle);
+	glDeleteBuffers(1, &handle);
 }
 
-Font::Font() : shader(), verticesHandle(0), face(0)
+Font::Font() : handle(0), face(0), rgba()
 {
-	shader = Game::instance()->getTextShader();
-	glGenBuffers(1, &verticesHandle);
+	glGenBuffers(1, &handle);
 }
 
-Font::Font(const char *faceName, int size) : shader(), verticesHandle(0), face(0)
+Font::Font(const char *faceName, int size) : handle(0), face(0), rgba()
 {
-	shader = Game::instance()->getTextShader();
-	glGenBuffers(1, &verticesHandle);
+	glGenBuffers(1, &handle);
 	if (!init(faceName, size))
 		throw std::runtime_error("Font is not created.");
 }
@@ -46,21 +44,6 @@ bool Font::init(const char *faceName, int size)
 	this->face = face;
 
 	return true;
-}
-
-void Font::setColor(GLfloat r, GLfloat g, GLfloat b, GLfloat a)
-{
-	GLfloat rgba[4];
-	rgba[0] = r;
-	rgba[1] = g;
-	rgba[2] = b;
-	rgba[3] = a;
-	glUniform4fv(shader->getColor(), 1, rgba);
-}
-
-void Font::setColor(GLfloat rgba[4])
-{
-	glUniform4fv(shader->getColor(), 1, rgba);
 }
 
 void Font::measure(const char *text, GLfloat *w, GLfloat *h, GLfloat sx, GLfloat sy)
@@ -88,8 +71,11 @@ void Font::draw(const char *text, GLfloat x, GLfloat y, GLfloat sx, GLfloat sy)
 	const char *p;
 	GLuint tex;
 
+	TextShader *shader = Game::instance()->getTextShader();
+	shader->useProgram();
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glUniform4fv(shader->getColor(), 1, rgba);
 
 	glActiveTexture(GL_TEXTURE0);
 	glGenTextures(1, &tex);
@@ -109,7 +95,7 @@ void Font::draw(const char *text, GLfloat x, GLfloat y, GLfloat sx, GLfloat sy)
 
 	// Set up the VBO for our vertex data
 	glEnableVertexAttribArray(shader->getCoord());
-	glBindBuffer(GL_ARRAY_BUFFER, verticesHandle);
+	glBindBuffer(GL_ARRAY_BUFFER, handle);
 	glVertexAttribPointer(shader->getCoord(), 4, GL_FLOAT, GL_FALSE, 0, 0);
 
 	// Loop through all characters

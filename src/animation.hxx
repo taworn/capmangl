@@ -23,12 +23,7 @@ public:
 	/**
 	 * Constructs an animation.
 	 */
-	Animation(Sprite *s);
-
-	/**
-	 * Sets sprite.
-	 */
-	void setSprite(Sprite *s);
+	Animation();
 
 	/**
 	 * Adds a playing animation, only 16 set allow.
@@ -43,11 +38,40 @@ public:
 	/**
 	 * Draws animation.
 	 */
-	void draw(const glm::mat4 &mvpMatrix);
+	void draw(const glm::mat4 &mvpMatrix, Sprite *sprite);
+
+	float getCurrentX() const { return currentX; }
+	float getCurrentY() const { return currentY; }
+	float getVelocityX() const { return velocityX; }
+	float getVelocityY() const { return velocityY; }
+
+	void moveTo(float x, float y)
+	{
+		currentX = x;
+		currentY = y;
+	}
+
+	void moveBy(float dx, float dy)
+	{
+		currentX += dx;
+		currentY += dy;
+	}
+
+	void setVelocity(float x, float y)
+	{
+		velocityX = x;
+		velocityY = y;
+	}
+
+	void playFrame(bool enableX, bool enableY)
+	{
+		if (enableX)
+			currentX += velocityX;
+		if (enableY)
+			currentY += velocityY;
+	}
 
 private:
-	Sprite *sprite;
-
 	static const int PLAYING_MAX = 16;
 	struct PLAYING {
 		int start;
@@ -57,6 +81,10 @@ private:
 	PLAYING plays[PLAYING_MAX];
 	int currentPlaying;
 	int currentImage;
+
+	float currentX, currentY;
+	float velocityX, velocityY;
+
 	ULONGLONG timeStart;
 
 	Animation(const Animation&);
