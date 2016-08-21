@@ -49,7 +49,7 @@ void Animation::draw(const glm::mat4 &mvpMatrix, Sprite *sprite)
 	sprite->draw(mvpMatrix, currentImage);
 
 	ULONGLONG usage = GetTickCount() - timeStart;
-	if (usage > (ULONGLONG)plays[currentPlaying].time) {
+	if (usage > plays[currentPlaying].time) {
 		currentImage++;
 		if (currentImage >= plays[currentPlaying].end)
 			currentImage = plays[currentPlaying].start;

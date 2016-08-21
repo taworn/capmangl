@@ -163,6 +163,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\animation.cxx" />
+    <ClCompile Include="src\game\divo.cxx" />
+    <ClCompile Include="src\game\map.cxx" />
+    <ClCompile Include="src\game\movable.cxx" />
+    <ClCompile Include="src\game\pacman.cxx" />
     <ClCompile Include="src\sprite.cxx" />
     <ClCompile Include="src\font.cxx" />
     <ClCompile Include="src\game.cxx" />
@@ -177,6 +181,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\animation.hxx" />
+    <ClInclude Include="src\game\common.hxx" />
+    <ClInclude Include="src\game\divo.hxx" />
+    <ClInclude Include="src\game\map.hxx" />
+    <ClInclude Include="src\game\movable.hxx" />
+    <ClInclude Include="src\game\pacman.hxx" />
     <ClInclude Include="src\sprite.hxx" />
     <ClInclude Include="src\font.hxx" />
     <ClInclude Include="src\game.hxx" />

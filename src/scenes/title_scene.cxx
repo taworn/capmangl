@@ -11,60 +11,68 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include "../game.hxx"
+#include "../game/common.hxx"
 #include "scene.hxx"
 #include "title_scene.hxx"
 
 TitleScene::~TitleScene()
 {
 	BOOST_LOG_TRIVIAL(debug) << "TitleScene::~TitleScene() called";
-	if (aniDivo) {
-		delete aniDivo;
-		aniDivo = NULL;
-	}
 	if (aniHero) {
 		delete aniHero;
 		aniHero = NULL;
 	}
+	if (aniDivo) {
+		delete aniDivo;
+		aniDivo = NULL;
+	}
 	fini();
 }
 
-TitleScene::TitleScene() : Scene(), modelX(0.0f)
+TitleScene::TitleScene()
+	: Scene()
+	, titleFont()
+	, spritePacman()
+	, aniDivo()
+	, aniHero()
+	, modelX(0.0f)
 {
 	BOOST_LOG_TRIVIAL(debug) << "TitleScene::TitleScene() called";
 	init();
 
 	const int TIME = 300;
-	aniHero = new Animation();
-	aniHero->add(0, 0, 2, TIME);
-	aniHero->add(1, 2, 4, TIME);
-	aniHero->add(2, 4, 6, TIME);
-	aniHero->add(3, 6, 8, TIME);
-	aniHero->use(0);
-
 	aniDivo = new Animation();
 	aniDivo->add(0, 8, 10, TIME);
 	aniDivo->add(1, 10, 12, TIME);
 	aniDivo->add(2, 12, 14, TIME);
 	aniDivo->add(3, 14, 16, TIME);
 	aniDivo->use(0);
+
+	aniHero = new Animation();
+	aniHero->add(0, 0, 2, TIME);
+	aniHero->add(1, 2, 4, TIME);
+	aniHero->add(2, 4, 6, TIME);
+	aniHero->add(3, 6, 8, TIME);
+	aniHero->use(0);
 }
 
 void TitleScene::init()
 {
 	BOOST_LOG_TRIVIAL(debug) << "TitleScene::init() called";
+
 	titleFont = new Font("C:\\WINDOWS\\Fonts\\timesbd.ttf", 128);
 
 	PNGImage image(".\\res\\pacman.png");
-	sprite = new Sprite();
-	sprite->init(&image, 8, 8);
+	spritePacman = new Sprite();
+	spritePacman->init(&image, 8, 8);
 }
 
 void TitleScene::fini()
 {
 	BOOST_LOG_TRIVIAL(debug) << "TitleScene::fini() called";
-	if (sprite) {
-		delete sprite;
-		sprite = NULL;
+	if (spritePacman) {
+		delete spritePacman;
+		spritePacman = NULL;
 	}
 	if (titleFont) {
 		delete titleFont;
@@ -76,7 +84,7 @@ bool TitleScene::handleKey(HWND hwnd, WPARAM key)
 {
 	if (key == VK_RETURN) {
 		// ENTER
-		OutputDebugStringW(L"ENTER keydown\n");
+		BOOST_LOG_TRIVIAL(debug) << "ENTER keydown";
 		Game::instance()->changeScene(SCENE_PLAY);
 		return true;
 	}
@@ -102,20 +110,28 @@ void TitleScene::render()
 	normalFont->measure("Press ENTER to Start", &w, &h, sx, sy);
 	normalFont->draw("Press ENTER to Start", 0 - (w / 2), -0.70f, sx, sy);
 
-	Game::instance()->getTextureShader()->useProgram();
+	// combines viewing and projecting matrices
+	glm::mat4 viewMatrix = glm::lookAt(
+		glm::vec3(0.0f, 0.0f, 2.5f),    // camera
+		glm::vec3(0.0f, 0.0f, -25.0f),  // looks
+		glm::vec3(0.0f, 1.0f, 0.0f)     // head is up
+	);
+	glm::mat4 projectionMatrix = glm::ortho(-1.0f, 1.0f, -1.0f, 1.0f, -1.0f, 25.0f);
+	glm::mat4 viewProjectMatrix = projectionMatrix * viewMatrix;
+
 	glm::mat4 scaleMatrix = glm::mat4(1.0f);
 	scaleMatrix = glm::scale(scaleMatrix, glm::vec3(0.05f, 0.05f, 1.0f));
 	glm::mat4 translateMatrix = glm::mat4(1.0f);
 	translateMatrix = glm::translate(translateMatrix, glm::vec3(modelX, -0.2f, 0.0f));
 	glm::mat4 modelMatrix = translateMatrix * scaleMatrix;
-	glm::mat4 mvpMatrix = getViewAndProjectMatrix() * modelMatrix;
-	aniHero->draw(mvpMatrix, sprite);
+	glm::mat4 mvpMatrix = viewProjectMatrix * modelMatrix;
+	aniHero->draw(mvpMatrix, spritePacman);
 
 	translateMatrix = glm::mat4(1.0f);
 	translateMatrix = glm::translate(translateMatrix, glm::vec3(modelX - 0.25f, -0.2f, 0.0f));
 	modelMatrix = translateMatrix * scaleMatrix;
-	mvpMatrix = getViewAndProjectMatrix() * modelMatrix;
-	aniDivo->draw(mvpMatrix, sprite);
+	mvpMatrix = viewProjectMatrix * modelMatrix;
+	aniDivo->draw(mvpMatrix, spritePacman);
 
 	modelX -= 0.01f;
 	if (modelX < -1.0f)

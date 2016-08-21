@@ -20,9 +20,9 @@ protected:
 
 private:
 	Font *titleFont;
-	Sprite *sprite;
-	Animation *aniHero;
+	Sprite *spritePacman;
 	Animation *aniDivo;
+	Animation *aniHero;
 	float modelX;
 
 public:

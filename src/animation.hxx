@@ -57,10 +57,10 @@ public:
 		currentY += dy;
 	}
 
-	void setVelocity(float x, float y)
+	void setVelocity(float dx, float dy)
 	{
-		velocityX = x;
-		velocityY = y;
+		velocityX = dx;
+		velocityY = dy;
 	}
 
 	void playFrame(bool enableX, bool enableY)

@@ -20,19 +20,10 @@ Scene::~Scene()
 }
 
 Scene::Scene()
-	: viewAndProjectMatrix(1.0f), screenRect()
+	: screenRect()
 	, fps(0), frameCount(0), timeStart(0)
 {
 	BOOST_LOG_TRIVIAL(debug) << "Scene::Scene() called";
-	// combines viewing and projecting matrices
-	glm::mat4 viewMatrix = glm::lookAt(
-		glm::vec3(0.0f, 0.0f, 2.5f),    // camera
-		glm::vec3(0.0f, 0.0f, -25.0f),  // looks
-		glm::vec3(0.0f, 1.0f, 0.0f)     // head is up
-	);
-	//glm::mat4 projectionMatrix = glm::perspective(45.0f, 1.3333f, 1.0f, 25.0f);
-	glm::mat4 projectionMatrix = glm::ortho(-1.0f, 1.0f, -1.0f, 1.0f, -1.0f, 25.0f);
-	viewAndProjectMatrix = projectionMatrix * viewMatrix;
 
 	int params[4];
 	glGetIntegerv(GL_VIEWPORT, params);
@@ -83,8 +74,12 @@ void Scene::computeFPS()
 void Scene::handleActivate(HWND hwnd, bool active)
 {
 	if (active) {
+		BOOST_LOG_TRIVIAL(debug) << "window is activate";
 		frameCount = 0;
 		timeStart = GetTickCount();
+	}
+	else {
+		BOOST_LOG_TRIVIAL(debug) << "window is deactivated";
 	}
 }
 

@@ -25,6 +25,12 @@
     <Filter Include="Source Files\shaders">
       <UniqueIdentifier>{ced42f92-f372-4b32-9e60-952bea344d35}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\game">
+      <UniqueIdentifier>{56038117-5715-4849-874b-caa6d0565edd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\game">
+      <UniqueIdentifier>{a59ebf7f-7fc6-4833-836d-dbdfb86b76d2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\winmain.cxx">
@@ -62,6 +68,18 @@
     </ClCompile>
     <ClCompile Include="src\animation.cxx">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\divo.cxx">
+      <Filter>Source Files\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\map.cxx">
+      <Filter>Source Files\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\movable.cxx">
+      <Filter>Source Files\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\pacman.cxx">
+      <Filter>Source Files\game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -106,6 +124,21 @@
     </ClInclude>
     <ClInclude Include="src\animation.hxx">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game\common.hxx">
+      <Filter>Header Files\game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game\divo.hxx">
+      <Filter>Header Files\game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game\map.hxx">
+      <Filter>Header Files\game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game\movable.hxx">
+      <Filter>Header Files\game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game\pacman.hxx">
+      <Filter>Header Files\game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
