@@ -88,6 +88,10 @@ MODULES:=\
 	$(TARGET_DIR)\scenes\play_scene.o \
 	$(TARGET_DIR)\scenes\title_scene.o \
 	$(TARGET_DIR)\scenes\scene.o \
+	$(TARGET_DIR)\game\pacman.o \
+	$(TARGET_DIR)\game\divo.o \
+	$(TARGET_DIR)\game\movable.o \
+	$(TARGET_DIR)\game\map.o \
 	$(TARGET_DIR)\game.o \
 	$(TARGET_DIR)\animation.o \
 	$(TARGET_DIR)\sprite.o \
@@ -102,6 +106,11 @@ HEADERS:=\
 	$(TARGET_DIR)\scenes\play_scene.hxx \
 	$(TARGET_DIR)\scenes\title_scene.hxx \
 	$(TARGET_DIR)\scenes\scene.hxx \
+	$(TARGET_DIR)\game\pacman.hxx \
+	$(TARGET_DIR)\game\divo.hxx \
+	$(TARGET_DIR)\game\movable.hxx \
+	$(TARGET_DIR)\game\map.hxx \
+	$(TARGET_DIR)\game\common.hxx \
 	$(TARGET_DIR)\game.hxx \
 	$(TARGET_DIR)\animation.hxx \
 	$(TARGET_DIR)\sprite.hxx \
@@ -144,6 +153,7 @@ prepare:
 	if not exist $(TARGET_DIR) mkdir 2>NUL $(TARGET_DIR)
 	if not exist $(TARGET_DIR)\shaders mkdir 2>NUL $(TARGET_DIR)\shaders
 	if not exist $(TARGET_DIR)\scenes mkdir 2>NUL $(TARGET_DIR)\scenes
+	if not exist $(TARGET_DIR)\game mkdir 2>NUL $(TARGET_DIR)\game
 	if not exist $(OUTPUT_DIR) mkdir 2>NUL $(OUTPUT_DIR)
 ifneq ($(if $(SHARED),$(SHARED),0),0)
 	copy /y $(BOOST_LIB)\libboost_log-mt.dll $(OUTPUT_DIR)
@@ -159,6 +169,7 @@ clean:
 	if exist $(TARGET_DIR) del /q 2>NUL $(TARGET_DIR)\*.o
 	if exist $(TARGET_DIR)\shaders del /q 2>NUL $(TARGET_DIR)\shaders\*.o
 	if exist $(TARGET_DIR)\scenes del /q 2>NUL $(TARGET_DIR)\scenes\*.o
+	if exist $(TARGET_DIR)\game del /q 2>NUL $(TARGET_DIR)\game\*.o
 
 clean-all: clean
 	if exist $(OUTPUT_DIR) del /q 2>NUL $(OUTPUT_DIR)\$(OUTPUT)
@@ -176,6 +187,9 @@ $(TARGET_DIR)\shaders\\%.o: $(SOURCE_DIR)\shaders\\%.cxx
 	$(CC) $(CFLAGS) $(COMMON_CFLAGS) -o $@ -c $<
 
 $(TARGET_DIR)\scenes\\%.o: $(SOURCE_DIR)\scenes\\%.cxx
+	$(CC) $(CFLAGS) $(COMMON_CFLAGS) -o $@ -c $<
+
+$(TARGET_DIR)\game\\%.o: $(SOURCE_DIR)\game\\%.cxx
 	$(CC) $(CFLAGS) $(COMMON_CFLAGS) -o $@ -c $<
 
 $(TARGET_DIR)\\%.o: $(SOURCE_DIR)\\%.cxx
