@@ -50,7 +50,7 @@ public:
 	/**
 	 * Draws movable.
 	 */
-	void draw(Sprite *sprite, const glm::mat4 *viewProjectMatrix, const glm::mat4 *scaleMatrix, POINTFLOAT *scaleUp);
+	void draw(Sprite *sprite, const glm::mat4 *viewProjectMatrix, const glm::mat4 *scaleMatrix);
 
 	// Gets X, Y position
 	int getX() const { return point.x; }

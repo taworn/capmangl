@@ -141,7 +141,7 @@ void Movable::play(ULONGLONG timeUsed)
 	}
 }
 
-void Movable::draw(Sprite *sprite, const glm::mat4 *viewProjectMatrix, const glm::mat4 *scaleMatrix, POINTFLOAT *scaleUp)
+void Movable::draw(Sprite *sprite, const glm::mat4 *viewProjectMatrix, const glm::mat4 *scaleMatrix)
 {
 	glm::mat4 translateMatrix = glm::mat4(1.0f);
 	translateMatrix = glm::translate(translateMatrix, glm::vec3(getCurrentX(), getCurrentY(), 0));

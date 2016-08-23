@@ -146,7 +146,7 @@ bool PNGImage::init(const char *fileName)
 	this->image = image_data;
 	this->rowPointers = row_pointers;
 
-	// closes resources 
+	// closes resources
 	png_destroy_read_struct(&png_ptr, &info_ptr, &end_info);
 	fclose(fp);
 

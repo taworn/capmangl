@@ -60,7 +60,7 @@ public:
 	/**
 	 * Draws map.
 	 */
-	void draw(Sprite *sprite, const glm::mat4 *viewProjectMatrix, const glm::mat4 *scaleMatrix, POINTFLOAT *scaleUp);
+	void draw(Sprite *sprite, const glm::mat4 *viewProjectMatrix, const glm::mat4 *scaleMatrix);
 
 private:
 	union MapData {
@@ -73,7 +73,8 @@ private:
 		int data;
 	};
 	int width, height;
-	MapData *mapData;
+	char *mapData;
+	int *imageData;
 
 	std::vector<float> horzBounds;
 	std::vector<float> horzPoints;

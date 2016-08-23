@@ -124,20 +124,19 @@ void PlayScene::render()
 	glm::mat4 projectionMatrix = glm::ortho(-1.0f, 1.0f, -1.0f, 1.0f, -1.0f, 25.0f);
 	glm::mat4 viewProjectMatrix = projectionMatrix * viewMatrix;
 
-	// sets scaling
+	// drawing map
 	glm::mat4 scaleMatrix = glm::mat4(1.0f);
-	scaleMatrix = glm::scale(scaleMatrix, glm::vec3(0.0625f, 0.0625f, 1.0f));
-	POINTFLOAT scaleUp;
-	scaleUp.x = 16.0f;
-	scaleUp.y = 16.0f;
+	scaleMatrix = glm::scale(scaleMatrix, glm::vec3(1.0f, 1.0f, 1.0f));
+	map.draw(spriteMap, &viewProjectMatrix, &scaleMatrix);
 
-	// drawing
-	map.draw(spriteMap, &viewProjectMatrix, &scaleMatrix, &scaleUp);
-	movDivoes[0].draw(spritePacman, &viewProjectMatrix, &scaleMatrix, &scaleUp);
-	movDivoes[1].draw(spritePacman, &viewProjectMatrix, &scaleMatrix, &scaleUp);
-	movDivoes[2].draw(spritePacman, &viewProjectMatrix, &scaleMatrix, &scaleUp);
-	movDivoes[3].draw(spritePacman, &viewProjectMatrix, &scaleMatrix, &scaleUp);
-	movHero.draw(spritePacman, &viewProjectMatrix, &scaleMatrix, &scaleUp);
+	// drawing movables
+	scaleMatrix = glm::mat4(1.0f);
+	scaleMatrix = glm::scale(scaleMatrix, glm::vec3(0.0625f, 0.0625f, 1.0f));
+	movDivoes[0].draw(spritePacman, &viewProjectMatrix, &scaleMatrix);
+	movDivoes[1].draw(spritePacman, &viewProjectMatrix, &scaleMatrix);
+	movDivoes[2].draw(spritePacman, &viewProjectMatrix, &scaleMatrix);
+	movDivoes[3].draw(spritePacman, &viewProjectMatrix, &scaleMatrix);
+	movHero.draw(spritePacman, &viewProjectMatrix, &scaleMatrix);
 
 	// checks idling
 	for (int i = 0; i < 4; i++) {
