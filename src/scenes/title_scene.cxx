@@ -85,7 +85,7 @@ bool TitleScene::handleKey(HWND hwnd, WPARAM key)
 	if (key == VK_RETURN) {
 		// ENTER
 		BOOST_LOG_TRIVIAL(debug) << "ENTER keydown";
-		Game::instance()->changeScene(SCENE_PLAY);
+		Game::instance()->changeScene(Game::SCENE_PLAY);
 		return true;
 	}
 	return false;

@@ -44,10 +44,6 @@ void Divo::setMap(Map *map)
 
 void Divo::nextMove()
 {
-	if (map->hasItem(this)) {
-
-	}
-
 	int dirs = map->canPreviewMove(this);
 	int count = 0;
 	if ((dirs & Map::MOVE_LEFT) == Map::MOVE_LEFT) count++;
@@ -76,19 +72,12 @@ void Divo::nextMove()
 	else {
 		int randoms[8] = { 0 };
 		int end = 0;
-		int opposite = 0;
-		if (nextDirection) {
-			randoms[end++] = nextDirection;
-			randoms[end++] = nextDirection;
-			if (nextDirection == Map::MOVE_LEFT) opposite = Map::MOVE_RIGHT;
-			if (nextDirection == Map::MOVE_RIGHT) opposite = Map::MOVE_LEFT;
-			if (nextDirection == Map::MOVE_UP) opposite = Map::MOVE_DOWN;
-			if (nextDirection == Map::MOVE_DOWN) opposite = Map::MOVE_UP;
-		}
-		if ((dirs & Map::MOVE_LEFT) == Map::MOVE_LEFT && opposite != Map::MOVE_LEFT) randoms[end++] = Map::MOVE_LEFT;
-		if ((dirs & Map::MOVE_RIGHT) == Map::MOVE_RIGHT && opposite != Map::MOVE_RIGHT) randoms[end++] = Map::MOVE_RIGHT;
-		if ((dirs & Map::MOVE_UP) == Map::MOVE_UP && opposite != Map::MOVE_UP) randoms[end++] = Map::MOVE_UP;
-		if ((dirs & Map::MOVE_DOWN) == Map::MOVE_DOWN && opposite != Map::MOVE_DOWN) randoms[end++] = Map::MOVE_DOWN;
+		if ((dirs & Map::MOVE_LEFT) == Map::MOVE_LEFT) randoms[end++] = Map::MOVE_LEFT;
+		if ((dirs & Map::MOVE_RIGHT) == Map::MOVE_RIGHT) randoms[end++] = Map::MOVE_RIGHT;
+		if ((dirs & Map::MOVE_UP) == Map::MOVE_UP) randoms[end++] = Map::MOVE_UP;
+		if ((dirs & Map::MOVE_DOWN) == Map::MOVE_DOWN) randoms[end++] = Map::MOVE_DOWN;
+		if (nextDirection) randoms[end++] = nextDirection;
+
 		nextDirection = randoms[rand() % end];
 	}
 

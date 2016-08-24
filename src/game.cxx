@@ -13,7 +13,10 @@
 #include "game.hxx"
 #include "scenes/scene.hxx"
 #include "scenes/title_scene.hxx"
+ //#include "scenes/stage_scene.hxx"
 #include "scenes/play_scene.hxx"
+#include "scenes/gameover_scene.hxx"
+//#include "scenes/win_scene.hxx"
 
 Game *Game::singleton = NULL;
 
@@ -37,7 +40,7 @@ Game::~Game()
 Game::Game(HDC h)
 	: hdc(h), normalShader(), textShader(), textureShader()
 	, freeTypeLibrary(0), smallFont(), normalFont(), bigFont()
-	, scene()
+	, scene(), nextSceneId(SCENE_TITLE)
 {
 	assert(singleton == NULL);
 	singleton = this;
@@ -54,17 +57,43 @@ Game::Game(HDC h)
 	smallFont = new Font("C:\\WINDOWS\\Fonts\\arial.ttf", 24);
 	normalFont = new Font("C:\\WINDOWS\\Fonts\\arial.ttf", 32);
 	bigFont = new Font("C:\\WINDOWS\\Fonts\\timesbd.ttf", 64);
-
-	scene = new TitleScene();
 }
 
 void Game::changeScene(int sceneId)
 {
 	BOOST_LOG_TRIVIAL(debug) << "changeScene() called, sceneId = " << sceneId;
+	nextSceneId = sceneId;
+}
 
-	delete scene;
+void Game::handleActivate(HWND hwnd, bool active)
+{
+	if (scene)
+		scene->handleActivate(hwnd, active);
+}
 
-	switch (sceneId) {
+bool Game::handleKey(HWND hwnd, WPARAM key)
+{
+	if (scene)
+		return scene->handleKey(hwnd, key);
+	else
+		return false;
+}
+
+void Game::render()
+{
+	if (nextSceneId < 0)
+		scene->render();
+	else
+		switchScene();
+}
+
+void Game::switchScene()
+{
+	BOOST_LOG_TRIVIAL(debug) << "perform switchScene() called, sceneId = " << nextSceneId;
+	if (scene)
+		delete scene;
+
+	switch (nextSceneId) {
 	default:
 	case SCENE_DEFAULT:
 		scene = new Scene();
@@ -72,24 +101,19 @@ void Game::changeScene(int sceneId)
 	case SCENE_TITLE:
 		scene = new TitleScene();
 		break;
+	case SCENE_STAGE:
+		//scene = new StageScene();
+		break;
 	case SCENE_PLAY:
 		scene = new PlayScene();
 		break;
+	case SCENE_GAMEOVER:
+		scene = new GameOverScene();
+		break;
+	case SCENE_WIN:
+		//scene = new WinScene();
+		break;
 	}
-}
-
-void Game::handleActivate(HWND hwnd, bool active)
-{
-	scene->handleActivate(hwnd, active);
-}
-
-bool Game::handleKey(HWND hwnd, WPARAM key)
-{
-	return scene->handleKey(hwnd, key);
-}
-
-void Game::render()
-{
-	scene->render();
+	nextSceneId = -1;
 }
 

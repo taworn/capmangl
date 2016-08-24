@@ -16,10 +16,6 @@
 #include "sprite.hxx"
 #include "animation.hxx"
 
-#define SCENE_DEFAULT 0
-#define SCENE_TITLE 1
-#define SCENE_PLAY 2
-
 class Scene;
 
 /**
@@ -29,6 +25,13 @@ class Game
 {
 public:
 	static Game* instance() { return singleton; }
+
+	static const int SCENE_DEFAULT = 0;
+	static const int SCENE_TITLE = 1;
+	static const int SCENE_STAGE = 2;
+	static const int SCENE_PLAY = 3;
+	static const int SCENE_GAMEOVER = 4;
+	static const int SCENE_WIN = 5;
 
 	/**
 	 * Destructs the game engine.
@@ -80,6 +83,12 @@ private:
 	Font *normalFont;
 	Font *bigFont;
 	Scene *scene;
+	int nextSceneId;
+
+	/**
+	 * Performs real scene switching.
+	 */
+	void switchScene();
 
 	static Game *singleton;
 };

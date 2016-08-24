@@ -81,6 +81,9 @@
     <ClCompile Include="src\game\pacman.cxx">
       <Filter>Source Files\game</Filter>
     </ClCompile>
+    <ClCompile Include="src\scenes\gameover_scene.cxx">
+      <Filter>Source Files\scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\opengl.hxx">
@@ -139,6 +142,9 @@
     </ClInclude>
     <ClInclude Include="src\game\pacman.hxx">
       <Filter>Header Files\game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scenes\gameover_scene.hxx">
+      <Filter>Header Files\scenes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

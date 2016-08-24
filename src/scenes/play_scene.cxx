@@ -67,12 +67,6 @@ bool PlayScene::handleKey(HWND hwnd, WPARAM key)
 		BOOST_LOG_TRIVIAL(debug) << "SPACE keydown";
 		return true;
 	}
-	else if (key == VK_RETURN) {
-		// ENTER
-		BOOST_LOG_TRIVIAL(debug) << "ENTER keydown";
-		Game::instance()->changeScene(SCENE_TITLE);
-		return true;
-	}
 	else if (key == 0x41 || key == VK_LEFT) {
 		// left
 		BOOST_LOG_TRIVIAL(debug) << "A -or- LEFT keydown";

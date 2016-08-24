@@ -84,7 +84,6 @@ private:
 	int width, height;
 	char *mapData;
 	int *imageData;
-	int itemCount;
 
 	std::vector<float> horzBounds;
 	std::vector<float> horzPoints;
