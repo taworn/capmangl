@@ -102,10 +102,10 @@ bool Map::load()
 	for (size_t i = 0; i < vertPoints.size(); i++)
 		vertPoints[i] = (vertBounds[i] + vertBounds[i + 1]) / 2.0f;
 
-	startDivo.x = 8;
-	startDivo.y = 1;
-	startPacman.x = 8;
-	startPacman.y = 10;
+	startDivo.x = 4;
+	startDivo.y = 4;
+	startPacman.x = 9;
+	startPacman.y = 1;
 	return true;
 }
 
@@ -127,7 +127,7 @@ void Map::getPacmanStartPosition(POINT *p, POINTFLOAT *pf)
 
 bool Map::canMove(Movable *movable, int direction, POINT *p, POINTFLOAT *pf)
 {
-	if (direction == MOVE_LEFT) {
+	if (direction == Movable::MOVE_LEFT) {
 		int current = movable->getX();
 		int next = current - 1;
 		if (next >= 0) {
@@ -141,7 +141,7 @@ bool Map::canMove(Movable *movable, int direction, POINT *p, POINTFLOAT *pf)
 			}
 		}
 	}
-	else if (direction == MOVE_RIGHT) {
+	else if (direction == Movable::MOVE_RIGHT) {
 		int current = movable->getX();
 		int next = current + 1;
 		if (next < width) {
@@ -155,7 +155,7 @@ bool Map::canMove(Movable *movable, int direction, POINT *p, POINTFLOAT *pf)
 			}
 		}
 	}
-	else if (direction == MOVE_UP) {
+	else if (direction == Movable::MOVE_UP) {
 		int current = movable->getY();
 		int next = current - 1;
 		if (next >= 0) {
@@ -169,7 +169,7 @@ bool Map::canMove(Movable *movable, int direction, POINT *p, POINTFLOAT *pf)
 			}
 		}
 	}
-	else if (direction == MOVE_DOWN) {
+	else if (direction == Movable::MOVE_DOWN) {
 		int current = movable->getY();
 		int next = current + 1;
 		if (next < height) {
@@ -195,16 +195,16 @@ int Map::canPreviewMove(Movable *movable)
 
 	// left
 	if (x > 0 && !(mapData[y * width + x - 1] & 0x01))
-		result |= MOVE_LEFT;
+		result |= Movable::MOVE_LEFT;
 	// right
 	if (x < width - 1 && !(mapData[y * width + x + 1] & 0x01))
-		result |= MOVE_RIGHT;
+		result |= Movable::MOVE_RIGHT;
 	// up
 	if (y > 0 && !(mapData[(y - 1) * width + x] & 0x01))
-		result |= MOVE_UP;
+		result |= Movable::MOVE_UP;
 	// down
 	if (y < height - 1 && !(mapData[(y + 1) * width + x] & 0x01))
-		result |= MOVE_DOWN;
+		result |= Movable::MOVE_DOWN;
 
 	return result;
 }

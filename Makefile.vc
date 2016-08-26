@@ -87,6 +87,7 @@ MODULES=\
 	$(TARGET_DIR)\scenes\play_scene.obj \
 	$(TARGET_DIR)\scenes\title_scene.obj \
 	$(TARGET_DIR)\scenes\scene.obj \
+	$(TARGET_DIR)\game\gamedata.obj \
 	$(TARGET_DIR)\game\pacman.obj \
 	$(TARGET_DIR)\game\divo.obj \
 	$(TARGET_DIR)\game\movable.obj \
@@ -106,6 +107,7 @@ HEADERS=\
 	$(TARGET_DIR)\scenes\play_scene.hxx \
 	$(TARGET_DIR)\scenes\title_scene.hxx \
 	$(TARGET_DIR)\scenes\scene.hxx \
+	$(TARGET_DIR)\game\gamedata.hxx \
 	$(TARGET_DIR)\game\pacman.hxx \
 	$(TARGET_DIR)\game\divo.hxx \
 	$(TARGET_DIR)\game\movable.hxx \

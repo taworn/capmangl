@@ -21,14 +21,21 @@ PlayScene::~PlayScene()
 	fini();
 }
 
-PlayScene::PlayScene() : Scene()
+PlayScene::PlayScene()
+	: Scene()
+	, spriteMap(), spritePacman()
+	, map()
+	, movDivoes(), movHero()
 {
 	BOOST_LOG_TRIVIAL(debug) << "PlayScene::PlayScene() called";
 	init();
+
+	GameData::instance()->clear();
 	map.load();
 	for (int i = 0; i < 4; i++) {
 		movDivoes[i].setId(i);
 		movDivoes[i].setMap(&map);
+		GameData::instance()->addDivo(&movDivoes[i]);
 	}
 	movHero.setMap(&map);
 	timeStart = GetTickCount();
@@ -70,25 +77,25 @@ bool PlayScene::handleKey(HWND hwnd, WPARAM key)
 	else if (key == 0x41 || key == VK_LEFT) {
 		// left
 		BOOST_LOG_TRIVIAL(debug) << "A -or- LEFT keydown";
-		movHero.move(Map::MOVE_LEFT);
+		movHero.move(Movable::MOVE_LEFT);
 		return true;
 	}
 	else if (key == 0x44 || key == VK_RIGHT) {
 		// right
 		BOOST_LOG_TRIVIAL(debug) << "D -or- RIGHT keydown";
-		movHero.move(Map::MOVE_RIGHT);
+		movHero.move(Movable::MOVE_RIGHT);
 		return true;
 	}
 	else if (key == 0x57 || key == VK_UP) {
 		// up
 		BOOST_LOG_TRIVIAL(debug) << "W -or- UP keydown";
-		movHero.move(Map::MOVE_UP);
+		movHero.move(Movable::MOVE_UP);
 		return true;
 	}
 	else if (key == 0x53 || key == VK_DOWN) {
 		// down
 		BOOST_LOG_TRIVIAL(debug) << "S -or- DOWN keydown";
-		movHero.move(Map::MOVE_DOWN);
+		movHero.move(Movable::MOVE_DOWN);
 		return true;
 	}
 	return false;
@@ -108,9 +115,12 @@ void PlayScene::render()
 	movDivoes[2].play(timeUsed);
 	movDivoes[3].play(timeUsed);
 	movHero.play(timeUsed);
+	movHero.detect();
 
 	// combines viewing and projecting matrices
 	glm::mat4 viewMatrix = glm::lookAt(
+		//glm::vec3(movHero.getCurrentX(), movHero.getCurrentY(), 2.5f),    // camera
+		//glm::vec3(movHero.getCurrentX(), movHero.getCurrentY(), -25.0f),  // looks
 		glm::vec3(0.0f, 0.0f, 2.5f),    // camera
 		glm::vec3(0.0f, 0.0f, -25.0f),  // looks
 		glm::vec3(0.0f, 1.0f, 0.0f)     // head is up
@@ -135,7 +145,7 @@ void PlayScene::render()
 	// checks idling
 	for (int i = 0; i < 4; i++) {
 		if (movDivoes[i].isIdle())
-			movDivoes[i].nextMove();
+			movDivoes[i].nextAction();
 	}
 
 	computeFPS();

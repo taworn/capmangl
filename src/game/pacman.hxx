@@ -24,8 +24,10 @@ public:
 	Pacman();
 
 	/**
-	 * Sets map.
+	 * Detects enemies within rectangle.
 	 */
+	void detect();
+
 	virtual void setMap(Map *map);
 
 private:

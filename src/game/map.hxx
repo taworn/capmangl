@@ -16,11 +16,6 @@ class Movable;
 class Map
 {
 public:
-	static const int MOVE_LEFT = 1;
-	static const int MOVE_RIGHT = 2;
-	static const int MOVE_UP = 4;
-	static const int MOVE_DOWN = 8;
-
 	/**
 	 * Destructs the map.
 	 */

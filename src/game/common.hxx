@@ -9,6 +9,7 @@
 #include "movable.hxx"
 #include "divo.hxx"
 #include "pacman.hxx"
+#include "gamedata.hxx"
 
 #endif // GAME_COMMON_HXX
 

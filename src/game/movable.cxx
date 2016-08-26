@@ -19,124 +19,83 @@ Movable::~Movable()
 
 Movable::Movable()
 	: point()
-	, walking()
-	, distance(0.0f), target(0.0f)
+	, dead(false)
+	, animating(false)
+	, distanceX(0.0f), distanceY(0.0f)
+	, targetX(0.0f), targetY(0.0f)
 	, currentDirection(0), nextDirection(0)
-	, timePerDistance(350), timeUsed(0)
+	, timePerMove(250), timePerDead(750)
+	, timePerDistance(0), timeUsed(0)
 	, animation()
-	, map()
+	, map(NULL)
 {
 }
 
 void Movable::move(int direction)
 {
-	if (!walking) {
-		POINTFLOAT pf;
-		if (direction == Map::MOVE_LEFT) {
-			animation.use(0);
+	if (!dead) {
+		if (!animating) {
+			POINTFLOAT pf;
+
+			if (direction == MOVE_LEFT)
+				animation.use(ACTION_LEFT);
+			else if (direction == MOVE_RIGHT)
+				animation.use(ACTION_RIGHT);
+			else if (direction == MOVE_UP)
+				animation.use(ACTION_UP);
+			else if (direction == MOVE_DOWN)
+				animation.use(ACTION_DOWN);
+
 			if (map->canMove(this, direction, &point, &pf)) {
-				distance = animation.getCurrentX() - pf.x;
-				target = pf.x;
+				distanceX = pf.x - animation.getCurrentX();
+				distanceY = pf.y - animation.getCurrentY();
+				targetX = pf.x;
+				targetY = pf.y;
 				currentDirection = direction;
 				nextDirection = direction;
+				timePerDistance = timePerMove;
 				timeUsed = 0;
-				walking = true;
+				animating = true;
 			}
 		}
-		else if (direction == Map::MOVE_RIGHT) {
-			animation.use(1);
-			if (map->canMove(this, direction, &point, &pf)) {
-				distance = pf.x - animation.getCurrentX();
-				target = pf.x;
-				currentDirection = direction;
-				nextDirection = direction;
-				timeUsed = 0;
-				walking = true;
-			}
+		else {
+			// for Pacman, use this for controller
+			nextDirection = direction;
 		}
-		else if (direction == Map::MOVE_UP) {
-			animation.use(2);
-			if (map->canMove(this, direction, &point, &pf)) {
-				distance = pf.y - animation.getCurrentY();
-				target = pf.y;
-				currentDirection = direction;
-				nextDirection = direction;
-				timeUsed = 0;
-				walking = true;
-			}
-		}
-		else if (direction == Map::MOVE_DOWN) {
-			animation.use(3);
-			if (map->canMove(this, direction, &point, &pf)) {
-				distance = animation.getCurrentY() - pf.y;
-				target = pf.y;
-				currentDirection = direction;
-				nextDirection = direction;
-				timeUsed = 0;
-				walking = true;
-			}
-		}
-	}
-	else {
-		nextDirection = direction;
 	}
 }
 
-void Movable::nextMove()
+void Movable::moveDirect(POINT *p, POINTFLOAT *pf)
 {
-	move(nextDirection);
+	distanceX = pf->x - animation.getCurrentX();
+	distanceY = pf->y - animation.getCurrentY();
+	targetX = pf->x;
+	targetY = pf->y;
+	timePerDistance = timePerDead;
+	timeUsed = 0;
+	animating = true;
+}
+
+void Movable::nextAction()
+{
+	if (!dead) {
+		move(decision(nextDirection));
+	}
 }
 
 void Movable::play(ULONGLONG timeUsed)
 {
-	if (walking) {
-		if (currentDirection == Map::MOVE_LEFT) {
-			if (this->timeUsed + timeUsed < timePerDistance) {
-				float d = timeUsed * distance / timePerDistance;
-				animation.moveBy(-d, 0);
-				this->timeUsed += timeUsed;
-			}
-			else {
-				animation.moveTo(target, animation.getCurrentY());
-				walking = false;
-				nextMove();
-			}
+	if (animating) {
+		if (this->timeUsed + timeUsed < timePerDistance) {
+			float dx = timeUsed * distanceX / timePerDistance;
+			float dy = timeUsed * distanceY / timePerDistance;
+			animation.moveBy(dx, dy);
+			this->timeUsed += timeUsed;
 		}
-		else if (currentDirection == Map::MOVE_RIGHT) {
-			if (this->timeUsed + timeUsed < timePerDistance) {
-				float d = timeUsed * distance / timePerDistance;
-				animation.moveBy(d, 0);
-				this->timeUsed += timeUsed;
-			}
-			else {
-				animation.moveTo(target, animation.getCurrentY());
-				walking = false;
-				nextMove();
-			}
-		}
-		else if (currentDirection == Map::MOVE_UP) {
-			if (this->timeUsed + timeUsed < timePerDistance) {
-				float d = timeUsed * distance / timePerDistance;
-				animation.moveBy(0, d);
-				this->timeUsed += timeUsed;
-			}
-			else {
-				animation.moveTo(animation.getCurrentX(), target);
-				walking = false;
-				nextMove();
-			}
-		}
-		else if (currentDirection == Map::MOVE_DOWN) {
-			if (this->timeUsed + timeUsed < timePerDistance) {
-				float d = timeUsed * distance / timePerDistance;
-				animation.moveBy(0, -d);
-				this->timeUsed += timeUsed;
-			}
-			else {
-				animation.moveTo(animation.getCurrentX(), target);
-				walking = false;
-				nextMove();
-			}
+		else {
+			animation.moveTo(targetX, targetY);
+			animating = false;
+			nextAction();
 		}
 	}
 }
@@ -148,5 +107,10 @@ void Movable::draw(Sprite *sprite, const glm::mat4 *viewProjectMatrix, const glm
 	glm::mat4 modelMatrix = translateMatrix * *scaleMatrix;
 	glm::mat4 mvpMatrix = *viewProjectMatrix * modelMatrix;
 	animation.draw(mvpMatrix, sprite);
+}
+
+int Movable::decision(int moveDirection)
+{
+	return moveDirection;
 }
 

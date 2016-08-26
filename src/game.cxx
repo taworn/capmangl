@@ -13,7 +13,7 @@
 #include "game.hxx"
 #include "scenes/scene.hxx"
 #include "scenes/title_scene.hxx"
- //#include "scenes/stage_scene.hxx"
+//#include "scenes/stage_scene.hxx"
 #include "scenes/play_scene.hxx"
 #include "scenes/gameover_scene.hxx"
 //#include "scenes/win_scene.hxx"
@@ -24,6 +24,7 @@ Game::~Game()
 {
 	glUseProgram(0);
 	delete scene;
+	delete GameData::instance();
 
 	delete bigFont;
 	delete normalFont;
@@ -57,6 +58,8 @@ Game::Game(HDC h)
 	smallFont = new Font("C:\\WINDOWS\\Fonts\\arial.ttf", 24);
 	normalFont = new Font("C:\\WINDOWS\\Fonts\\arial.ttf", 32);
 	bigFont = new Font("C:\\WINDOWS\\Fonts\\timesbd.ttf", 64);
+
+	new GameData();
 }
 
 void Game::changeScene(int sceneId)
