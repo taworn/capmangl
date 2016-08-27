@@ -20,7 +20,7 @@ GameData::~GameData()
 	singleton = NULL;
 }
 
-GameData::GameData() 
+GameData::GameData()
 	: score(0)
 	, reverseMode(false), reverseTime(0)
 	, divoLife(0), divoList()
