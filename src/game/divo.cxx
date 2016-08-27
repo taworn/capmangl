@@ -30,6 +30,10 @@ void Divo::setId(int divoId)
 	getAnimation()->add(ACTION_RIGHT, (divoId + 1) * 8 + 2, (divoId + 1) * 8 + 4, Animation::ON_END_CONTINUE, TIME_PER_ANI_FRAME);
 	getAnimation()->add(ACTION_UP, (divoId + 1) * 8 + 4, (divoId + 1) * 8 + 6, Animation::ON_END_CONTINUE, TIME_PER_ANI_FRAME);
 	getAnimation()->add(ACTION_DOWN, (divoId + 1) * 8 + 6, (divoId + 1) * 8 + 8, Animation::ON_END_CONTINUE, TIME_PER_ANI_FRAME);
+	getAnimation()->add(ACTION_REVERSE_LEFT, 48, 50, Animation::ON_END_KEEP_LAST_FRAME, TIME_PER_ANI_FRAME);
+	getAnimation()->add(ACTION_REVERSE_RIGHT, 50, 52, Animation::ON_END_KEEP_LAST_FRAME, TIME_PER_ANI_FRAME);
+	getAnimation()->add(ACTION_REVERSE_UP, 52, 54, Animation::ON_END_KEEP_LAST_FRAME, TIME_PER_ANI_FRAME);
+	getAnimation()->add(ACTION_REVERSE_DOWN, 54, 56, Animation::ON_END_KEEP_LAST_FRAME, TIME_PER_ANI_FRAME);
 	getAnimation()->add(ACTION_DEAD_LEFT, 56, 57, Animation::ON_END_KEEP_LAST_FRAME, TIME_PER_ANI_FRAME);
 	getAnimation()->add(ACTION_DEAD_RIGHT, 57, 58, Animation::ON_END_KEEP_LAST_FRAME, TIME_PER_ANI_FRAME);
 	getAnimation()->add(ACTION_DEAD_UP, 58, 59, Animation::ON_END_KEEP_LAST_FRAME, TIME_PER_ANI_FRAME);

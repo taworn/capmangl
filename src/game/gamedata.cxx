@@ -20,7 +20,10 @@ GameData::~GameData()
 	singleton = NULL;
 }
 
-GameData::GameData() : score(0), divoLife(0), divoList()
+GameData::GameData() 
+	: score(0)
+	, reverseMode(false), reverseTime(0)
+	, divoLife(0), divoList()
 {
 	assert(singleton == NULL);
 	singleton = this;
@@ -28,6 +31,7 @@ GameData::GameData() : score(0), divoLife(0), divoList()
 
 void GameData::clear()
 {
+	reverseMode = false;
 	divoLife = 5;
 	divoList.clear();
 }
@@ -51,6 +55,17 @@ void GameData::getBonus(int item)
 	}
 	else if (item == 0x02) {
 		score += 100;
+		reverseMode = true;
+		reverseTime = 1000 * 3;
+	}
+}
+
+void GameData::update(ULONGLONG timeUsed)
+{
+	if (reverseMode) {
+		reverseTime -= timeUsed;
+		if (reverseTime <= 0)
+			reverseMode = false;
 	}
 }
 

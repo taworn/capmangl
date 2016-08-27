@@ -28,6 +28,8 @@ public:
 	 */
 	void detect();
 
+	virtual void play(ULONGLONG timeUsed);
+	virtual void kill();
 	virtual void setMap(Map *map);
 
 private:

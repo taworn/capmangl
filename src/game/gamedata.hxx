@@ -78,8 +78,20 @@ public:
 	 */
 	void getBonus(int item);
 
+	/**
+	 * Checks current time is reverse mode.
+	 */
+	bool isReverseMode() { return reverseMode; }
+
+	/**
+	 * Updates current time frame.
+	 */
+	void update(ULONGLONG timeUsed);
+
 private:
 	int score;
+	bool reverseMode;
+	ULONGLONG reverseTime;
 	int divoLife;
 	std::vector<Divo*> divoList;
 

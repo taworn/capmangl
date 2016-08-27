@@ -24,10 +24,14 @@ public:
 	static const int ACTION_RIGHT = 1;
 	static const int ACTION_UP = 2;
 	static const int ACTION_DOWN = 3;
-	static const int ACTION_DEAD_LEFT = 4;
-	static const int ACTION_DEAD_RIGHT = 5;
-	static const int ACTION_DEAD_UP = 6;
-	static const int ACTION_DEAD_DOWN = 7;
+	static const int ACTION_REVERSE_LEFT = 4;
+	static const int ACTION_REVERSE_RIGHT = 5;
+	static const int ACTION_REVERSE_UP = 6;
+	static const int ACTION_REVERSE_DOWN = 7;
+	static const int ACTION_DEAD_LEFT = 8;
+	static const int ACTION_DEAD_RIGHT = 9;
+	static const int ACTION_DEAD_UP = 10;
+	static const int ACTION_DEAD_DOWN = 11;
 
 	static const int TIME_PER_ANI_FRAME = 250;
 

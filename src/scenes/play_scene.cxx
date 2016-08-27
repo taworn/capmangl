@@ -110,6 +110,7 @@ void PlayScene::render()
 	ULONGLONG timeUsed = GetTickCount() - timeStart;
 	timeStart = GetTickCount();
 	//BOOST_LOG_TRIVIAL(trace) << "used " << timeUsed << " ms";
+	GameData::instance()->update(timeUsed);
 	movDivoes[0].play(timeUsed);
 	movDivoes[1].play(timeUsed);
 	movDivoes[2].play(timeUsed);

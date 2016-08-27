@@ -37,14 +37,26 @@ void Movable::move(int direction)
 		if (!animating) {
 			POINTFLOAT pf;
 
-			if (direction == MOVE_LEFT)
-				animation.use(ACTION_LEFT);
-			else if (direction == MOVE_RIGHT)
-				animation.use(ACTION_RIGHT);
-			else if (direction == MOVE_UP)
-				animation.use(ACTION_UP);
-			else if (direction == MOVE_DOWN)
-				animation.use(ACTION_DOWN);
+			if (!GameData::instance()->isReverseMode()) {
+				if (direction == MOVE_LEFT)
+					animation.use(ACTION_LEFT);
+				else if (direction == MOVE_RIGHT)
+					animation.use(ACTION_RIGHT);
+				else if (direction == MOVE_UP)
+					animation.use(ACTION_UP);
+				else if (direction == MOVE_DOWN)
+					animation.use(ACTION_DOWN);
+			}
+			else {
+				if (direction == MOVE_LEFT)
+					animation.use(ACTION_REVERSE_LEFT);
+				else if (direction == MOVE_RIGHT)
+					animation.use(ACTION_REVERSE_RIGHT);
+				else if (direction == MOVE_UP)
+					animation.use(ACTION_REVERSE_UP);
+				else if (direction == MOVE_DOWN)
+					animation.use(ACTION_REVERSE_DOWN);
+			}
 
 			if (map->canMove(this, direction, &point, &pf)) {
 				distanceX = pf.x - animation.getCurrentX();
