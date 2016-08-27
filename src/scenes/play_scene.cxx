@@ -45,7 +45,7 @@ void PlayScene::init()
 {
 	BOOST_LOG_TRIVIAL(debug) << "PlayScene::init() called";
 
-	PNGImage imageMap(".\\res\\map.png");
+	PNGImage imageMap(".\\res\\map0.png");
 	spriteMap = new Sprite();
 	spriteMap->init(&imageMap, 2, 2);
 
