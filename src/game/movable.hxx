@@ -24,7 +24,10 @@ public:
 	static const int ACTION_RIGHT = 1;
 	static const int ACTION_UP = 2;
 	static const int ACTION_DOWN = 3;
-	static const int ACTION_DEAD = 4;
+	static const int ACTION_DEAD_LEFT = 4;
+	static const int ACTION_DEAD_RIGHT = 5;
+	static const int ACTION_DEAD_UP = 6;
+	static const int ACTION_DEAD_DOWN = 7;
 
 	static const int TIME_PER_ANI_FRAME = 250;
 
@@ -64,6 +67,11 @@ public:
 	virtual void kill() { dead = true; }
 
 	/**
+	 * Relife your life.
+	 */
+	virtual void relife() { dead = false; }
+
+	/**
 	 * Checks whether movable is dead.
 	 */
 	bool isDead() const { return dead; }
@@ -71,7 +79,7 @@ public:
 	/**
 	 * Checks whether movable is busing or idling.
 	 */
-	bool isIdle() const { return !animating; }
+	bool isIdle() const { return !dead && !animating; }
 
 	/**
 	 * Gets X-coordinates in integer.

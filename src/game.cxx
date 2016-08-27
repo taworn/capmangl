@@ -16,7 +16,7 @@
 //#include "scenes/stage_scene.hxx"
 #include "scenes/play_scene.hxx"
 #include "scenes/gameover_scene.hxx"
-//#include "scenes/win_scene.hxx"
+#include "scenes/win_scene.hxx"
 
 Game *Game::singleton = NULL;
 
@@ -84,8 +84,10 @@ bool Game::handleKey(HWND hwnd, WPARAM key)
 
 void Game::render()
 {
-	if (nextSceneId < 0)
-		scene->render();
+	if (nextSceneId < 0) {
+		if (scene)
+			scene->render();
+	}
 	else
 		switchScene();
 }
@@ -114,7 +116,7 @@ void Game::switchScene()
 		scene = new GameOverScene();
 		break;
 	case SCENE_WIN:
-		//scene = new WinScene();
+		scene = new WinScene();
 		break;
 	}
 	nextSceneId = -1;

@@ -83,6 +83,7 @@ SHARED_LFLAGS=
 # modules
 MODULES=\
 	$(TARGET_DIR)\winmain.obj \
+	$(TARGET_DIR)\scenes\win_scene.obj \
 	$(TARGET_DIR)\scenes\gameover_scene.obj \
 	$(TARGET_DIR)\scenes\play_scene.obj \
 	$(TARGET_DIR)\scenes\title_scene.obj \
@@ -103,6 +104,7 @@ MODULES=\
 
 # headers
 HEADERS=\
+	$(TARGET_DIR)\scenes\win_scene.hxx \
 	$(TARGET_DIR)\scenes\gameover_scene.hxx \
 	$(TARGET_DIR)\scenes\play_scene.hxx \
 	$(TARGET_DIR)\scenes\title_scene.hxx \

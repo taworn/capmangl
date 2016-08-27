@@ -39,7 +39,7 @@ public:
 	/**
 	 * Draws batch sprites.
 	 */
-	void drawBatch(const glm::mat4 &mvpMatrix, std::vector<float> horz, std::vector<float> vert, int *imageIndex);
+	void drawBatch(const glm::mat4 &mvpMatrix, std::vector<float> horz, std::vector<float> vert, float z, int *imageIndex);
 
 	/**
 	 * Gets number of images.

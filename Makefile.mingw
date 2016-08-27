@@ -85,6 +85,7 @@ endif
 # modules
 MODULES:=\
 	$(TARGET_DIR)\winmain.o \
+	$(TARGET_DIR)\scenes\win_scene.o \
 	$(TARGET_DIR)\scenes\gameover_scene.o \
 	$(TARGET_DIR)\scenes\play_scene.o \
 	$(TARGET_DIR)\scenes\title_scene.o \
@@ -105,6 +106,7 @@ MODULES:=\
 
 # headers
 HEADERS:=\
+	$(TARGET_DIR)\scenes\win_scene.hxx \
 	$(TARGET_DIR)\scenes\gameover_scene.hxx \
 	$(TARGET_DIR)\scenes\play_scene.hxx \
 	$(TARGET_DIR)\scenes\title_scene.hxx \

@@ -25,29 +25,73 @@ Divo::Divo()
 void Divo::setId(int divoId)
 {
 	assert(divoId >= 0 && divoId < 4);
-	getAnimation()->add(ACTION_LEFT, (divoId + 1) * 8 + 0, (divoId + 1) * 8 + 2, TIME_PER_ANI_FRAME);
-	getAnimation()->add(ACTION_RIGHT, (divoId + 1) * 8 + 2, (divoId + 1) * 8 + 4, TIME_PER_ANI_FRAME);
-	getAnimation()->add(ACTION_UP, (divoId + 1) * 8 + 4, (divoId + 1) * 8 + 6, TIME_PER_ANI_FRAME);
-	getAnimation()->add(ACTION_DOWN, (divoId + 1) * 8 + 6, (divoId + 1) * 8 + 8, TIME_PER_ANI_FRAME);
-	getAnimation()->add(ACTION_DEAD, 56, 60, TIME_PER_ANI_FRAME);
+	this->divoId = divoId;
+	getAnimation()->add(ACTION_LEFT, (divoId + 1) * 8 + 0, (divoId + 1) * 8 + 2, Animation::ON_END_CONTINUE, TIME_PER_ANI_FRAME);
+	getAnimation()->add(ACTION_RIGHT, (divoId + 1) * 8 + 2, (divoId + 1) * 8 + 4, Animation::ON_END_CONTINUE, TIME_PER_ANI_FRAME);
+	getAnimation()->add(ACTION_UP, (divoId + 1) * 8 + 4, (divoId + 1) * 8 + 6, Animation::ON_END_CONTINUE, TIME_PER_ANI_FRAME);
+	getAnimation()->add(ACTION_DOWN, (divoId + 1) * 8 + 6, (divoId + 1) * 8 + 8, Animation::ON_END_CONTINUE, TIME_PER_ANI_FRAME);
+	getAnimation()->add(ACTION_DEAD_LEFT, 56, 57, Animation::ON_END_KEEP_LAST_FRAME, TIME_PER_ANI_FRAME);
+	getAnimation()->add(ACTION_DEAD_RIGHT, 57, 58, Animation::ON_END_KEEP_LAST_FRAME, TIME_PER_ANI_FRAME);
+	getAnimation()->add(ACTION_DEAD_UP, 58, 59, Animation::ON_END_KEEP_LAST_FRAME, TIME_PER_ANI_FRAME);
+	getAnimation()->add(ACTION_DEAD_DOWN, 59, 60, Animation::ON_END_KEEP_LAST_FRAME, TIME_PER_ANI_FRAME);
 	getAnimation()->use(ACTION_LEFT);
+}
+
+void Divo::nextAction()
+{
+	Movable::nextAction();
+	if (isDead()) {
+		if (GameData::instance()->divoCanRelife()) {
+			BOOST_LOG_TRIVIAL(debug) << "Divo #" << divoId << " is relife";
+			GameData::instance()->divoLifeDecrease();
+			relife();
+
+			POINT p;
+			POINTFLOAT pf;
+			getMap()->getDivoStartPosition(&p, &pf);
+			setXY(p.x, p.y);
+			getAnimation()->moveTo(pf.x, pf.y);
+			getAnimation()->use(ACTION_LEFT);
+		}
+		else {
+			if (GameData::instance()->checkAllDivoDead()) {
+				BOOST_LOG_TRIVIAL(debug) << "all Divoes are dead";
+				Game::instance()->changeScene(Game::SCENE_WIN);
+			}
+		}
+	}
 }
 
 void Divo::kill()
 {
 	Movable::kill();
-	getAnimation()->use(ACTION_DEAD);
 
 	POINT p;
 	POINTFLOAT pf;
 	getMap()->getDivoStartPosition(&p, &pf);
 	moveDirect(&p, &pf);
+
+	float dX = pf.x - getAnimation()->getCurrentX();
+	float dY = pf.y - getAnimation()->getCurrentY();
+	if (fabs(dX) >= fabs(dY)) {
+		if (dX <= 0.0f)
+			getAnimation()->use(ACTION_DEAD_LEFT);
+		else
+			getAnimation()->use(ACTION_DEAD_RIGHT);
+	}
+	else {
+		if (dY <= 0.0f)
+			getAnimation()->use(ACTION_DEAD_DOWN);
+		else
+			getAnimation()->use(ACTION_DEAD_UP);
+	}
 }
 
 void Divo::setMap(Map *map)
 {
 	Movable::setMap(map);
 
+	GameData::instance()->divoLifeDecrease();
 	POINT p;
 	POINTFLOAT pf;
 	getMap()->getDivoStartPosition(&p, &pf);
@@ -57,8 +101,9 @@ void Divo::setMap(Map *map)
 
 int Divo::decision(int moveDirection)
 {
-	if (getMap()->hasItem(this)) {
-
+	int item = 0;
+	if (getMap()->checkAndGetItem(this, &item)) {
+		GameData::instance()->getBonus(item);
 	}
 
 	// checks directions can move

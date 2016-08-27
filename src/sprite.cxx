@@ -120,7 +120,7 @@ void Sprite::draw(const glm::mat4 &mvpMatrix, int imageIndex)
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-void Sprite::drawBatch(const glm::mat4 &mvpMatrix, std::vector<float> horz, std::vector<float> vert, int *imageIndex)
+void Sprite::drawBatch(const glm::mat4 &mvpMatrix, std::vector<float> horz, std::vector<float> vert, float z, int *imageIndex)
 {
 	TextureShader *shader = Game::instance()->getTextureShader();
 	shader->useProgram();
@@ -143,42 +143,42 @@ void Sprite::drawBatch(const glm::mat4 &mvpMatrix, std::vector<float> horz, std:
 			// 1
 			verticesData[indices++] = horz[i + 1];
 			verticesData[indices++] = vert[j + 1];
-			verticesData[indices++] = 0.0f;
+			verticesData[indices++] = z;
 			verticesData[indices++] = u1;
 			verticesData[indices++] = v0;
 
 			// 2
 			verticesData[indices++] = horz[i + 1];
 			verticesData[indices++] = vert[j];
-			verticesData[indices++] = 0.0f;
+			verticesData[indices++] = z;
 			verticesData[indices++] = u1;
 			verticesData[indices++] = v1;
 
 			// 3
 			verticesData[indices++] = horz[i];
 			verticesData[indices++] = vert[j + 1];
-			verticesData[indices++] = 0.0f;
+			verticesData[indices++] = z;
 			verticesData[indices++] = u0;
 			verticesData[indices++] = v0;
 
 			// 4
 			verticesData[indices++] = horz[i + 1];
 			verticesData[indices++] = vert[j];
-			verticesData[indices++] = 0.0f;
+			verticesData[indices++] = z;
 			verticesData[indices++] = u1;
 			verticesData[indices++] = v1;
 
 			// 5
 			verticesData[indices++] = horz[i];
 			verticesData[indices++] = vert[j];
-			verticesData[indices++] = 0.0f;
+			verticesData[indices++] = z;
 			verticesData[indices++] = u0;
 			verticesData[indices++] = v1;
 
 			// 6
 			verticesData[indices++] = horz[i];
 			verticesData[indices++] = vert[j + 1];
-			verticesData[indices++] = 0.0f;
+			verticesData[indices++] = z;
 			verticesData[indices++] = u0;
 			verticesData[indices++] = v0;
 		}

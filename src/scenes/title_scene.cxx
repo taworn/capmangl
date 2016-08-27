@@ -42,17 +42,17 @@ TitleScene::TitleScene()
 
 	const int TIME = 300;
 	aniDivo = new Animation();
-	aniDivo->add(0, 8, 10, TIME);
-	aniDivo->add(1, 10, 12, TIME);
-	aniDivo->add(2, 12, 14, TIME);
-	aniDivo->add(3, 14, 16, TIME);
+	aniDivo->add(0, 8, 10, Animation::ON_END_CONTINUE, TIME);
+	aniDivo->add(1, 10, 12, Animation::ON_END_CONTINUE, TIME);
+	aniDivo->add(2, 12, 14, Animation::ON_END_CONTINUE, TIME);
+	aniDivo->add(3, 14, 16, Animation::ON_END_CONTINUE, TIME);
 	aniDivo->use(0);
 
 	aniHero = new Animation();
-	aniHero->add(0, 0, 2, TIME);
-	aniHero->add(1, 2, 4, TIME);
-	aniHero->add(2, 4, 6, TIME);
-	aniHero->add(3, 6, 8, TIME);
+	aniHero->add(0, 0, 2, Animation::ON_END_CONTINUE, TIME);
+	aniHero->add(1, 2, 4, Animation::ON_END_CONTINUE, TIME);
+	aniHero->add(2, 4, 6, Animation::ON_END_CONTINUE, TIME);
+	aniHero->add(3, 6, 8, Animation::ON_END_CONTINUE, TIME);
 	aniHero->use(0);
 }
 

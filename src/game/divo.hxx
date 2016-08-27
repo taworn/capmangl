@@ -28,6 +28,7 @@ public:
 	 */
 	void setId(int divoId);
 
+	virtual void nextAction();
 	virtual void kill();
 	virtual void setMap(Map *map);
 
@@ -35,6 +36,8 @@ protected:
 	virtual int decision(int moveDirection);
 
 private:
+	int divoId;
+
 	Divo(const Divo&);
 	Divo& operator=(const Divo&);
 };

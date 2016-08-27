@@ -209,10 +209,11 @@ int Map::canPreviewMove(Movable *movable)
 	return result;
 }
 
-bool Map::hasItem(Movable *movable)
+bool Map::checkAndGetItem(Movable *movable, int *item)
 {
 	int index = movable->getY() * width + movable->getX();
 	if (mapData[index] & 0x10) {
+		*item = imageData[index];
 		imageData[index] = 0;
 		mapData[index] &= ~0x10;
 		itemCount--;
@@ -233,6 +234,6 @@ void Map::draw(Sprite *sprite, const glm::mat4 *viewProjectMatrix, const glm::ma
 	translateMatrix = glm::translate(translateMatrix, glm::vec3(0, 0, 0));
 	glm::mat4 modelMatrix = translateMatrix * *scaleMatrix;
 	glm::mat4 mvpMatrix = *viewProjectMatrix * modelMatrix;
-	sprite->drawBatch(mvpMatrix, horzBounds, vertBounds, imageData);
+	sprite->drawBatch(mvpMatrix, horzBounds, vertBounds, 0.0f, imageData);
 }
 

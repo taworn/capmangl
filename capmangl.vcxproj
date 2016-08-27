@@ -169,6 +169,7 @@
     <ClCompile Include="src\game\movable.cxx" />
     <ClCompile Include="src\game\pacman.cxx" />
     <ClCompile Include="src\scenes\gameover_scene.cxx" />
+    <ClCompile Include="src\scenes\win_scene.cxx" />
     <ClCompile Include="src\sprite.cxx" />
     <ClCompile Include="src\font.cxx" />
     <ClCompile Include="src\game.cxx" />
@@ -190,6 +191,7 @@
     <ClInclude Include="src\game\movable.hxx" />
     <ClInclude Include="src\game\pacman.hxx" />
     <ClInclude Include="src\scenes\gameover_scene.hxx" />
+    <ClInclude Include="src\scenes\win_scene.hxx" />
     <ClInclude Include="src\sprite.hxx" />
     <ClInclude Include="src\font.hxx" />
     <ClInclude Include="src\game.hxx" />

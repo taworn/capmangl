@@ -20,10 +20,10 @@ Pacman::~Pacman()
 Pacman::Pacman()
 {
 	setTimes(200, 1000);
-	getAnimation()->add(ACTION_LEFT, 0, 2, TIME_PER_ANI_FRAME);
-	getAnimation()->add(ACTION_RIGHT, 2, 4, TIME_PER_ANI_FRAME);
-	getAnimation()->add(ACTION_UP, 4, 6, TIME_PER_ANI_FRAME);
-	getAnimation()->add(ACTION_DOWN, 6, 8, TIME_PER_ANI_FRAME);
+	getAnimation()->add(ACTION_LEFT, 0, 2, Animation::ON_END_CONTINUE, TIME_PER_ANI_FRAME);
+	getAnimation()->add(ACTION_RIGHT, 2, 4, Animation::ON_END_CONTINUE, TIME_PER_ANI_FRAME);
+	getAnimation()->add(ACTION_UP, 4, 6, Animation::ON_END_CONTINUE, TIME_PER_ANI_FRAME);
+	getAnimation()->add(ACTION_DOWN, 6, 8, Animation::ON_END_CONTINUE, TIME_PER_ANI_FRAME);
 	getAnimation()->use(ACTION_LEFT);
 }
 

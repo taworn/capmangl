@@ -87,6 +87,9 @@
     <ClCompile Include="src\game\gamedata.cxx">
       <Filter>Source Files\game</Filter>
     </ClCompile>
+    <ClCompile Include="src\scenes\win_scene.cxx">
+      <Filter>Source Files\scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\opengl.hxx">
@@ -151,6 +154,9 @@
     </ClInclude>
     <ClInclude Include="src\game\gamedata.hxx">
       <Filter>Header Files\game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scenes\win_scene.hxx">
+      <Filter>Header Files\scenes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

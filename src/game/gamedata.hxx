@@ -29,6 +29,22 @@ public:
 	void clear();
 
 	/**
+	 * Decrease divo life by one.
+	 */
+	void divoLifeDecrease()
+	{
+		divoLife--;
+	}
+
+	/**
+	 * Checks divo can respawn.
+	 */
+	bool divoCanRelife()
+	{
+		return divoLife > 0;
+	}
+
+	/**
 	 * Adds divo to list.
 	 */
 	void addDivo(Divo *divo)
@@ -52,7 +68,19 @@ public:
 		return (int)divoList.size();
 	}
 
+	/**
+	 * Checks that all divoes dead.
+	 */
+	bool checkAllDivoDead();
+
+	/**
+	 * Retrieves bonus after get item.
+	 */
+	void getBonus(int item);
+
 private:
+	int score;
+	int divoLife;
 	std::vector<Divo*> divoList;
 
 	GameData(const GameData&);

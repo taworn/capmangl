@@ -15,6 +15,10 @@ class Sprite;
 class Animation
 {
 public:
+	static const int ON_END_CONTINUE = 0;
+	static const int ON_END_KEEP_LAST_FRAME = 1;
+	static const int ON_END_HIDDEN = 2;
+
 	/**
 	 * Destructs an animation.
 	 */
@@ -28,7 +32,7 @@ public:
 	/**
 	 * Adds a playing animation, only 16 set allow.
 	 */
-	void add(int number, int start, int end, int time);
+	void add(int number, int start, int end, int onEnd, int time);
 
 	/**
 	 * Uses a playing animation.
@@ -76,11 +80,13 @@ private:
 	struct PLAYING {
 		int start;
 		int end;
+		int onEnd;
 		int time;
 	};
 	PLAYING plays[PLAYING_MAX];
 	int currentPlaying;
 	int currentImage;
+	bool ending;
 
 	float currentX, currentY;
 	float velocityX, velocityY;

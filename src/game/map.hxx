@@ -55,7 +55,7 @@ public:
 	/**
 	 * Checks whether that the floor has item.
 	 */
-	bool hasItem(Movable *movable);
+	bool checkAndGetItem(Movable *movable, int *item);
 
 	/**
 	 * Draws map.
