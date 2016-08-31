@@ -30,84 +30,6 @@ Map::Map()
 
 bool Map::load()
 {
-	// opens file
-	FILE *fp = fopen(".\\res\\debug.map", "r");
-	if (!fp) {
-		BOOST_LOG_TRIVIAL(debug) << "Cannot open file.";
-		return false;
-	}
-
-	// checks file header, 8 bytes
-	char check[8] = { 0x43, 0x41, 0x50, 0x4D, 0x41, 0x50, 0x00, 0x00, };
-	char header[8] = { 0 };
-	if (fread(header, 1, 8, fp) != 8) {
-		BOOST_LOG_TRIVIAL(debug) << "Header is not acceptable.";
-		fclose(fp);
-		return false;
-	}
-	for (int i = 0; i < 8; i++) {
-		if (header[i] != check[i]) {
-			BOOST_LOG_TRIVIAL(debug) << "Header is not acceptable.";
-			fclose(fp);
-			return false;
-		}
-	}
-
-	// reads header information
-	// 6 int = width, height, divo start width, divo start height, pacman start width, pacman start height
-	int32_t buffer[6] = { 0 };
-	if (fread(buffer, 1, 6 * sizeof(int32_t), fp) != 6 * sizeof(int32_t)) {
-		BOOST_LOG_TRIVIAL(debug) << "Not enough data to read.";
-		fclose(fp);
-		return false;
-	}
-	int w = buffer[0];
-	int h = buffer[1];
-	if (w != 16 || h != 16) {
-		BOOST_LOG_TRIVIAL(debug) << "Width and Height must be 16x16 for now.";
-		fclose(fp);
-		return false;
-	}
-	int size = w * h;
-
-	// reads map data
-	char *mapData = new char[size];
-	if (fread(mapData, 1, size * sizeof(char), fp) != size * sizeof(char)) {
-		BOOST_LOG_TRIVIAL(debug) << "Not enough data to read.";
-		fclose(fp);
-		return false;
-	}
-
-	// reads image data
-	int *imageData = new int[size];
-	for (int i = 0; i < size; i++) {
-		int32_t image;
-		if (fread(&image, 1, sizeof(int32_t), fp) != sizeof(int32_t)) {
-			BOOST_LOG_TRIVIAL(debug) << "Not enough data to read.";
-			fclose(fp);
-			return false;
-		}
-		imageData[i] = (int)image;
-	}
-
-	// closes file
-	fclose(fp);
-
-	// copying
-	this->width = w;
-	this->height = h;
-	this->startDivo.x = buffer[2];
-	this->startDivo.y = buffer[3];
-	this->startPacman.x = buffer[4];
-	this->startPacman.y = buffer[5];
-	if (this->mapData)
-		delete[] this->mapData;
-	if (this->imageData)
-		delete[] this->imageData;
-	this->mapData = mapData;
-	this->imageData = imageData;
-
-	/*
 	const int w = 16;
 	const int h = 16;
 	width = w;
@@ -154,10 +76,9 @@ bool Map::load()
 	};
 	memcpy(mapData, _mapData, sizeof(_mapData));
 	memcpy(imageData, _imageData, sizeof(_imageData));
-	*/
 
 	itemCount = 0;
-	for (int i = 0; i < size; i++)
+	for (int i = 0; i < w * h; i++)
 		if ((mapData[i] & 0x10) == 0x10)
 			itemCount++;
 
@@ -181,6 +102,10 @@ bool Map::load()
 	for (size_t i = 0; i < vertPoints.size(); i++)
 		vertPoints[i] = (vertBounds[i] + vertBounds[i + 1]) / 2.0f;
 
+	startDivo.x = 4;
+	startDivo.y = 4;
+	startPacman.x = 9;
+	startPacman.y = 1;
 	return true;
 }
 
