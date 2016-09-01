@@ -159,6 +159,19 @@ void PlayScene::render()
 			movDivoes[i].nextAction();
 	}
 
+	RECT rc = getScreenRect();
+	float sx = 2.0f / (rc.right - rc.left);
+	float sy = 2.0f / (rc.bottom - rc.top);
+	float w, h;
+
+	int score = GameData::instance()->getScore();
+	char scoreString[64];
+	sprintf(scoreString, "%d", score);
+	Font *font = Game::instance()->getNormalFont();
+	font->setColor(1.0f, 1.0f, 1.0f, 1.0f);
+	font->measure(scoreString, &w, &h, sx, sy);
+	font->draw(scoreString, -1.0f, 1.0f - h, sx, sy);
+
 	computeFPS();
 	SwapBuffers(Game::instance()->getDevice());
 }

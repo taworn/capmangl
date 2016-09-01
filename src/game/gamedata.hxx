@@ -29,6 +29,11 @@ public:
 	void clear();
 
 	/**
+	 * Gets current score.
+	 */
+	int getScore() const { return score; }
+
+	/**
 	 * Decrease divo life by one.
 	 */
 	void divoLifeDecrease()

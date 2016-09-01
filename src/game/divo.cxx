@@ -26,6 +26,7 @@ void Divo::setId(int divoId)
 {
 	assert(divoId >= 0 && divoId < 4);
 	this->divoId = divoId;
+	setTimes(350, 750);
 	getAnimation()->add(ACTION_LEFT, (divoId + 1) * 8 + 0, (divoId + 1) * 8 + 2, Animation::ON_END_CONTINUE, TIME_PER_ANI_FRAME);
 	getAnimation()->add(ACTION_RIGHT, (divoId + 1) * 8 + 2, (divoId + 1) * 8 + 4, Animation::ON_END_CONTINUE, TIME_PER_ANI_FRAME);
 	getAnimation()->add(ACTION_UP, (divoId + 1) * 8 + 4, (divoId + 1) * 8 + 6, Animation::ON_END_CONTINUE, TIME_PER_ANI_FRAME);

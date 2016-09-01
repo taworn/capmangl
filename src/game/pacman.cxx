@@ -19,7 +19,7 @@ Pacman::~Pacman()
 
 Pacman::Pacman()
 {
-	setTimes(200, 1000);
+	setTimes(150, 1000);
 	getAnimation()->add(ACTION_LEFT, 0, 2, Animation::ON_END_CONTINUE, TIME_PER_ANI_FRAME);
 	getAnimation()->add(ACTION_RIGHT, 2, 4, Animation::ON_END_CONTINUE, TIME_PER_ANI_FRAME);
 	getAnimation()->add(ACTION_UP, 4, 6, Animation::ON_END_CONTINUE, TIME_PER_ANI_FRAME);
@@ -46,7 +46,7 @@ void Pacman::detect()
 		GameData *gameData = GameData::instance();
 		int count = gameData->getDivoCount();
 		int i = 0;
-		bool detected = false;
+		std::vector<Divo*> detectedList;
 		while (i < count) {
 			Divo *divo = gameData->getDivo(i);
 			float divoX = divo->getCurrentX();
@@ -54,18 +54,16 @@ void Pacman::detect()
 
 			if (!divo->isDead()) {
 				if (left < divoX && top > divoY && divoX < right && divoY > bottom) {
-					detected = true;
-					break;
+					detectedList.push_back(divo);
 				}
 			}
 
 			i++;
 		}
 
-		if (detected) {
+		for (size_t i = 0; i < detectedList.size(); i++) {
 			if (!GameData::instance()->isReverseMode()) {
-				Divo *divo = gameData->getDivo(i);
-				divo->kill();
+				detectedList[i]->kill();
 				BOOST_LOG_TRIVIAL(debug) << "eat Divo #" << i;
 			}
 			else {
