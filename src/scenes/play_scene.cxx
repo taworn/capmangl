@@ -31,7 +31,9 @@ PlayScene::PlayScene()
 	init();
 
 	GameData::instance()->clear();
-	map.load();
+	map.load(".\\res\\debug.map");
+	//map.load(".\\res\\test0.map");
+	//map.load(".\\res\\test1.map");
 	for (int i = 0; i < 4; i++) {
 		movDivoes[i].setId(i);
 		movDivoes[i].setMap(&map);
@@ -119,13 +121,21 @@ void PlayScene::render()
 	movHero.detect();
 
 	// combines viewing and projecting matrices
-	glm::mat4 viewMatrix = glm::lookAt(
-		//glm::vec3(movHero.getCurrentX(), movHero.getCurrentY(), 2.5f),    // camera
-		//glm::vec3(movHero.getCurrentX(), movHero.getCurrentY(), -25.0f),  // looks
-		glm::vec3(0.0f, 0.0f, 2.5f),    // camera
-		glm::vec3(0.0f, 0.0f, -25.0f),  // looks
-		glm::vec3(0.0f, 1.0f, 0.0f)     // head is up
-	);
+	glm::mat4 viewMatrix;
+	if (map.getWidth() > 16 || map.getHeight() > 16) {
+		viewMatrix = glm::lookAt(
+			glm::vec3(movHero.getCurrentX(), movHero.getCurrentY(), 2.5f),    // camera
+			glm::vec3(movHero.getCurrentX(), movHero.getCurrentY(), -25.0f),  // looks
+			glm::vec3(0.0f, 1.0f, 0.0f)     // head is up
+		);
+	}
+	else {
+		viewMatrix = glm::lookAt(
+			glm::vec3(0.0f, 0.0f, 2.5f),    // camera
+			glm::vec3(0.0f, 0.0f, -25.0f),  // looks
+			glm::vec3(0.0f, 1.0f, 0.0f)     // head is up
+		);
+	}
 	glm::mat4 projectionMatrix = glm::ortho(-1.0f, 1.0f, -1.0f, 1.0f, -1.0f, 25.0f);
 	glm::mat4 viewProjectMatrix = projectionMatrix * viewMatrix;
 

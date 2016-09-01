@@ -29,7 +29,7 @@ public:
 	/**
 	 * Loads map data.
 	 */
-	bool load();
+	bool load(const char *fileName);
 
 	/**
 	 * Gets start position for Divo.
@@ -67,16 +67,9 @@ public:
 	int* getImageData() { return imageData; }
 
 private:
-	union MapData {
-		struct {
-			char image;
-			char block;
-			char eat;
-			char special;
-		};
-		int data;
-	};
 	int width, height;
+	POINT startDivo;
+	POINT startPacman;
 	char *mapData;
 	int *imageData;
 	int itemCount;
@@ -85,9 +78,6 @@ private:
 	std::vector<float> horzPoints;
 	std::vector<float> vertBounds;
 	std::vector<float> vertPoints;
-
-	POINT startDivo;
-	POINT startPacman;
 
 	Map(const Map&);
 	Map& operator=(const Map&);
