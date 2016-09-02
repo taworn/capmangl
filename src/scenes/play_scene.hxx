@@ -29,6 +29,7 @@ private:
 	ULONGLONG timeStart;
 
 public:
+	virtual void handleActivate(HWND hwnd, bool active);
 	virtual bool handleKey(HWND hwnd, WPARAM key);
 	virtual void render();
 };

@@ -14,7 +14,6 @@
 #include "../game/common.hxx"
 #include "scene.hxx"
 #include "gameover_scene.hxx"
-#include "title_scene.hxx"
 
 GameOverScene::~GameOverScene()
 {

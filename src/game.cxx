@@ -13,7 +13,7 @@
 #include "game.hxx"
 #include "scenes/scene.hxx"
 #include "scenes/title_scene.hxx"
-//#include "scenes/stage_scene.hxx"
+#include "scenes/stage_scene.hxx"
 #include "scenes/play_scene.hxx"
 #include "scenes/gameover_scene.hxx"
 #include "scenes/win_scene.hxx"
@@ -107,7 +107,7 @@ void Game::switchScene()
 		scene = new TitleScene();
 		break;
 	case SCENE_STAGE:
-		//scene = new StageScene();
+		scene = new StageScene();
 		break;
 	case SCENE_PLAY:
 		scene = new PlayScene();

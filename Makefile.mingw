@@ -88,6 +88,7 @@ MODULES:=\
 	$(TARGET_DIR)\scenes\win_scene.o \
 	$(TARGET_DIR)\scenes\gameover_scene.o \
 	$(TARGET_DIR)\scenes\play_scene.o \
+	$(TARGET_DIR)\scenes\stage_scene.o \
 	$(TARGET_DIR)\scenes\title_scene.o \
 	$(TARGET_DIR)\scenes\scene.o \
 	$(TARGET_DIR)\game\gamedata.o \
@@ -109,6 +110,7 @@ HEADERS:=\
 	$(TARGET_DIR)\scenes\win_scene.hxx \
 	$(TARGET_DIR)\scenes\gameover_scene.hxx \
 	$(TARGET_DIR)\scenes\play_scene.hxx \
+	$(TARGET_DIR)\scenes\stage_scene.hxx \
 	$(TARGET_DIR)\scenes\title_scene.hxx \
 	$(TARGET_DIR)\scenes\scene.hxx \
 	$(TARGET_DIR)\game\gamedata.hxx \

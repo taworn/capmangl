@@ -69,6 +69,14 @@ void PlayScene::fini()
 	}
 }
 
+void PlayScene::handleActivate(HWND hwnd, bool active)
+{
+	if (active) {
+		BOOST_LOG_TRIVIAL(debug) << "window is activate";
+		timeStart = GetTickCount();
+	}
+}
+
 bool PlayScene::handleKey(HWND hwnd, WPARAM key)
 {
 	if (key == VK_SPACE) {
