@@ -29,9 +29,10 @@ public:
 	static const int SCENE_DEFAULT = 0;
 	static const int SCENE_TITLE = 1;
 	static const int SCENE_STAGE = 2;
-	static const int SCENE_PLAY = 3;
-	static const int SCENE_GAMEOVER = 4;
-	static const int SCENE_WIN = 5;
+	static const int SCENE_NEXT_STAGE = 3;
+	static const int SCENE_PLAY = 4;
+	static const int SCENE_GAMEOVER = 5;
+	static const int SCENE_WIN = 6;
 
 	/**
 	 * Destructs the game engine.

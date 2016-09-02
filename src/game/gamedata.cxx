@@ -21,7 +21,7 @@ GameData::~GameData()
 }
 
 GameData::GameData()
-	: score(0)
+	: score(0), stage(0)
 	, reverseMode(false), reverseTime(0)
 	, divoLife(0), divoList()
 {
@@ -29,11 +29,28 @@ GameData::GameData()
 	singleton = this;
 }
 
+void GameData::reset()
+{
+	score = 0;
+	stage = 0;
+	clear();
+}
+
 void GameData::clear()
 {
 	reverseMode = false;
-	divoLife = 5;
+	divoLife = 5 * (stage + 1);
 	divoList.clear();
+}
+
+bool GameData::nextStage()
+{
+	if (stage < 2) {
+		stage++;
+		return true;
+	}
+	else
+		return false;
 }
 
 bool GameData::checkAllDivoDead()

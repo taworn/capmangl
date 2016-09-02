@@ -93,6 +93,9 @@
     <ClCompile Include="src\scenes\stage_scene.cxx">
       <Filter>Source Files\scenes</Filter>
     </ClCompile>
+    <ClCompile Include="src\scenes\next_stage_scene.cxx">
+      <Filter>Source Files\scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\opengl.hxx">
@@ -162,6 +165,9 @@
       <Filter>Header Files\scenes</Filter>
     </ClInclude>
     <ClInclude Include="src\scenes\stage_scene.hxx">
+      <Filter>Header Files\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scenes\next_stage_scene.hxx">
       <Filter>Header Files\scenes</Filter>
     </ClInclude>
   </ItemGroup>

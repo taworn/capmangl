@@ -24,6 +24,11 @@ public:
 	GameData();
 
 	/**
+	 * Resets all game data.
+	 */
+	void reset();
+
+	/**
 	 * Clears data.
 	 */
 	void clear();
@@ -32,6 +37,17 @@ public:
 	 * Gets current score.
 	 */
 	int getScore() const { return score; }
+
+	/**
+	 * Gets current stage.
+	 */
+	int getStage() const { return stage; }
+
+	/**
+	 * Advances to next stage.
+	 * @return Returns true if next stage, otherwise, it is false and win the game.
+	 */
+	bool nextStage();
 
 	/**
 	 * Decrease divo life by one.
@@ -95,6 +111,7 @@ public:
 
 private:
 	int score;
+	int stage;
 	bool reverseMode;
 	ULONGLONG reverseTime;
 	int divoLife;

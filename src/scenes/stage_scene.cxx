@@ -28,6 +28,7 @@ StageScene::StageScene()
 	init();
 	timeStart = GetTickCount();
 	timeUsed = 0;
+	BOOST_LOG_TRIVIAL(debug) << "start stage " << GameData::instance()->getStage() + 1;
 }
 
 void StageScene::init()
@@ -70,7 +71,7 @@ void StageScene::render()
 	float w, h;
 
 	char buffer[64];
-	sprintf(buffer, "Stage %d", 1);
+	sprintf(buffer, "Stage %d", GameData::instance()->getStage() + 1);
 	Font *font = Game::instance()->getBigFont();
 	font->setColor(1.0f, 1.0f, 1.0f, 1.0f);
 	font->measure(buffer, &w, &h, sx, sy);

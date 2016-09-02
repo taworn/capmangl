@@ -61,7 +61,7 @@ void Divo::nextAction()
 		else {
 			if (GameData::instance()->checkAllDivoDead()) {
 				BOOST_LOG_TRIVIAL(debug) << "all Divoes are dead";
-				Game::instance()->changeScene(Game::SCENE_WIN);
+				Game::instance()->changeScene(Game::SCENE_NEXT_STAGE);
 			}
 		}
 	}
