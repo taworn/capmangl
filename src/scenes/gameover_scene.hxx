@@ -18,6 +18,10 @@ protected:
 	void init();
 	void fini();
 
+private:
+	Sprite *spriteUI;
+	int menuIndex;
+
 public:
 	virtual bool handleKey(HWND hwnd, WPARAM key);
 	virtual void render();
