@@ -117,6 +117,8 @@ private:
 	int divoLife;
 	std::vector<Divo*> divoList;
 
+	const ULONGLONG maxReverseTime = 2500;
+
 	GameData(const GameData&);
 	GameData& operator=(const GameData&);
 

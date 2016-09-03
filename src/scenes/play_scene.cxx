@@ -31,9 +31,14 @@ PlayScene::PlayScene()
 	init();
 
 	GameData::instance()->clear();
-	map.load(".\\res\\debug.map");
-	//map.load(".\\res\\test0.map");
-	//map.load(".\\res\\test1.map");
+
+	char file[MAX_PATH] = { 0 };
+	sprintf(file, ".\\res\\stage%02d.map", GameData::instance()->getStage() + 1);
+	//strcpy(file, ".\\res\\debug.map");
+	//strcpy(file, ".\\res\\test0.map");
+	//strcpy(file, ".\\res\\test1.map");
+
+	map.load(file);
 	for (int i = 0; i < 4; i++) {
 		movDivoes[i].setId(i);
 		movDivoes[i].setMap(&map);
@@ -47,7 +52,10 @@ void PlayScene::init()
 {
 	BOOST_LOG_TRIVIAL(debug) << "PlayScene::init() called";
 
-	PNGImage imageMap(".\\res\\map0.png");
+	int i = GameData::instance()->getStage();
+	char file[MAX_PATH] = { 0 };
+	sprintf(file, ".\\res\\map%d.png", i % 2);
+	PNGImage imageMap(file);
 	spriteMap = new Sprite();
 	spriteMap->init(&imageMap, 2, 2);
 
