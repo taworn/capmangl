@@ -14,12 +14,12 @@ public:
 	static GameData* instance() { return singleton; }
 
 	/**
-	 * Destructs the gamedata.
+	 * Destructs the game data.
 	 */
 	~GameData();
 
 	/**
-	 * Constructs the gamedata.
+	 * Constructs the game data.
 	 */
 	GameData();
 
