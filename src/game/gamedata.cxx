@@ -12,6 +12,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include "../game.hxx"
 #include "common.hxx"
+#include <shlobj.h>
 
 GameData *GameData::singleton = NULL;
 
@@ -27,6 +28,15 @@ GameData::GameData()
 {
 	assert(singleton == NULL);
 	singleton = this;
+
+	wchar_t file[MAX_PATH] = { 0 };
+	SHGetFolderPath(0, CSIDL_LOCAL_APPDATA, 0, 0, file);
+	wcscat(file, L"\\capmangl.ini");
+
+	UINT score = GetPrivateProfileInt(L"capman", L"score", 0, file);
+	UINT stage = GetPrivateProfileInt(L"capman", L"stage", 0, file);
+	this->score = (int)score;
+	this->stage = (int)stage;
 }
 
 void GameData::reset()
@@ -41,6 +51,19 @@ void GameData::clear()
 	reverseMode = false;
 	divoLife = 5 * (stage + 1);
 	divoList.clear();
+}
+
+void GameData::save()
+{
+	wchar_t file[MAX_PATH] = { 0 };
+	SHGetFolderPath(0, CSIDL_LOCAL_APPDATA, 0, 0, file);
+	wcscat(file, L"\\capmangl.ini");
+
+	wchar_t buffer[64];
+	wsprintf(buffer, L"%d", score);
+	WritePrivateProfileString(L"capman", L"score", buffer, file);
+	wsprintf(buffer, L"%d", stage);
+	WritePrivateProfileString(L"capman", L"stage", buffer, file);
 }
 
 bool GameData::nextStage()

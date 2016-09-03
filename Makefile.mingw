@@ -137,7 +137,7 @@ INCLUDE_DIRS:=-I$(BOOST_INCLUDE) -I.\glew\include -I.\glm -I.\freetype\include -
 LIBRARY_DIRS:=-L$(BOOST_LIB) -L.\glew\lib\$(X64_TAG) -L.\freetype\lib\$(X64_TAG) -L.\libpng\$(X64_TAG) -L.\zlib\$(X64_TAG)
 
 # libraries
-LIBRARIES:=-lboost_log-mt$(BOOST_TAG) -lboost_thread-mt$(BOOST_TAG) -lboost_system-mt$(BOOST_TAG) -lpng -lz -lfreetype -lglew32s -lopengl32 -luser32 -lgdi32 -lkernel32
+LIBRARIES:=-lboost_log-mt$(BOOST_TAG) -lboost_thread-mt$(BOOST_TAG) -lboost_system-mt$(BOOST_TAG) -lpng -lz -lfreetype -lglew32s -lopengl32 -lshell32 -luser32 -lgdi32 -lkernel32
 
 # executable
 OUTPUT:=capmanglmingw$(SHARED_TAG)$(DEBUG_TAG).exe

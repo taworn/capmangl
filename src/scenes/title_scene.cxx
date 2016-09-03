@@ -36,6 +36,7 @@ TitleScene::TitleScene()
 	, aniDivo()
 	, aniHero()
 	, modelX(0.0f)
+	, menuIndex(0)
 {
 	BOOST_LOG_TRIVIAL(debug) << "TitleScene::TitleScene() called";
 	init();
@@ -65,11 +66,18 @@ void TitleScene::init()
 	PNGImage image(".\\res\\pacman.png");
 	spritePacman = new Sprite();
 	spritePacman->init(&image, 8, 8);
+	PNGImage imageUI(".\\res\\ui.png");
+	spriteUI = new Sprite();
+	spriteUI->init(&imageUI, 2, 2);
 }
 
 void TitleScene::fini()
 {
 	BOOST_LOG_TRIVIAL(debug) << "TitleScene::fini() called";
+	if (spriteUI) {
+		delete spriteUI;
+		spriteUI = NULL;
+	}
 	if (spritePacman) {
 		delete spritePacman;
 		spritePacman = NULL;
@@ -85,8 +93,26 @@ bool TitleScene::handleKey(HWND hwnd, WPARAM key)
 	if (key == VK_RETURN) {
 		// ENTER
 		BOOST_LOG_TRIVIAL(debug) << "ENTER keydown";
-		GameData::instance()->reset();
-		Game::instance()->changeScene(Game::SCENE_STAGE);
+		if (menuIndex == 0) {
+			GameData::instance()->reset();
+			Game::instance()->changeScene(Game::SCENE_STAGE);
+		}
+		else if (menuIndex == 1)
+			Game::instance()->changeScene(Game::SCENE_STAGE);
+		return true;
+	}
+	else if (key == 0x57 || key == VK_UP) {
+		// up
+		menuIndex--;
+		if (menuIndex < 0)
+			menuIndex = 1;
+		return true;
+	}
+	else if (key == 0x53 || key == VK_DOWN) {
+		// down
+		menuIndex++;
+		if (menuIndex > 1)
+			menuIndex = 0;
 		return true;
 	}
 	return false;
@@ -105,11 +131,6 @@ void TitleScene::render()
 	titleFont->setColor(1.0f, 1.0f, 0.5f, 1.0f);
 	titleFont->measure("Capman", &w, &h, sx, sy);
 	titleFont->draw("Capman", 0 - (w / 2), h, sx, sy);
-
-	Font *normalFont = Game::instance()->getNormalFont();
-	normalFont->setColor(1.0f, 1.0f, 1.0f, 1.0f);
-	normalFont->measure("Press ENTER to Start", &w, &h, sx, sy);
-	normalFont->draw("Press ENTER to Start", 0 - (w / 2), -0.70f, sx, sy);
 
 	// combines viewing and projecting matrices
 	glm::mat4 viewMatrix = glm::lookAt(
@@ -137,6 +158,33 @@ void TitleScene::render()
 	modelX -= 0.01f;
 	if (modelX < -1.0f)
 		modelX = 1.0f;
+
+	char buffer[64];
+	Font *font = Game::instance()->getNormalFont();
+	font->setColor(1.0f, 1.0f, 1.0f, 1.0f);
+	strcpy(buffer, "Start");
+	font->measure(buffer, &w, &h, sx, sy);
+	font->draw(buffer, 0 - (w / 2), -0.1f, sx, sy);
+	strcpy(buffer, "Continue");
+	font->measure(buffer, &w, &h, sx, sy);
+	font->draw(buffer, 0 - (w / 2), -0.2f, sx, sy);
+
+	scaleMatrix = glm::mat4(1.0f);
+	scaleMatrix = glm::scale(scaleMatrix, glm::vec3(0.03f, 0.03f, 1.0f));
+	if (menuIndex == 0) {
+		glm::mat4 translateMatrix = glm::mat4(1.0f);
+		translateMatrix = glm::translate(translateMatrix, glm::vec3(-0.16f, -0.075f, 0.0f));
+		glm::mat4 modelMatrix = translateMatrix * scaleMatrix;
+		glm::mat4 mvpMatrix = viewProjectMatrix * modelMatrix;
+		spriteUI->draw(mvpMatrix, 1);
+	}
+	else {
+		glm::mat4 translateMatrix = glm::mat4(1.0f);
+		translateMatrix = glm::translate(translateMatrix, glm::vec3(-0.16f, -0.175f, 0.0f));
+		glm::mat4 modelMatrix = translateMatrix * scaleMatrix;
+		glm::mat4 mvpMatrix = viewProjectMatrix * modelMatrix;
+		spriteUI->draw(mvpMatrix, 1);
+	}
 
 	computeFPS();
 	SwapBuffers(Game::instance()->getDevice());

@@ -21,9 +21,11 @@ protected:
 private:
 	Font *titleFont;
 	Sprite *spritePacman;
+	Sprite *spriteUI;
 	Animation *aniDivo;
 	Animation *aniHero;
 	float modelX;
+	int menuIndex;
 
 public:
 	virtual bool handleKey(HWND hwnd, WPARAM key);

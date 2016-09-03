@@ -28,6 +28,7 @@ StageScene::StageScene()
 	init();
 	timeStart = GetTickCount();
 	timeUsed = 0;
+	GameData::instance()->save();
 	BOOST_LOG_TRIVIAL(debug) << "start stage " << GameData::instance()->getStage() + 1;
 }
 

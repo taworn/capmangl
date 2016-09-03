@@ -34,6 +34,11 @@ public:
 	void clear();
 
 	/**
+	 * Saves data.
+	 */
+	void save();
+
+	/**
 	 * Gets current score.
 	 */
 	int getScore() const { return score; }

@@ -95,7 +95,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>D:\sdks\boost-1.61.0\lib\x86;$(ProjectDir)glew\lib\x86;$(ProjectDir)freetype\lib\x86;$(ProjectDir)libpng\x86;$(ProjectDir)zlib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;opengl32.lib;glew32s.lib;freetype265d.lib;libpng.lib;zlib.lib</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;gdi32.lib;user32.lib;shell32.lib;opengl32.lib;glew32s.lib;freetype265d.lib;libpng.lib;zlib.lib</AdditionalDependencies>
       <AdditionalOptions>/IGNORE:4098 /IGNORE:4099 %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
@@ -113,7 +113,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>D:\sdks\boost-1.61.0\lib\x64;$(ProjectDir)glew\lib\x64;$(ProjectDir)freetype\lib\x64;$(ProjectDir)libpng\x64;$(ProjectDir)zlib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;opengl32.lib;glew32s.lib;freetype265d.lib;libpng.lib;zlib.lib</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;gdi32.lib;user32.lib;shell32.lib;opengl32.lib;glew32s.lib;freetype265d.lib;libpng.lib;zlib.lib</AdditionalDependencies>
       <AdditionalOptions>/IGNORE:4098 /IGNORE:4099 %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
@@ -135,7 +135,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>D:\sdks\boost-1.61.0\lib\x86;$(ProjectDir)glew\lib\x86;$(ProjectDir)freetype\lib\x86;$(ProjectDir)libpng\x86;$(ProjectDir)zlib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;opengl32.lib;glew32s.lib;freetype265.lib;libpng.lib;zlib.lib</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;gdi32.lib;user32.lib;shell32.lib;opengl32.lib;glew32s.lib;freetype265.lib;libpng.lib;zlib.lib</AdditionalDependencies>
       <AdditionalOptions>/IGNORE:4098 /IGNORE:4099 %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
@@ -157,7 +157,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>D:\sdks\boost-1.61.0\lib\x64;$(ProjectDir)glew\lib\x64;$(ProjectDir)freetype\lib\x64;$(ProjectDir)libpng\x64;$(ProjectDir)zlib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;opengl32.lib;glew32s.lib;freetype265.lib;libpng.lib;zlib.lib</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;gdi32.lib;user32.lib;shell32.lib;opengl32.lib;glew32s.lib;freetype265.lib;libpng.lib;zlib.lib</AdditionalDependencies>
       <AdditionalOptions>/IGNORE:4098 /IGNORE:4099 %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>

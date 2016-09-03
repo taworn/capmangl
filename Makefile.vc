@@ -135,7 +135,7 @@ INCLUDE_DIRS=/I$(BOOST_INCLUDE) /I.\glew\include /I.\glm /I.\freetype\include /I
 LIBRARY_DIRS=/LIBPATH:$(BOOST_LIB) /LIBPATH:.\glew\lib\$(X64_TAG) /LIBPATH:.\freetype\lib\$(X64_TAG) /LIBPATH:.\libpng\$(X64_TAG) /LIBPATH:.\zlib\$(X64_TAG)
 
 # libraries
-LIBRARIES=libpng.lib zlib.lib freetype265$(DEBUG_TAG).lib glew32s.lib opengl32.lib user32.lib gdi32.lib kernel32.lib msvcrt$(DEBUG_TAG).lib
+LIBRARIES=libpng.lib zlib.lib freetype265$(DEBUG_TAG).lib glew32s.lib opengl32.lib shell32.lib user32.lib gdi32.lib kernel32.lib msvcrt$(DEBUG_TAG).lib
 
 # executable
 OUTPUT=capmangl$(SHARED_TAG)$(DEBUG_TAG).exe
